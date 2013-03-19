@@ -1,0 +1,75 @@
+bash -c '
+<%= "export http_proxy=\"#{knife_config[:bootstrap_proxy]}\"" if knife_config[:bootstrap_proxy] -%>
+
+if [ ! -f /usr/local/bin/chef-client ]; then
+  . /etc/lsb-release
+  echo "deb http://apt.unboxedconsulting.com/ $DISTRIB_CODENAME main" > /etc/apt/sources.list.d/unboxed.list
+  wget -O - http://apt.unboxedconsulting.com/release.asc | apt-key add -
+  apt-get update
+  apt-get install -y build-essential wget zlib1g-dev libssl-dev libffi-dev
+  apt-get -y install ubxd-ruby1.9.3
+  apt-get install build-essential
+fi
+
+ohai_installed=`gem list -i ohai`
+if [ "$ohai_installed" != "true" ] ; then 
+  echo ohai not installed
+  gem install ohai --no-rdoc --no-ri --verbose
+else 
+  echo ohai already installed
+  gem list ohai
+fi
+
+chef_installed=`gem list -i chef`
+if [ "$chef_installed" != "true" ] ; then 
+  echo Chef not installed. Installing ...
+
+  # BEGIN - WORKAROUND for issue http://tickets.opscode.com/browse/CHEF-3835
+  echo Installing net-ssh -v 2.2.2 to workaround issue http://tickets.opscode.com/browse/CHEF-3835
+  gem install net-ssh -v 2.2.2
+  echo Installing net-ssh-gateway -v 1.1.0 to workaround issue http://tickets.opscode.com/browse/CHEF-3835
+  gem install net-ssh-gateway -v 1.1.0
+  echo Installing net-ssh-multi -v 1.1 to workaround issue http://tickets.opscode.com/browse/CHEF-3835
+  gem install net-ssh-multi -v 1.1
+  # END - WORKAROUND for issue http://tickets.opscode.com/browse/CHEF-3835
+
+  gem install chef --no-rdoc --no-ri --verbose <%= bootstrap_version_string %>
+else 
+  echo Chef already installed; 
+  gem list chef
+fi
+
+mkdir -p /etc/chef
+
+# work around for http://tickets.opscode.com/browse/OHAI-353
+mkdir -p /etc/chef/ohai/hints
+touch /etc/chef/ohai/hints/ec2.json
+
+chef_client_private_key_file=/etc/chef/client.pem
+if [ -f "$chef_client_private_key_file" ]; then
+  datetimestr=`date +%F_%T`
+  echo $chef_client_private_key_file exists. Moving it to $chef_client_private_key_file.$datetimestr
+  mv $chef_client_private_key_file $chef_client_private_key_file.$datetimestr
+fi
+
+(
+cat <<'EOP'
+<%= validation_key %>
+EOP
+) > /tmp/validation.pem
+awk NF /tmp/validation.pem > /etc/chef/validation.pem
+rm /tmp/validation.pem
+
+(
+cat <<'EOP'
+<%= config_content %>
+EOP
+) > /etc/chef/client.rb
+
+(
+cat <<'EOP'
+<%= { "run_list" => @run_list }.to_json %>
+EOP
+) > /etc/chef/first-boot.json
+
+<%= "/usr/local/bin/chef-client -j /etc/chef/first-boot.json  -E #{bootstrap_environment}" %>'
