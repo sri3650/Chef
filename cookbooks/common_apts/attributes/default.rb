@@ -1,4 +1,4 @@
-default[:packages] = %w(
+default[:common_packages] = %w(
   adduser
   bison
   ca-certificates
@@ -20,9 +20,9 @@ default[:packages] = %w(
   logrotate
   make
   nano
-  openssh-server  
-  rsync
+  openssh-server
   sysklogd
+  rsync
   sysstat
   unzip
   vim

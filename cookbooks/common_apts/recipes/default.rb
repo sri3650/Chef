@@ -7,13 +7,13 @@
 # All rights reserved - Do Not Redistribute
 #
 
-e = execute "apt-get update" do
+e = execute "sudo add-apt-repository ppa:alestic && apt-get update" do
   action :nothing
 end
 
 e.run_action(:run)  # need to run this before installing further packages. Refer http://docs.opscode.com/resource_common_compile.html
 
-node.default[:packages].each do |name|
+node.default[:common_packages].each do |name|
   package name do
     action :install
   end
