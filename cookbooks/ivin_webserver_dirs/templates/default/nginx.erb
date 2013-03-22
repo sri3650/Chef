@@ -1,0 +1,12 @@
+<%= node.default[:ivin_application][:nginx_log_path] %>/*.log {
+  daily
+  missingok
+  dateext
+  create 640 root root
+  sharedscripts
+  postrotate
+    if [ -f /opt/nginx/logs/nginx.pid ]; then
+      /etc/init.d/nginx reload > /dev/null
+    fi
+  endscript
+}

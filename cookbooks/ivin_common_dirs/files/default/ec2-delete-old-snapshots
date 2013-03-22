@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'AWS'
+require 'optiflag'
+require 'fileutils'
+
+# Usage:
+#   ec2-delete-old-snapshots -v <ebs-volume-id> -n <number of old snapshots to retain>
+#   eg. ec2-delete-old-snapshots -v vol-xxxxx -n 18
+#
+# This script deletes old snapshots other than the n most recent snapshots of
+# a given volume id. This expects the AWS key ids to be in the file .awssecret
+# in the home directory of the current user.
+#
+
+module CommandLineArgs extend OptiFlagSet
+  flag "volume_id" do
+    alternate_forms "v"
+    description "The EBS volume id"
+  end
+
+  flag "n" do
+    description "Number of old snapshots to retain"
+  end
+
+  usage_flag "h", "help"
+  and_process!
+end
+
+puts "*** ec2-delete-old-snapshots called on #{Time.now} ***"
+VolumeId = ARGV.flags.volume_id         # The ebs volume id
+SnapshotLimit = ARGV.flags.n.to_i       # No. of snapshots to retain
+abort("Bad value of snapshot limit") if SnapshotLimit <= 0
+
+File.open("#{ENV["HOME"]}/.awssecret") do |f|
+  AccessKeyId, SecretAccessKey = f.read.split("\n")
+end
+
+begin
+  # Initialize
+  ec2 = AWS::EC2::Base.new(
+    :access_key_id      => AccessKeyId,
+    :secret_access_key  => SecretAccessKey)
+
+  # Find all snapshots of volume, sorted by creation time
+  my_snapshots = ec2.describe_snapshots.snapshotSet.item.
+    select { |x| x.volumeId == VolumeId }.
+    sort { |x, y| Time.parse(y.startTime) <=> Time.parse(x.startTime) }
+
+  # Delete old ones
+  snapshots_to_delete = my_snapshots - my_snapshots[0..(SnapshotLimit - 1)]
+  (snapshots_to_delete || []).each do |s|
+    puts "Deleting snap #{s.snapshotId}"
+    ec2.delete_snapshot(:snapshot_id => s.snapshotId)
+  end
+rescue => e
+  puts "#{__FILE__} fails - #{e}"
+  exit(255)
+end
+puts "*** ec2-delete-old-snapshots successfully completed ***"

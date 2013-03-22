@@ -1,0 +1,35 @@
+#!/usr/bin/ruby
+
+#    This file is part of EC2 on Rails.
+#    http://rubyforge.org/projects/ec2onrails/
+#
+#    Copyright 2007 Paul Dowman, http://pauldowman.com/
+#
+#    EC2 on Rails is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    EC2 on Rails is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+# This script runs a command with RAILS_ENV set to the value that's specified
+# in the the mongrel_cluster config file. If a command isn't given as an 
+# argument it simply prints the value of RAILS_ENV
+
+require "yaml"
+
+@rails_env = YAML::load_file("/etc/mongrel_cluster/app.yml")["environment"]
+
+if ARGV.any?
+  result = system "env RAILS_ENV=#{@rails_env} #{ARGV.join(' ')}"
+  raise("error: #{$?}") unless result
+else
+  puts @rails_env
+end

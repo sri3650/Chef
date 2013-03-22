@@ -1,0 +1,7 @@
+# Rotate Rails application logs
+<%= node.default[:ivin_application][:current_path] %>/log/*.log {
+  daily
+  missingok
+  dateext
+  copytruncate
+}
