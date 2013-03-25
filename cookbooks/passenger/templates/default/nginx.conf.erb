@@ -1,0 +1,52 @@
+#user  nobody;
+worker_processes  6;
+pid <%= @pidfile %>;
+
+events {
+  worker_connections  <%= @passenger[:worker_connections] %>;
+}
+
+include conf.d/*.conf;
+
+http {
+  
+  # Workaround for issue described in http://code.google.com/p/phusion-passenger/issues/detail?id=569
+  # Without the workaround nginx would hang after logrotate
+  error_log  <%= @nginx_log_path %>/error.log;
+
+  passenger_root <%= @passenger_root %>;
+  passenger_ruby <%= @ruby_path %>;
+  passenger_default_user <%= @passenger[:default_user] %>;
+  passenger_pool_idle_time <%= @passenger[:pool_idle_time] %>;  
+  rails_framework_spawner_idle_time 0;
+  rails_app_spawner_idle_time 0;
+
+  include mime.types;
+  default_type application/octet-stream;
+  
+  # configure log format
+  log_format main '$remote_addr [$time_local] '
+                  '"$scheme $host $request" $status $body_bytes_sent "$http_referer" '
+                  '"$http_user_agent" "$http_x_forwarded_for" '
+                  '($request_time)';
+
+  access_log  <%= @nginx_log_path %>/access.log  main;
+
+  sendfile <%= @passenger[:sendfile] ? 'on' : 'off' %>;
+  tcp_nopush <%= @passenger[:tcp_nopush] ? 'on' : 'off' %>;
+  tcp_nodelay <%= @passenger[:tcp_nodelay] ? 'on' : 'off' %>;  
+  gzip <%= @passenger[:gzip] ? 'on' : 'off' %>;
+  <% if @passenger[:gzip] %>
+    gzip_http_version <%= @passenger[:gzip_http_version] %>;
+    gzip_vary <%= @passenger[:gzip_vary] ? 'on' : 'off' %>;
+    gzip_comp_level <%= @passenger[:gzip_comp_level] %>;
+    gzip_proxied <%= @passenger[:gzip_proxied] %>;
+    gzip_types <%= @passenger[:gzip_types].join(' ') %>;
+    gzip_buffers <%= @passenger[:gzip_buffers] %>;
+    gzip_disable <%= @passenger[:gzip_disable] %>;
+  <% end %>
+  include sites.d/*.conf;
+}  
+<% @passenger[:pre_start].each do |url| %>
+  passenger_pre_start <%= url %>;
+<% end %>
