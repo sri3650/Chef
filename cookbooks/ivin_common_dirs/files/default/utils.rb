@@ -6,7 +6,7 @@ module Ec2onrails
     end
   
     def self.rails_env
-      `/usr/local/ec2onrails/bin/rails_env`.strip
+      `/usr/local/chronus/bin/rails_env`.strip
     end
     
     def self.hostname

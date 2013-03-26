@@ -11,9 +11,9 @@ if ['ubuntu', 'debian'].member? node[:platform]
   end
 end
 
-nginx_path = node[:passenger][:production][:path]
-nginx_log_path = node[:passenger][:production][:nginx_log_path]
-tuned_ruby_path = node[:passenger][:production][:tuned_ruby_path]
+nginx_path = node[:passenger][:path]
+nginx_log_path = node[:passenger][:nginx_log_path]
+tuned_ruby_path = node[:passenger][:tuned_ruby_path]
 
 template "/usr/local/bin/ruby_tuned" do
   source "ruby_tuned.erb"
@@ -21,18 +21,18 @@ template "/usr/local/bin/ruby_tuned" do
   group "root"
   mode 0755
   variables(
-    :ruby_heap_min_slots => node[:passenger][:production][:ruby_heap_min_slots],
-    :ruby_heap_free_min => node[:passenger][:production][:ruby_heap_free_min],
-    :ruby_heap_slots_increment => node[:passenger][:production][:ruby_heap_slots_increment],
-    :ruby_heap_slots_growth_factor => node[:passenger][:production][:ruby_heap_slots_growth_factor],
-    :ruby_gc_malloc_limit => node[:passenger][:production][:ruby_gc_malloc_limit]
+    :ruby_heap_min_slots => node[:passenger][:ruby_heap_min_slots],
+    :ruby_heap_free_min => node[:passenger][:ruby_heap_free_min],
+    :ruby_heap_slots_increment => node[:passenger][:ruby_heap_slots_increment],
+    :ruby_heap_slots_growth_factor => node[:passenger][:ruby_heap_slots_growth_factor],
+    :ruby_gc_malloc_limit => node[:passenger][:ruby_gc_malloc_limit]
   )
 end
 
 bash "install passenger/nginx" do
   user "root"
   code <<-EOH
-  passenger-install-nginx-module --auto --auto-download --prefix="#{nginx_path}" --extra-configure-flags="#{node[:passenger][:production][:configure_flags]}"
+  passenger-install-nginx-module --auto --auto-download --prefix="#{nginx_path}" --extra-configure-flags="#{node[:passenger][:configure_flags]}"
   EOH
   not_if "test -e #{nginx_path}"
   not_if "test -e /usr/local/rvm"
@@ -41,13 +41,13 @@ end
 bash "install passenger/nginx from rvm" do
   user "root"
   code <<-EOH
-  /usr/local/bin/rvm exec passenger-install-nginx-module --auto --auto-download --prefix="#{nginx_path}" --extra-configure-flags="#{node[:passenger][:production][:configure_flags]}"
+  /usr/local/bin/rvm exec passenger-install-nginx-module --auto --auto-download --prefix="#{nginx_path}" --extra-configure-flags="#{node[:passenger][:configure_flags]}"
   EOH
   not_if "test -e #{nginx_path}"
   only_if "test -e /usr/local/rvm"
 end
 
-log_path = node[:passenger][:production][:log_path]
+log_path = node[:passenger][:log_path]
 
 directory log_path do
   mode 0755
@@ -82,7 +82,7 @@ template "#{nginx_path}/conf/nginx.conf" do
     :nginx_log_path => nginx_log_path,    
     :passenger_root => "##PASSENGER_ROOT##",
     :ruby_path => tuned_ruby_path,
-    :passenger => node[:passenger][:production],
+    :passenger => node[:passenger],
     :pidfile => "#{nginx_path}/logs/nginx.pid"
   )
   notifies :run, 'bash[config_patch]'
@@ -115,7 +115,7 @@ template "/etc/init.d/passenger" do
   )
 end
 
-if node[:passenger][:production][:status_server]
+if node[:passenger][:status_server]
   cookbook_file "#{nginx_path}/conf/sites.d/status.conf" do
     source "status.conf"
     mode "0644"

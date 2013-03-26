@@ -23,7 +23,11 @@
 # This can happen if the user associated or disassociated an Elastic IP
 
 OLD_HOSTNAME=`hostname`
-/usr/local/ec2onrails/startup-scripts/every-startup/get-hostname.sh
+
+# Set the hostname to this instance's public hostname
+HOSTNAME=`curl -s http://169.254.169.254/latest/meta-data/public-hostname`
+hostname $HOSTNAME
+
 NEW_HOSTNAME=`hostname`
 if [ $OLD_HOSTNAME != $NEW_HOSTNAME ] ; then
   echo "Hostname has changed (from $OLD_HOSTNAME to $NEW_HOSTNAME)"
@@ -39,5 +43,5 @@ if [ $OLD_HOSTNAME != $NEW_HOSTNAME ] ; then
   # the hostname.
   # Kill any current backup job first.
   killall -q -u root backup_app_db.rb
-  /usr/local/ec2onrails/bin/backup_app_db.rb --reset  #ask arun
+  /usr/local/chronus/bin/backup_app_db.rb --reset  #ask arun
 fi
