@@ -1,0 +1,6 @@
+# Monitor Delayed worker
+check process delayed_job with pidfile /mnt/app/current/tmp/pids/delayed_job.pid
+  start program = "/mnt/app/current/script/delayed_job_start"
+  stop program = "/mnt/app/current/script/delayed_job_stop"
+  mode manual
+  group delayed_job

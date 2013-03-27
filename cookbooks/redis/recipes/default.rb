@@ -2,53 +2,17 @@
 # Cookbook Name:: redis
 # Recipe:: default
 #
-# Copyright 2013, YOUR_COMPANY_NAME
+# Copyright 2010, Atari, Inc
 #
-# All rights reserved - Do Not Redistribute
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
-
-
-remote_file "/tmp/redis-#{node[:redis][:version]}.tar.gz" do
-  source "#{node[:redis][:url]}"
-  not_if { ::File.exists?("/tmp/redis-#{node[:redis][:version]}.tar.gz") }
-end
-
-execute "Extract Redis source" do
-  cwd "/tmp"
-  command "tar -zxvf /tmp/redis-#{node[:redis][:version]}.tar.gz"
-  not_if { ::File.exists?("/tmp/redis-#{node[:redis][:version]}") }
-end
-
-
-bash "Build and Install Redis server" do
-  cwd "/tmp/redis-#{node[:redis][:version]}"
-  code <<-EOH
-    make
-  EOH
-  # not_if { ::File.exists?("/usr/local/bin/searchd") } #TODO
-end
-
-bash "move server client files of redis" do
-  cwd "/tmp/redis-#{node[:redis][:version]}/src"
-  command "cp redis-server redis-cli /usr/bin"
-  not_if { ::File.exists?("/usr/bin/redis-server") || ::File.exists?("/usr/bin/redis-cli") }
-end
-
-template "/etc/redis.conf" do
-  source "redis.conf.erb"
-  owner "root"
-  group "root"
-  mode 0644
-  variables(
-    :port => node[:redis][:port],
-    :log_path => node[:redis][:log_path]
-  )
-end
-
-cookbook_file "/etc/init.d/redis" do
-  source "redis_init"
-  owner "root"
-  group "root"
-  mode "755"
-end
-

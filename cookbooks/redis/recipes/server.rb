@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: redis
-# Attributes:: default
+# Recipe:: server
 #
 # Copyright 2010, Atari, Inc
 #
@@ -17,11 +17,26 @@
 # limitations under the License.
 #
 
-default[:redis][:listen_port] = "6379"
-default[:redis][:appendonly] = "no"
-default[:redis][:appendfsync] = "everysec"
-default[:redis][:vm][:enabled] = "no"
-default[:redis][:vm][:max_memory] = "0"
-default[:redis][:vm][:page_size] = "32"
-default[:redis][:vm][:pages] = "134217728"
-default[:redis][:vm][:max_threads] = "4"
+package "redis" do
+  package_name "redis-server"
+  action :upgrade
+end
+
+service "redis" do
+  service_name "redis-server"
+  supports :status => true, :restart => true
+  action :enable
+end
+
+template "/etc/redis/redis.conf" do
+  source "redis.conf.erb"
+  owner "root"
+  group "root"
+  mode "644"
+  variables node[:redis]
+  notifies :restart, resources(:service => "redis")
+end
+
+service "redis" do
+  action :start
+end

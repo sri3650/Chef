@@ -19,3 +19,5 @@
 
 include_recipe "mysql::client"
 include_recipe "mysql::server"
+
+monitrc "db_primary"

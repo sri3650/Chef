@@ -1,10 +1,10 @@
-# CHANGELOG for redis
+# CHANGELOG for ivin_appserver_monit
 
-This file is used to list changes made in each version of redis.
+This file is used to list changes made in each version of ivin_appserver_monit.
 
 ## 0.1.0:
 
-* Initial release of redis
+* Initial release of ivin_appserver_monit
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.

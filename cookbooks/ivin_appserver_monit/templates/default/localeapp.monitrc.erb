@@ -1,0 +1,6 @@
+# Monitor Delayed worker
+check process localeapp with pidfile /mnt/app/shared/pids/localeapp.pid
+  start program = "/usr/local/chronus/bin/localeapp_start"
+  stop program = "/usr/local/chronus/bin/localeapp_stop"
+  mode manual
+  group localeapp
