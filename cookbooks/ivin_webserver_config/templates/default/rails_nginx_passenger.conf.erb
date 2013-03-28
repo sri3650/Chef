@@ -1,0 +1,140 @@
+server {
+  listen 80;
+  server_name <%= node['ivin_application']['server_name'] %>
+  
+  # Set the max size for file uploads to 50Mb
+  client_max_body_size 50M;
+
+  passenger_enabled on;
+  passenger_use_global_queue on;
+  passenger_min_instances 1;
+  rails_env <%= node.chef_environment %>;
+
+  root <%= "#{node[:ivin_application][:current_path]}/public" %>;
+  error_page   400 /400.html;
+  error_page   500 502 504  /500.html;
+  location = /500.html {
+    root <%= "#{node[:ivin_application][:current_path]}/public" %>;
+  }
+    
+  #hide hidden files and folders
+  location ~ /\..+ {
+    deny  all;
+  }
+    
+  #do not show the nginx version number in the server header
+  server_tokens off;
+  #Public CMS redirection logic
+  rewrite ^/public$ http://<%= node['ivin_application']['server_name'] %>/login/ break;
+  rewrite ^/public/.*$ http://<%= node['ivin_application']['server_name'] %>/login/ break;
+
+  location ~ (^/assets/[^ckeditor/]) {
+    expires 1y;
+    add_header Cache-Control public;
+
+    # Some browsers still send conditional-GET requests if there's a
+    # Last-Modified header or an ETag header even if they haven't
+    # reached the expiry date sent in the Expires header.
+    add_header Last-Modified "";
+    add_header ETag "";
+    break;
+  }
+   
+  # this allows people to use images and css in their maintenance.html file
+  if ($request_filename ~* \.(css|jpg|gif|png)$) {
+    break;
+  }
+
+  # this allows the /nginx_status page to work, even if the maintenance
+  # page is up.
+  if ($uri ~* "^/nginx_status") {
+    break;
+  }
+
+  # this allows a url /warmup that can be used to cause Passenger to
+  # restart after restart.txt has been touched, even if the maintenance
+  # page is up.
+  if ($uri ~* "^/warmup") {
+    break;
+  }
+
+  # this rewrites all the requests to the maintenance.html
+  # page if it exists in the doc root. This is for capistrano's
+  # disable web task
+  if (-f $document_root/system/maintenance.html) {
+    return 503;
+  }
+
+  error_page 503 @503;
+  location @503 {
+    rewrite  ^(.*)$  /system/maintenance.html break;
+  }      
+}
+
+
+server {
+  listen 443;
+  server_name <%= node['ivin_application']['server_name'] %>
+  rails_env    <%= node.chef_environment %>;
+  root       <%= "#{node[:ivin_application][:current_path]}/public" %>;
+  passenger_enabled  on;
+  passenger_min_instances 1;
+
+  ssl                  on;
+  ssl_certificate      <%= "#{node[:ivin_application][:ssl_certificate_path]}/cert/nginx_ivin.intven.com.crt" %>;
+  ssl_certificate_key  <%= "#{node[:ivin_application][:ssl_certificate_path]}/private/ivin.key" %>;
+
+  ssl_session_cache   shared:SSL:10m;
+  ssl_session_timeout  10m;
+
+  ssl_protocols  SSLv3 TLSv1;
+  ssl_ciphers  RC4-SHA:HIGH:!ADH:!MD5;
+  ssl_prefer_server_ciphers   on;
+ 
+  client_max_body_size 50m;    
+  location ~ (^/assets/[^ckeditor/]) {
+    expires 1y;
+    add_header Cache-Control public;
+
+    # Some browsers still send conditional-GET requests if there's a
+    # Last-Modified header or an ETag header even if they haven't
+    # reached the expiry date sent in the Expires header.
+    add_header Last-Modified "";
+    add_header ETag "";
+    break;
+  }
+
+  #Public CMS redirection logic
+  rewrite ^/public$ http://<%= node['ivin_application']['server_name'] %>/login/ break;
+  rewrite ^/public/.*$ http://<%= node['ivin_application']['server_name'] %>/login/ break;
+    
+  # this allows people to use images and css in their maintenance.html file
+  if ($request_filename ~* \.(css|jpg|gif|png)$) {
+    break;
+  }
+
+  # this allows the /nginx_status page to work, even if the maintenance
+  # page is up.
+  if ($uri ~* "^/nginx_status") {
+    break;
+  }
+
+  # this allows a url /warmup that can be used to cause Passenger to
+  # restart after restart.txt has been touched, even if the maintenance
+  # page is up.
+  if ($uri ~* "^/warmup") {
+    break;
+  }
+
+  # this rewrites all the requests to the maintenance.html
+  # page if it exists in the doc root. This is for capistrano's
+  # disable web task
+  if (-f $document_root/system/maintenance.html) {
+    return 503;
+  }
+
+  error_page 503 @503;
+  location @503 {
+    rewrite  ^(.*)$  /system/maintenance.html break;
+  } 
+}

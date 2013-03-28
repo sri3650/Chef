@@ -10,6 +10,9 @@ http {
   passenger_ruby <%= @ruby_path %>;
   passenger_default_user <%= @passenger[:default_user] %>;
   passenger_pool_idle_time <%= @passenger[:pool_idle_time] %>;
+  <% @passenger[:pre_start].each do |url| %>
+  passenger_pre_start <%= url %>;
+  <% end %>
   rails_framework_spawner_idle_time 0;
   rails_app_spawner_idle_time 0;
 
@@ -43,7 +46,4 @@ http {
     gzip_disable <%= @passenger[:gzip_disable] %>;
   <% end %>
   include sites.d/*.conf;
-}  
-<% @passenger[:pre_start].each do |url| %>
-  passenger_pre_start <%= url %>;
-<% end %>
+}

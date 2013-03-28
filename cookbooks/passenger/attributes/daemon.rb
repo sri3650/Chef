@@ -12,7 +12,7 @@ default[:passenger][:min_instances] = 1
 default[:passenger][:pool_idle_time] = 0
 default[:passenger][:max_instances_per_app] = 0
 # a list of URL's to pre-start.
-default[:passenger][:pre_start] = []
+default[:passenger][:pre_start] = [node[:ivin_application][:server_name]]
 
 default[:passenger][:sendfile] = true
 default[:passenger][:tcp_nopush] = true
