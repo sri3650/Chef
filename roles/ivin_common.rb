@@ -7,5 +7,6 @@ run_list [
   "recipe[ivin_users]",
   "recipe[ivin_common_dirs]",
   "recipe[ivin_gems]",
+  "recipe[ossec]",
   "recipe[ivin_monit]"
 ]

@@ -1,0 +1,15 @@
+<!-- decoder for active responses as logged by an OSSEC agent or server 
+- Examples
+Sat May  7 03:17:27 CDT 2011 /var/ossec/active-response/bin/host-deny.sh add - 120.101.70.54 1304756247.60385 31151
+Sat May  7 03:17:27 CDT 2011 /var/ossec/active-response/bin/firewall-drop.sh add - 120.101.70.54 1304756247.60385 31151
+Sat May  7 03:27:57 CDT 2011 /var/ossec/active-response/bin/host-deny.sh delete - 120.101.70.54 1304756247.60385 31151
+Sat May  7 03:27:57 CDT 2011 /var/ossec/active-response/bin/firewall-drop.sh delete - 120.101.70.54 1304756247.60385 31151
+
+
+-->
+
+<decoder name="ar_log"> 
+        <prematch>^Mon|^Tue|^Wed|^Thu|^Fri|^Sat|^Sun \S+\s+\d+ \d\d:\d\d:\d\d \S+ \d+ /var/ossec/active-response</prematch>
+        <regex offset="after_prematch">/bin/(\S+) (\S+) - (\S+) (\d+.\d+) (\d+)</regex> 
+        <order>action, status, srcip, id, extra_data</order> 
+</decoder>
