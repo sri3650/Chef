@@ -32,26 +32,26 @@ template "/etc/cron.daily/logrotate_post" do
   mode "755"
 end
 
-# ssl_cert_path = node.default[:ivin_application][:ssl_certificate_path]
-# execute "Create the ssl private directory" do
-#   command "mkdir -p #{ssl_cert_path}/private/ && chown root:root #{ssl_cert_path}/private/"  
-#   not_if { ::File.exists?("#{ssl_cert_path}/private/") }
-# end
+ssl_cert_path = node.default[:ivin_application][:ssl_certificate_path]
+execute "Create the ssl private directory" do
+  command "mkdir -p #{ssl_cert_path}/private/ && chown root:root #{ssl_cert_path}/private/"  
+  not_if { ::File.exists?("#{ssl_cert_path}/private/") }
+end
 
-# execute "Create the ssl cert directory" do  
-#   command "mkdir -p #{ssl_cert_path}/cert/ && chown root:root #{ssl_cert_path}/cert/"  
-#   not_if { ::File.exists?("#{ssl_cert_path}/cert/") }
-# end
+execute "Create the ssl cert directory" do
+  command "mkdir -p #{ssl_cert_path}/cert/ && chown root:root #{ssl_cert_path}/cert/"  
+  not_if { ::File.exists?("#{ssl_cert_path}/cert/") }
+end
 
-# cookbook_file "#{ssl_cert_path}/cert/chronus_mentor.crt" do
-#   source "ssl_keys/#{node.chef_environment}/chronus_mentor.crt"
-#   mode "644"  
-# end
+cookbook_file "#{ssl_cert_path}/cert/#{node[:ivin_application][:server_name]}.crt" do
+  source "ssl_credentials/#{node.chef_environment}/#{node[:ivin_application][:server_name]}.crt"
+  mode "644"  
+end
 
-# cookbook_file "#{ssl_cert_path}/private/chronus_mentor.key" do
-#   source "ssl_keys/#{node.chef_environment}/chronus_mentor.key"
-#   mode "644"  
-# end
+cookbook_file "#{ssl_cert_path}/private/ivin_#{node.chef_environment}.key" do
+  source "ssl_credentials/#{node.chef_environment}/ivin_#{node.chef_environment}.key"
+  mode "644"
+end
 
 # template "/usr/local/chronus/bin/passenger_monitor.sh" do
 #   source 'passenger_monitor.sh.erb'
@@ -60,4 +60,4 @@ end
 #   mode 0755  
 # end
 
-#ask arun abt the security issue here
+#ask arun abt the last one here

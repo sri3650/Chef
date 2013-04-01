@@ -81,8 +81,8 @@ server {
   passenger_min_instances 1;
 
   ssl                  on;
-  ssl_certificate      <%= "#{node[:ivin_application][:ssl_certificate_path]}/cert/nginx_ivin.intven.com.crt" %>;
-  ssl_certificate_key  <%= "#{node[:ivin_application][:ssl_certificate_path]}/private/ivin.key" %>;
+  ssl_certificate      <%= "#{node[:ivin_application][:ssl_certificate_path]}/cert/#{node[:ivin_application][:server_name]}.crt" %>;
+  ssl_certificate_key  <%= "#{node[:ivin_application][:ssl_certificate_path]}/private/ivin_#{node.chef_environment}.key" %>;
 
   ssl_session_cache   shared:SSL:10m;
   ssl_session_timeout  10m;
