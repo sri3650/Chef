@@ -179,24 +179,21 @@ end
 
 
 # Deploy specific setup
-# deploy_user = node.default[:chronus_mentor_application][:deploy_user]
-# cookbook_file "/home/#{deploy_user}/.ssh/id_rsa" do
-#   source "deploy_keys/id_rsa"
-#   owner deploy_user
-#   group deploy_user
-# end
+deploy_user = node.default[:ivin_application][:deploy_user]
+cookbook_file "/home/#{deploy_user}/.ssh/id_rsa" do
+  source "deploy_keys/id_rsa"
+  owner deploy_user
+  group deploy_user
+end
 
-# cookbook_file "/home/#{deploy_user}/.ssh/id_rsa.pub" do
-#   source "deploy_keys/id_rsa.pub"
-#   owner deploy_user
-#   group deploy_user
-# end
+cookbook_file "/home/#{deploy_user}/.ssh/id_rsa.pub" do
+  source "deploy_keys/id_rsa.pub"
+  owner deploy_user
+  group deploy_user
+end
 
-# cookbook_file "/home/#{deploy_user}/.ssh/config" do
-#   source "ssh_config"
-#   owner deploy_user
-#   group deploy_user
-# end
-
-
-# ask arun
+cookbook_file "/home/#{deploy_user}/.ssh/config" do
+  source "ssh_config"
+  owner deploy_user
+  group deploy_user
+end
