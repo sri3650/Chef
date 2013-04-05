@@ -50,12 +50,12 @@ template "/etc/cron.d/ec2-snapshots" do
   mode "644"
 end
 
-# template "/etc/app.yml" do
-#   source "app.yml.erb"
-#   owner "root"
-#   group "root"
-#   mode "644"
-# end
+template "/etc/app.yml" do
+  source "app.yml.erb"
+  owner "root"
+  group "root"
+  mode "644"
+end
 
 # template "/etc/init.d/system-restart-email" do
 #   source 'system-restart-email.erb'

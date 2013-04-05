@@ -1,0 +1,9 @@
+--- 
+group: <%= node.default[:ivin_application][:deploy_user] %>
+port: "8000"
+cwd: <%= node.default[:ivin_application][:current_path] %>
+daemon: true
+environment: <%= node.chef_environment %>
+user: <%= node.default[:ivin_application][:deploy_user] %>
+servers: 6
+pid_file: log/mongrel.pid

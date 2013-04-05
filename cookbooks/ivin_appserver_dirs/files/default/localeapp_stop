@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cd /mnt/app/current && sudo -u app RAILS_ENV=`/usr/local/chronus/bin/rails_env` kill `cat /mnt/app/shared/pids/localeapp.pid`
