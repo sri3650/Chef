@@ -1,0 +1,10 @@
+<license id="1000736">
+    <name>Server License</name>
+    <vendor>YesLogic</vendor>
+    <product>Prince</product>
+    <version>7.1</version>
+    <end-user>Chronus</end-user>
+    <date>2010-08-02</date>
+    <signature>D16509AAB47CFC2B1567092ED2273FF0</signature>
+    <option id="upgrades">20110802</option>
+</license>

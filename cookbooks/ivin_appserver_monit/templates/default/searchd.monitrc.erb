@@ -1,5 +1,5 @@
 # Add Monit code for Sphinx's searchd
-check process searchd with pidfile /mnt/app/shared/log/searchd.production.pid
+check process searchd with pidfile /mnt/app/shared/log/searchd.<%= node.chef_environment %>.pid
   start program = "/usr/local/chronus/bin/searchd_start"
   stop program = "/usr/local/chronus/bin/searchd_stop"
   if totalmem is greater than 300.0 MB for 4 cycles then restart

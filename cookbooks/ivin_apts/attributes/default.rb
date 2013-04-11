@@ -23,4 +23,5 @@ default[:packages] = %w(
   graphicsmagick
   openjdk-6-jdk
   openjdk-6-jre
+  alien
 )

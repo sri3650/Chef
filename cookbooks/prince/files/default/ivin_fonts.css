@@ -1,0 +1,16 @@
+@font-face {
+    font-family: serif;
+    src: url("/home/app/.fonts/fireflysung.ttf") /* Chinese */
+
+}
+
+@font-face {
+    font-family: serif;
+    src: url("/home/app/.fonts/UnBatang_0613.ttf") /* Korean */
+
+}
+
+@font-face {
+    font-family: serif;
+    src: url("/home/app/.fonts/MSGOTHIC.TTF") /* Japanese */
+}
