@@ -69,19 +69,12 @@ execute "Create the fonts directory" do
 end
 
 #copying some fonts to this folder has to be done. punted for now
-execute "Download necessary fonts from s3" do
-  cwd "/home/app/.fonts"
-  command "s3cmd get #{node.default[:prince][:s3_font_path]}/#{node.default[:prince][:font_files][0]} --skip-existing"
-end
-
-execute "Download necessary fonts from s3 - 1" do
-  cwd "/home/app/.fonts"
-  command "s3cmd get #{node.default[:prince][:s3_font_path]}/#{node.default[:prince][:font_files][1]} --skip-existing"
-end
-
-execute "Download necessary fonts from s3 - 2" do
-  cwd "/home/app/.fonts"
-  command "s3cmd get #{node.default[:prince][:s3_font_path]}/#{node.default[:prince][:font_files][2]} --skip-existing"
+node.default[:prince][:font_files].each do |font_file|
+  execute "Download #{font_file} font from s3" do
+    cwd "/home/app/.fonts"
+    command "s3cmd get #{node.default[:prince][:s3_font_path]}/#{font_file} --skip-existing"
+    not_if { ::File.exists?("/home/app/.fonts/#{font_file}") }
+  end
 end
 
 cookbook_file "/usr/lib/prince/style/ivin_fonts.css" do
