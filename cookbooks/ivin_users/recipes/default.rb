@@ -43,6 +43,13 @@ end
   end  
 end
 
+file "/root/.ssh/authorized_keys" do
+  owner 'root'
+  group 'root'
+  mode "0600"
+  content IO.read(ubuntu_public_key_file)
+end
+
 cookbook_file "/root/.bashrc" do
   source "bashrc"
   owner 'root'

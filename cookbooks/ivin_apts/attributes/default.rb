@@ -24,4 +24,5 @@ default[:packages] = %w(
   openjdk-6-jdk
   openjdk-6-jre
   alien
+  s3cmd
 )

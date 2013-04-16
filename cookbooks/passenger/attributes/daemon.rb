@@ -42,7 +42,7 @@ default[:passenger][:public_path] = "/mnt/app/current/public"
 default[:passenger][:ssl_path] = "/etc/ec2onrails/ssl"
 
 # Enable the status server on 127.0.0.1
-default[:passenger][:status_server] = true
+default[:passenger][:status_server] = false
 
 default[:passenger][:ruby_heap_min_slots] = 1800000
 default[:passenger][:ruby_heap_free_min] = 125000
