@@ -197,16 +197,3 @@ cookbook_file "/home/#{deploy_user}/.ssh/config" do
   owner deploy_user
   group deploy_user
 end
-
-cookbook_file "/etc/apt/sources.list" do
-  source "sources.list"
-  owner "root"
-  group "root"
-  mode "644"
-end
-
-e = execute "sudo apt-get update" do
-  action :nothing
-end
-
-e.run_action(:run)

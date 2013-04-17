@@ -7,11 +7,18 @@
 # All rights reserved - Do Not Redistribute
 #
 
-e = execute "sudo add-apt-repository ppa:alestic && apt-get update" do
-  action :nothing
+cookbook_file "/etc/apt/sources.list" do
+  source "sources.list"
+  owner "root"
+  group "root"
+  mode "644"
+  notifies :run, resources(:execute => "apt-get-update"), :immediately
 end
 
-e.run_action(:run)  # need to run this before installing further packages. Refer http://docs.opscode.com/resource_common_compile.html
+# Run apt-get update to create the stamp file
+execute "apt-get-update" do
+  command "sudo add-apt-repository ppa:alestic && apt-get update"
+end
 
 node.default[:common_packages].each do |name|
   package name do
