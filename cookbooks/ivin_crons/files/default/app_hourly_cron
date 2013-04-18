@@ -1,0 +1,6 @@
+#!/bin/sh
+MAILTO=ivin@chronus.com
+
+test -e /mnt/app/current/script/hourly || exit 0
+cd /mnt/app/current
+sudo -u app /usr/local/ec2onrails/bin/rails_env script/hourly

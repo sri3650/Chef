@@ -21,3 +21,10 @@ cookbook_file "/var/spool/cron/crontabs/root" do
   group "crontab"
   mode "600"
 end
+
+cookbook_file "/etc/cron.hourly/app" do
+  source "app_hourly_cron"
+  owner "root"
+  group "root"
+  mode "755"
+end
