@@ -1,7 +1,7 @@
 server {
   listen 80;
   server_name <%= node['ivin_application']['server_name'] %>
-  
+
   # Set the max size for file uploads to 50Mb
   client_max_body_size 50M;
 
@@ -68,30 +68,34 @@ server {
   error_page 503 @503;
   location @503 {
     rewrite  ^(.*)$  /system/maintenance.html break;
-  }      
+  }
 }
 
 
 server {
   listen 443;
   server_name <%= node['ivin_application']['server_name'] %>
-  rails_env    <%= node.chef_environment %>;
-  root       <%= "#{node[:ivin_application][:current_path]}/public" %>;
-  passenger_enabled  on;
-  passenger_min_instances 1;
 
+  # Set the max size for file uploads to 50Mb
+  client_max_body_size 50M;
+
+  passenger_enabled on;
+  passenger_min_instances 1;
+  rails_env <%= node.chef_environment %>;
+
+  root <%= "#{node[:ivin_application][:current_path]}/public" %>;
+  #Public CMS redirection logic
+  rewrite ^/public$ http://<%= node['ivin_application']['server_name'] %>/login/ break;
+  rewrite ^/public/.*$ http://<%= node['ivin_application']['server_name'] %>/login/ break;
   ssl                  on;
   ssl_certificate      <%= "#{node[:ivin_application][:ssl_certificate_path]}/cert/#{node[:ivin_application][:server_name]}.crt" %>;
   ssl_certificate_key  <%= "#{node[:ivin_application][:ssl_certificate_path]}/private/ivin_#{node.chef_environment}.key" %>;
-
   ssl_session_cache   shared:SSL:10m;
   ssl_session_timeout  10m;
-
   ssl_protocols  SSLv3 TLSv1;
   ssl_ciphers  RC4-SHA:HIGH:!ADH:!MD5;
   ssl_prefer_server_ciphers   on;
- 
-  client_max_body_size 50m;    
+
   location ~ (^/assets/[^ckeditor/]) {
     expires 1y;
     add_header Cache-Control public;
@@ -104,10 +108,6 @@ server {
     break;
   }
 
-  #Public CMS redirection logic
-  rewrite ^/public$ http://<%= node['ivin_application']['server_name'] %>/login/ break;
-  rewrite ^/public/.*$ http://<%= node['ivin_application']['server_name'] %>/login/ break;
-    
   # this allows people to use images and css in their maintenance.html file
   if ($request_filename ~* \.(css|jpg|gif|png)$) {
     break;
@@ -136,5 +136,5 @@ server {
   error_page 503 @503;
   location @503 {
     rewrite  ^(.*)$  /system/maintenance.html break;
-  } 
+  }
 }
