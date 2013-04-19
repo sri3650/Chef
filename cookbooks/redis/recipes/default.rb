@@ -2,17 +2,43 @@
 # Cookbook Name:: redis
 # Recipe:: default
 #
-# Copyright 2010, Atari, Inc
+# Copyright 2013, YOUR_COMPANY_NAME
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# 
-#     http://www.apache.org/licenses/LICENSE-2.0
-# 
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# All rights reserved - Do Not Redistribute
 #
+
+remote_file "/tmp/redis-#{node[:redis][:version]}.tar.gz" do
+  source "#{node[:redis][:url]}"
+  not_if { ::File.exists?("/tmp/redis-#{node[:redis][:version]}.tar.gz") }
+end
+
+execute "Extract redis source" do
+  cwd "/tmp"
+  command "tar -zxvf /tmp/redis-#{node[:redis][:version]}.tar.gz"
+  not_if { ::File.exists?("/tmp/redis-#{node[:redis][:version]}") }
+end
+
+execute "Build and Install Redis Server" do
+  cwd "/tmp/redis-#{node[:redis][:version]}"
+  command "make"
+end
+
+execute "Move server and client files of redis" do
+  cwd "/tmp/redis-#{node[:redis][:version]}"
+  command "cp src/redis-server src/redis-cli /usr/bin"
+end
+
+template "/etc/redis.conf" do
+  source "redis.conf.erb"
+  owner "root"
+  group "root"
+  mode "644"
+  variables node[:redis]
+end
+
+cookbook_file "/etc/init.d/redis" do
+  source "redis_init"
+  owner "root"
+  group "root"
+  mode "755"
+end
