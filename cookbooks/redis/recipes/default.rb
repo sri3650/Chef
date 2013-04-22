@@ -26,6 +26,7 @@ end
 execute "Move server and client files of redis" do
   cwd "/tmp/redis-#{node[:redis][:version]}"
   command "cp src/redis-server src/redis-cli /usr/bin"
+  not_if { ::File.exists?("/usr/bin/redis-server") && ::File.exists?("/usr/bin/redis-cli")}
 end
 
 template "/etc/redis.conf" do
