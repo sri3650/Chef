@@ -21,11 +21,11 @@ end
 cookbook_file "#{ssl_cert_path}/cert/#{node[:ivin_application][:server_name]}.crt" do
   source "ssl_credentials/#{node.chef_environment}/#{node[:ivin_application][:server_name]}.crt"
   mode "644"
-  not_if { ::File.exists?("ssl_credentials/#{node.chef_environment}/#{node[:ivin_application][:server_name]}.crt") }
+  # not_if { ::File.exists?("#{ssl_cert_path}/cert/#{node[:ivin_application][:server_name]}.crt") } ask arun
 end
 
 cookbook_file "#{ssl_cert_path}/private/ivin_#{node.chef_environment}.key" do
   source "ssl_credentials/#{node.chef_environment}/ivin_#{node.chef_environment}.key"
   mode "644"
-  not_if { ::File.exists?("ssl_credentials/#{node.chef_environment}/ivin_#{node.chef_environment}.key") }
+  # not_if { ::File.exists?("#{ssl_cert_path}/private/ivin_#{node.chef_environment}.key") } ask arun
 end
