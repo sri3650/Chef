@@ -22,3 +22,7 @@ template "#{node['ivin_mysql']['conf_dir']}/my.cnf" do
   end
   variables :skip_federated => true
 end
+
+service "mysql" do
+  action :start
+end
