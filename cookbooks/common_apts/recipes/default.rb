@@ -7,6 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
+#resize filesystem
+execute "resize2fs" do
+  command "sudo resize2fs /dev/sda1"
+end
+
 # Run apt-get update to create the stamp file
 execute "apt-get-update" do
   command "sudo add-apt-repository ppa:alestic && apt-get update"
