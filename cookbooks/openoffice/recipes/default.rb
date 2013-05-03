@@ -1,33 +1,37 @@
 #
-# Cookbook Name:: openoffice3.1.1
+# Cookbook Name:: openoffice
 # Recipe:: default
 #
 # Copyright 2013, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
 #
+#
 
-tar_file = "OOo_3.1.1_LinuxX86-64_install_en-US_deb.tar.gz"
-execute "download openoffice3.1.1 tar file" do
+tar_source_file = "Apache_OpenOffice_incubating_3.4.1_Linux_x86-64_install-deb_en-US.tar.gz"
+tar_file = "oo3.4.1.tar.gz"
+tar_directory = "en-US"
+
+execute "download openoffice tar file" do
   cwd "/tmp"
-  command "wget ftp://ftp.rz.tu-bs.de/pub/mirror/openoffice-archive/stable/3.1.1/#{tar_file}"
+  command "curl -Lo #{tar_file} http://downloads.sourceforge.net/project/openofficeorg.mirror/stable/3.4.1/#{tar_source_file}"
   not_if { ::File.exists?("/tmp/#{tar_file}") } # the file's kinda big
 end
 
 execute "Extract openoffice source" do
   cwd "/tmp"
-  command "tar -zxvf /tmp/#{tar_file}"
-  not_if { ::File.exists?("/tmp/OOO310_m19_native_packed-2_en-US.9420") }
+  command "tar -zxvf #{tar_file}"
+  not_if { ::File.exists?("/tmp/#{tar_directory}") }
 end
 
 execute "install all debian packages" do
-  cwd "/tmp/OOO310_m19_native_packed-2_en-US.9420/DEBS"
+  cwd "/tmp/#{tar_directory}/DEBS"
   command "sudo dpkg -i *.deb"
   not_if "dpkg --get-selections | grep openoffice | grep -v openoffice.org-debian-menus"
 end
 
 execute "install desktop integration packages" do
-  cwd "/tmp/OOO310_m19_native_packed-2_en-US.9420/DEBS/desktop-integration"
+  cwd "/tmp/#{tar_directory}/DEBS/desktop-integration"
   command "sudo dpkg -i *.deb"
   not_if "dpkg --get-selections | grep openoffice.org-debian-menus"
 end

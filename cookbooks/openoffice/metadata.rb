@@ -1,7 +1,7 @@
-name             'openoffice3.1.1'
+name             'openoffice'
 maintainer       'YOUR_COMPANY_NAME'
 maintainer_email 'YOUR_EMAIL'
 license          'All rights reserved'
-description      'Installs/Configures openoffice3.1.1'
+description      'Installs/Configures openoffice'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.0'

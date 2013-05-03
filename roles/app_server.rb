@@ -7,6 +7,6 @@ run_list [
   "recipe[ivin_appserver_dirs]",
   "recipe[sphinx]",
   "recipe[prince]",
-  "recipe[openoffice3.1.1]",
+  "recipe[openoffice]",
   "recipe[ivin_appserver_monit]"
 ]
