@@ -68,7 +68,6 @@ execute "Create the fonts directory" do
   not_if { ::File.exists?("/home/app/.fonts") }
 end
 
-#copying some fonts to this folder has to be done. punted for now
 node.default[:prince][:font_files].each do |font_file|
   execute "Download #{font_file} font from s3" do
     cwd "/home/app/.fonts"

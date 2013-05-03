@@ -55,3 +55,17 @@ execute "install headless package" do
   command "sudo dpkg -i #{headless_file_debian}"
   not_if "dpkg --get-selections | grep openoffice.org-headless"
 end
+
+execute "create fonts folder for openoffice" do
+  cwd "/usr/local/share/fonts"
+  command "mkdir -p truetype/Calibri"
+  not_if { ::File.exists?("/usr/local/share/fonts/truetype/Calibri") }
+end
+
+node.default[:openoffice][:font_files].each do |font_file|
+  execute "Download #{font_file} font from s3" do
+    cwd "/usr/local/share/fonts/truetype/Calibri"
+    command "s3cmd get #{node.default[:openoffice][:s3_font_path]}/#{font_file} --skip-existing"
+    not_if { ::File.exists?("/usr/local/share/fonts/truetype/Calibri/#{font_file}") }
+  end
+end
