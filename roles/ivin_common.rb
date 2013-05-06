@@ -8,5 +8,6 @@ run_list [
   "recipe[ivin_common_dirs]",
   "recipe[ivin_gems]",
   "recipe[ossec]",
+  "recipe[postfix]",
   "recipe[ivin_monit]"
 ]
