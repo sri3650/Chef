@@ -14,25 +14,20 @@ append_dot_mydomain = yes
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 mydestination = <%= node['postfix']['myhostname'] %>, <%= node['hostname'] %>, localhost.localdomain, localhost
-
-<% if node['postfix']['mail_type'] == "master" -%>
 mynetworks = <%= node['postfix']['mail_relay_networks'] %>
-inet_interfaces = all
-<% else -%>
-relayhost = <%= node['postfix']['relayhost'] %>
-mynetworks = <%= node['postfix']['mail_relay_networks'] %>
-inet_interfaces = loopback-only
-<% end -%>
-
 mailbox_size_limit = 0
 recipient_delimiter = +
 
-smtp_sasl_auth_enable = <%= node['postfix']['smtp_sasl_auth_enable'] %>
+inet_interfaces = all
 
-<% if node['postfix']['smtp_sasl_auth_enable'] == "yes" -%>
+header_size_limit = <%= node['postfix']['header_size_limit'] %>
 sender_dependent_relayhost_maps = regexp:/etc/postfix/relayhost_maps.regexp
+smtp_connection_cache_destinations = <%= node['postfix']['smtp_connection_cache_destinations'] %>
+smtp_sasl_auth_enable = <%= node['postfix']['smtp_sasl_auth_enable'] %>
+<% if node['postfix']['smtp_sasl_auth_enable'] == "yes" -%>
 smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
 smtp_sasl_security_options = <%= node['postfix']['smtp_sasl_security_options'] %>
 <% end -%>
 default_destination_concurrency_limit = <%= node['postfix']['default_destination_concurrency_limit'] %>
 
+soft_bounce = <%= node['postfix']['soft_bounce'] %>
