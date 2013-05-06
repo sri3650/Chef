@@ -18,29 +18,10 @@
 # limitations under the License.
 #
 
-include_recipe "postfix"
-
-sasl_pkgs = []
-
-# We use case instead of value_for_platform_family because we need
-# version specifics for RHEL.
-case node['platform_family']
-when "debian"
-  sasl_pkgs = %w{libsasl2-2 libsasl2-modules ca-certificates}
-when "rhel"
-  if node['platform_version'].to_i < 6
-    sasl_pkgs = %w{cyrus-sasl cyrus-sasl-plain openssl}
-  else
-    sasl_pkgs = %w{cyrus-sasl cyrus-sasl-plain ca-certificates}
+%w{ libsasl2-2  ca-certificates}.each do |pkg|
+  package pkg do
+    action :install
   end
-when "fedora"
-  sasl_pkgs = %w{cyrus-sasl cyrus-sasl-plain ca-certificates}
-end
-
-sasl_pkgs.each do |pkg|
-
-  package pkg
-
 end
 
 execute "postmap-sasl_passwd" do
@@ -53,6 +34,7 @@ template "/etc/postfix/sasl_passwd" do
   owner "root"
   group "root"
   mode 0400
-  notifies :run, "execute[postmap-sasl_passwd]", :immediately
-  notifies :restart, "service[postfix]"
+  notifies :run, resources(:execute => "postmap-sasl_passwd"), :immediately
+  notifies :restart, resources(:service => "postfix")
 end
+
