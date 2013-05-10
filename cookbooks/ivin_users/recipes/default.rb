@@ -57,6 +57,13 @@ cookbook_file "/root/.bashrc" do
   mode '0644'
 end
 
+template "/root/.awssecret" do
+  source "awssecret.erb"
+  mode 0644
+  owner "root"
+  group "root"
+end
+
 template "/etc/sudoers" do
   source "sudoers.erb"
   mode 0440
