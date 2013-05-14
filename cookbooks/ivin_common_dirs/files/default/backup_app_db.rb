@@ -54,7 +54,7 @@ begin
     # Incremental backup
     @mysql.execute_sql "flush logs"
 
-    logs = Dir.glob("/mnt/log/mysql/mysql-bin.[0-9]*").sort
+    logs = Dir.glob("/var/log/mysql/mysql-bin.[0-9]*").sort
     logs_to_archive = logs[0..-2] # all logs except the last
     logs_to_archive.each {|log| @s3.store_file log}
     @mysql.execute_sql "purge master logs to '#{File.basename(logs[-1])}'"

@@ -1,0 +1,1 @@
+default[:patentdb_application][:snapshot_log_path] = "/mnt/log"

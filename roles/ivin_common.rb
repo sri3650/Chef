@@ -1,6 +1,6 @@
 name "ivin_common"
 
-description "Common features shared across IVIN servers"
+description "Common features shared across IVIN Team servers (IVIN and Patent DB)"
 
 run_list [
   "recipe[common_apts]",

@@ -1,5 +1,0 @@
-# EBS Snapshot. Once in 12 hours
-31 1,13 * * * root  date >> /mnt/log/snapshots.log && ec2-consistent-snapshot --mysql --description "IVIN-<%= node.chef_environment.capitalize %>-10.04 EBS" vol-xxxxxxxx >> <%= node.default[:ivin_application][:snapshot_log_path] %>/snapshots.log 2>&1
-
-# Clean old EBS Snapshots. Once in a day
-0 0 * * * root  /usr/local/chronus/bin/ec2-delete-old-snapshots -v vol-xxxxxxxx -n 60 >> <%= node.default[:ivin_application][:snapshot_log_path] %>snapshots.log 2>&1

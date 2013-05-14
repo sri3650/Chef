@@ -15,7 +15,7 @@ require 'fileutils'
 #
 
 module CommandLineArgs extend OptiFlagSet
-  flag "volume_id" do
+  optional_flag "volume_id" do
     alternate_forms "v"
     description "The EBS volume id"
   end
@@ -24,12 +24,31 @@ module CommandLineArgs extend OptiFlagSet
     description "Number of old snapshots to retain"
   end
 
+  optional_flag "volume_id_file" do
+    alternate_forms "vf"
+    description "File containing the EBS volume id"
+  end
+
   usage_flag "h", "help"
   and_process!
 end
 
+def get_volume_id_from_file(volume_id_file)
+  abort ("Volume id file #{volume_id_file} doesn't exist") unless File.exist?(volume_id_file)
+  vol_id = ""
+  File.open(volume_id_file) do |f|
+    vol_id = f.read
+  end
+  abort("Invalid EBS volume id specified in #{volume_id_file}:#{vol_id}") unless vol_id.match(/^vol-/)
+  vol_id
+end
+
 puts "*** ec2-delete-old-snapshots called on #{Time.now} ***"
-VolumeId = ARGV.flags.volume_id         # The ebs volume id
+
+abort("Specify one of the volume id options: -volume_id or -volume_id_file") unless ARGV.flags.volume_id || ARGV.flags.volume_id_file
+
+VolumeId = ARGV.flags.volume_id || get_volume_id_from_file(ARGV.flags.volume_id_file) # The ebs volume id
+
 SnapshotLimit = ARGV.flags.n.to_i       # No. of snapshots to retain
 abort("Bad value of snapshot limit") if SnapshotLimit <= 0
 

@@ -32,8 +32,8 @@ if [ -e /mnt/log/redis.log ] ; then
   fi
 fi
 
-if [ -x /mnt/log/mysql ] ; then
-  for f in `ls /mnt/log/mysql/*.log` ; do
+if [ -x /var/log/mysql ] ; then
+  for f in `ls /var/log/mysql/*.log` ; do
     logfile=$f-`date +%Y%m%d`
     if [ -e $logfile ] ; then
       gzip $logfile

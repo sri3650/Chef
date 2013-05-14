@@ -103,10 +103,6 @@ log_error = <%= node['ivin_mysql']['tunable']['log_error'] %>
 <% end %>
 <%- if node['ivin_mysql']['tunable']['log_bin'] %>
 log_bin = <%= node['ivin_mysql']['tunable']['log_bin'] %>
-<%- if node['ivin_mysql']['tunable']['log_bin'] %>
-binlog_format           = <%= node['ivin_mysql']['tunable']['binlog_format'] %>
-<%- end %>
-log_slave_updates       = <%= node['ivin_mysql']['tunable']['log_slave_updates'] %>
 <%- end %>
 <%- if node['ivin_mysql']['tunable']['log_bin_trust_function_creators'] %>
 log_bin_trust_function_creators

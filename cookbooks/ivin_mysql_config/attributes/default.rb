@@ -154,7 +154,7 @@ default['ivin_mysql']['tunable']['myisam_recover']       = "BACKUP"
 default['ivin_mysql']['tunable']['net_read_timeout']     = "30"
 default['ivin_mysql']['tunable']['net_write_timeout']    = "30"
 default['ivin_mysql']['tunable']['table_cache']          = "64"
-default['ivin_mysql']['tunable']['general_log_file']     = "/mnt/log/mysql/mysql.log"
+default['ivin_mysql']['tunable']['general_log_file']     = "/var/log/mysql/mysql.log"
 default['ivin_mysql']['tunable']['general_log']          = "1"
 
 default['ivin_mysql']['tunable']['thread_cache']         = "128"
@@ -176,7 +176,7 @@ default['ivin_mysql']['tunable']['skip-name-resolve']                   = false
 
 
 default['ivin_mysql']['tunable']['server_id']                       = "1"
-default['ivin_mysql']['tunable']['log_bin']                         = nil
+default['ivin_mysql']['tunable']['log_bin']                         = "/var/log/mysql/mysql-bin.log"
 default['ivin_mysql']['tunable']['log_bin_trust_function_creators'] = false
 
 default['ivin_mysql']['tunable']['relay_log']                       = nil
@@ -187,7 +187,7 @@ default['ivin_mysql']['tunable']['sync_binlog']                     = 0
 default['ivin_mysql']['tunable']['skip_slave_start']                = false
 default['ivin_mysql']['tunable']['read_only']                       = false
 
-default['ivin_mysql']['tunable']['log_error']                       = "/mnt/log/mysql/error.log"
+default['ivin_mysql']['tunable']['log_error']                       = "/var/log/mysql/error.log"
 default['ivin_mysql']['tunable']['log_warnings']                    = false
 default['ivin_mysql']['tunable']['log_queries_not_using_index']     = true
 default['ivin_mysql']['tunable']['log_bin_trust_function_creators'] = false

@@ -154,7 +154,7 @@ default['pdb_mysql']['tunable']['myisam_recover']       = "BACKUP"
 default['pdb_mysql']['tunable']['net_read_timeout']     = "30"
 default['pdb_mysql']['tunable']['net_write_timeout']    = "30"
 default['pdb_mysql']['tunable']['table_cache']          = "64"
-default['pdb_mysql']['tunable']['general_log_file']     = "/mnt/log/mysql/mysql.log"
+default['pdb_mysql']['tunable']['general_log_file']     = "/var/log/mysql/mysql.log"
 default['pdb_mysql']['tunable']['general_log']          = "1"
 
 default['pdb_mysql']['tunable']['thread_cache']         = "128"
@@ -187,7 +187,7 @@ default['pdb_mysql']['tunable']['sync_binlog']                     = 0
 default['pdb_mysql']['tunable']['skip_slave_start']                = false
 default['pdb_mysql']['tunable']['read_only']                       = false
 
-default['pdb_mysql']['tunable']['log_error']                       = "/mnt/log/mysql/error.log"
+default['pdb_mysql']['tunable']['log_error']                       = "/var/log/mysql/error.log"
 default['pdb_mysql']['tunable']['log_warnings']                    = false
 default['pdb_mysql']['tunable']['log_queries_not_using_index']     = true
 default['pdb_mysql']['tunable']['log_bin_trust_function_creators'] = false

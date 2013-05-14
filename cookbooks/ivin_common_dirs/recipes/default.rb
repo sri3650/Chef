@@ -43,13 +43,6 @@ execute "Create the chronus lib directory" do
   not_if { ::File.exists?("/usr/local/chronus/lib") }
 end
 
-template "/etc/cron.d/ec2-snapshots" do
-  source "ec2-snapshots.erb"
-  owner "root"
-  group "root"
-  mode "644"
-end
-
 template "/etc/app.yml" do
   source "app.yml.erb"
   owner "root"
@@ -89,7 +82,7 @@ cookbook_file "/etc/logrotate.d/rsyslog" do
   mode "644"
 end
 
-cookbook_file "/usr/bin/ec2-create-snapshot" do
+cookbook_file "/usr/local/chronus/bin/ec2-create-snapshot" do
   source "ec2-create-snapshot"
   owner "root"
   group "root"
