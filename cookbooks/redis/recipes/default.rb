@@ -43,3 +43,17 @@ cookbook_file "/etc/init.d/redis" do
   group "root"
   mode "755"
 end
+
+template "/etc/cron.daily/redis_logrotate_post" do
+  source "redis_logrotate_post.erb"
+  owner "root"
+  group "root"
+  mode "755"
+end
+
+template "/etc/logrotate.d/redis" do
+  source "redis.erb"
+  owner "root"
+  group "root"
+  mode "644"
+end

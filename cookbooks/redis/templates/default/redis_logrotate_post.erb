@@ -1,0 +1,11 @@
+#!/bin/sh
+
+RAILS_ENV=`/usr/local/chronus/bin/rails_env`
+
+if [ -e /mnt/log/redis.log ] ; then
+  logfile=/mnt/log/redis.log-`date +%Y%m%d`
+  if [ -e $logfile ] ; then
+    gzip $logfile
+    /usr/local/chronus/bin/archive_file.rb --file $logfile.gz --dir logs/redis && rm $logfile.gz
+  fi
+fi

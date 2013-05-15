@@ -25,8 +25,8 @@ template "/etc/logrotate.d/nginx" do
   mode "644"
 end
 
-template "/etc/cron.daily/logrotate_post" do
-  source "logrotate_post.erb"
+template "/etc/cron.daily/webserver_logrotate_post" do
+  source "webserver_logrotate_post.erb"
   owner "root"
   group "root"
   mode "755"

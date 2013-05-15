@@ -75,6 +75,13 @@ template "/etc/logrotate.d/rails" do
   mode "644"
 end
 
+template "/etc/cron.daily/common_logrotate_post" do
+  source "common_logrotate_post.erb"
+  owner "root"
+  group "root"
+  mode "755"
+end
+
 cookbook_file "/etc/logrotate.d/rsyslog" do
   source "rsyslog"
   owner "root"

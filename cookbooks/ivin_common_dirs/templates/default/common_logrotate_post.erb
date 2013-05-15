@@ -1,0 +1,21 @@
+#!/bin/sh
+
+RAILS_ENV=`/usr/local/chronus/bin/rails_env`
+
+if [ -e /var/log/syslog ] ; then
+  logfile=/var/log/syslog-`date +%Y%m%d`
+  if [ -e $logfile ]; then
+    gzip $logfile
+    /usr/local/chronus/bin/archive_file.rb --file $logfile.gz --dir logs/rails && rm $logfile.gz
+  fi
+fi
+
+if [ -x /mnt/app/current ] ; then
+  for f in `ls /mnt/app/current/log/*.log` ; do
+    logfile=$f-`date +%Y%m%d`
+    if [ -e $logfile ] ; then
+      gzip $logfile
+      /usr/local/chronus/bin/archive_file.rb --file $logfile.gz --dir logs/rails && rm $logfile.gz
+    fi
+  done
+fi

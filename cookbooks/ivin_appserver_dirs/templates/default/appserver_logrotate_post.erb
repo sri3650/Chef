@@ -1,0 +1,8 @@
+#!/bin/sh
+
+RAILS_ENV=`/usr/local/chronus/bin/rails_env`
+
+if [ -d /mnt/app/current/config/locales ] ; then
+    tar -zcf locales-`date +%Y%m%d`.tar.gz /mnt/app/current/config/locales
+    /usr/local/chronus/bin/archive_file.rb --file locales-`date +%Y%m%d`.tar.gz --dir locales && rm "locales-`date +%Y%m%d`.tar.gz"
+fi

@@ -21,3 +21,18 @@ include_recipe "mysql::client"
 include_recipe "mysql::server"
 
 monitrc "db_primary"
+
+
+template "/etc/cron.daily/database_logrotate_post" do
+  source "database_logrotate_post.erb"
+  owner "root"
+  group "root"
+  mode "755"
+end
+
+template "/etc/logrotate.d/mysql-server" do
+  source "mysql-server.erb"
+  owner "root"
+  group "root"
+  mode "644"
+end

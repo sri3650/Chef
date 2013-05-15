@@ -32,3 +32,10 @@ end
     source "s3cfg"
   end
 end
+
+template "/etc/cron.daily/appserver_logrotate_post" do
+  source "appserver_logrotate_post.erb"
+  owner "root"
+  group "root"
+  mode "755"
+end
