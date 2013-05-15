@@ -1,0 +1,1 @@
+default[:patent_db_application][:ssl_certificate_path] = "/mnt/ssl"
