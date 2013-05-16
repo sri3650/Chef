@@ -7,7 +7,6 @@ server {
 
   passenger_enabled on;
   passenger_use_global_queue on;
-  passenger_min_instances 1;
   rails_env <%= node.chef_environment %>;
 
   root <%= "#{node[:ivin_application][:current_path]}/public" %>;
@@ -50,4 +49,55 @@ server {
   }
 }
 
-# ask satya - ivinbeta crt to be maintained ?
+<% if node.chef_environment.downcase == 'staging' #since ivinbeta certificate is only maintained in patentdb staging %>
+# HTTPS server
+server {
+  listen       443;
+  server_name  ivinbeta.intven.com;
+  rails_env    <%= node.chef_environment %>;
+  root         <%= "#{node[:ivin_application][:current_path]}/public" %>;
+  passenger_enabled  on;
+
+
+  ssl                  on;
+  ssl_certificate      <%= "#{node[:ivin_application][:ssl_certificate_path]}/cert/ivinbeta.intven.com.crt" %>;
+  ssl_certificate_key  <%= "#{node[:ivin_application][:ssl_certificate_path]}/private/ivinbeta.key" %>;
+
+  ssl_session_timeout  5m;
+
+  ssl_protocols  SSLv2 SSLv3 TLSv1;
+  ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+  ssl_prefer_server_ciphers   on;
+
+  client_max_body_size 50m;
+
+  # Public CMS redirection logic
+  rewrite ^(.*)$ /site_moved.html break;  
+
+}
+
+# HTTP server redirection
+server {
+  listen       80;
+  server_name  ivinbeta.intven.com;
+  rails_env    <%= node.chef_environment %>;
+  root         <%= "#{node[:ivin_application][:current_path]}/public" %>;
+  passenger_enabled  on;
+
+
+  ssl                  on;
+  ssl_certificate      <%= "#{node[:ivin_application][:ssl_certificate_path]}/cert/ivinbeta.intven.com.crt" %>;
+  ssl_certificate_key  <%= "#{node[:ivin_application][:ssl_certificate_path]}/private/ivinbeta.key" %>;
+
+  ssl_session_timeout  5m;
+
+  ssl_protocols  SSLv2 SSLv3 TLSv1;
+  ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+  ssl_prefer_server_ciphers   on;
+
+  client_max_body_size 50m;
+
+  # Public CMS redirection logic
+  rewrite ^(.*)$ /site_moved.html break;
+}
+<% end %>
