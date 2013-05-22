@@ -84,16 +84,11 @@ module Ec2onrails
 
     def store_file(file)
       create_bucket
-puts s3_key(file)
-puts file
-puts @bucket
-puts      AWS::S3::S3Object.store(s3_key(file), open(file), @bucket)
+      AWS::S3::S3Object.store(s3_key(file), open(file), @bucket)
     end
 
     def retrieve_file(file)
       key = s3_key(file)
-puts key
-puts @bucket
       AWS::S3::S3Object.find(key, @bucket)
       open(file, 'w') do |f|
         AWS::S3::S3Object.stream(key, @bucket) do |chunk|

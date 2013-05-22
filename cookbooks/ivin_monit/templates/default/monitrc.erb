@@ -11,7 +11,7 @@ set eventqueue
 
 set mail-format { 
   from: <%= @node[:monit][:mail_format][:from] %>
-  subject: [IVIN-<%= @node.chef_environment.capitalize %>] <%= @node[:monit][:mail_format][:subject] %>
+  subject: [IVIN-Chef-<%= @node.chef_environment.capitalize %>] <%= @node[:monit][:mail_format][:subject] %>
   message: <%= @node[:monit][:mail_format][:message] %>
 }
 
