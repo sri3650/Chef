@@ -29,12 +29,12 @@ sums = {
   "i386" => "43b60fe39123de2a0e7653128dc27e1f2943b0db38dcdb56e28e7c9cca1ff6a3",
 }
 
-file = "prince_8.0-1ubuntu10.04_#{arch}.deb"
+file = "prince_7.2-4ubuntu10.04_#{arch}.deb"
 remote_file "/tmp/#{file}" do
   source "http://www.princexml.com/download/#{file}"
   mode "0644"
   checksum sums[arch]
-  action :create_if_missing # the file's kinda big
+  action :create_if_missing
 end
 
 
@@ -59,6 +59,11 @@ end
 
 #FONTS for PRINCE
 
+execute "install msttcorefonts for prince" do
+  command "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections"
+  #have to introduce a not if. not critical though TODO 
+end
+
 package "ttf-mscorefonts-installer" do
   action :install
 end
@@ -76,7 +81,7 @@ node.default[:prince][:font_files].each do |font_file|
   end
 end
 
-cookbook_file "/usr/lib/prince/style/ivin_fonts.css" do
+cookbook_file "/usr/lib/prince/style/fonts.css" do
   source "ivin_fonts.css"
   owner "root"
   group "root"
