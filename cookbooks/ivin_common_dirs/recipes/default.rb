@@ -174,7 +174,7 @@ cookbook_file "/usr/local/chronus/lib/utils.rb" do
 end
 
 execute "Updating the host name to public" do  
-  command "/usr/local/chronus/bin/update_hostname"  
+  command "/usr/local/chronus/bin/update_hostname"
 end
 
 
