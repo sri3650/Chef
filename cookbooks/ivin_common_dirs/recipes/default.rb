@@ -75,8 +75,8 @@ template "/etc/logrotate.d/rails" do
   mode "644"
 end
 
-template "/etc/cron.daily/common_logrotate_post" do
-  source "common_logrotate_post.erb"
+template "/etc/cron.daily/post_common_logrotate" do
+  source "post_common_logrotate.erb"
   owner "root"
   group "root"
   mode "755"

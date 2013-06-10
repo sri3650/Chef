@@ -23,8 +23,8 @@ include_recipe "mysql::server"
 monitrc "db_primary"
 
 
-template "/etc/cron.daily/database_logrotate_post" do
-  source "database_logrotate_post.erb"
+template "/etc/cron.daily/post_database_logrotate" do
+  source "post_database_logrotate.erb"
   owner "root"
   group "root"
   mode "755"

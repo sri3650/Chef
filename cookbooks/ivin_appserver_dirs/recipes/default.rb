@@ -33,8 +33,8 @@ end
   end
 end
 
-template "/etc/cron.daily/appserver_logrotate_post" do
-  source "appserver_logrotate_post.erb"
+template "/etc/cron.daily/post_appserver_logrotate" do
+  source "post_appserver_logrotate.erb"
   owner "root"
   group "root"
   mode "755"
