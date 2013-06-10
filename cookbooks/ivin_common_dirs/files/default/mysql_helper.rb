@@ -59,7 +59,7 @@ module Ec2onrails
       end
       cmd += " -p'#{@password}' " unless @password.nil?
       cmd += " #{@database} | gzip > #{out_file}"
-      Utils.run cmd    
+      Utils.run cmd
     end
     
     def load_from_dump(in_file)
