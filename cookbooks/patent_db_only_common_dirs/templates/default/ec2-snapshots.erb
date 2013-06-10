@@ -1,5 +1,5 @@
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-# EBS Snapshot. Once in 12 hours
+# EBS Snapshot. Once in a month
 17 07 15 * * root  date >> <%= node.default[:patentdb_application][:snapshot_log_path] %>/snapshots.log && /usr/local/chronus/bin/ec2-create-snapshot <%= node.default[:patentdb_application][:snapshot_log_path] %>/ec2-snapshots.ebs_vol_id "IVIN-PatentDB-<%= node.chef_environment.capitalize %>-10.04 EBS" >> <%= node.default[:patentdb_application][:snapshot_log_path] %>/snapshots.log 2>&1
 
 # Clean old EBS Snapshots. Once in a day
