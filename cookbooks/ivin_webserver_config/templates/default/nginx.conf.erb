@@ -46,7 +46,7 @@ http {
     gzip_disable <%= @passenger[:gzip_disable] %>;
   <% end %>
 
-  # Set the max size for file uploads to 50Mb
-  client_max_body_size 50M;
+  # Set the max size for file uploads to 150Mb
+  client_max_body_size 150M;
   include sites.d/*.conf;
 }
