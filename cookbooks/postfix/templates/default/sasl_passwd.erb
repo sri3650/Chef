@@ -1,6 +1,2 @@
-<% if node.default['chronus_mentor_application']['mail']['include_compaign'] == true -%>
-<%= node['postfix']['smtp_relayhost_mailgun'] %> <%= node['postfix']['smtp_sasl_mailgun_user_name']%>:<%= node['postfix']['smtp_sasl_mailgun_passwd']%>
-<% else -%>
-<%= node['postfix']['smtp_relayhost_mailgun'] %> <%= node['postfix']['smtp_sasl_mailgun_non_campaign_user_name']%>:<%= node['postfix']['smtp_sasl_mailgun_non_campaign_passwd']%>
-<% end -%>
+<%= node['postfix']['smtp_relayhost_mailgun'] %> <%= node['ivin_application']['smtp_sasl_mailgun_user_name'] %>:<%= node['ivin_application']['smtp_sasl_mailgun_passwd']%>
 <%= node['postfix']['smtp_relayhost_authsmtp'] %> <%= node['postfix']['smtp_sasl_authsmtp_user_name']%>:<%= node['postfix']['smtp_sasl_authsmtp_passwd']%>

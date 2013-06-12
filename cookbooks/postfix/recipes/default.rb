@@ -57,6 +57,13 @@ template "/etc/postfix/relayhost_maps.regexp" do
   mode 0644
 end
 
+template "/etc/postfix/relayhost_maps" do
+  source "relayhost_maps.erb"
+  owner "root"
+  group "root"
+  mode 0644
+end
+
 include_recipe "postfix::sasl_auth"
 
 service "postfix" do
