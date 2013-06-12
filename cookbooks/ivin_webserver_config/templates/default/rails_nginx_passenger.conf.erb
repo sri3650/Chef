@@ -2,8 +2,8 @@ server {
   listen 80;
   server_name <%= node['ivin_application']['server_name'] %>
 
-  # Set the max size for file uploads to 50Mb
-  client_max_body_size 50M;
+  # Set the max size for file uploads to 150Mb
+  client_max_body_size 150M;
 
   passenger_enabled on;
   passenger_use_global_queue on;
@@ -76,8 +76,8 @@ server {
   listen 443;
   server_name <%= node['ivin_application']['server_name'] %>
 
-  # Set the max size for file uploads to 50Mb
-  client_max_body_size 50M;
+  # Set the max size for file uploads to 150Mb
+  client_max_body_size 150M;
 
   passenger_enabled on;
   passenger_min_instances 1;
