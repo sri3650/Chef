@@ -7,13 +7,13 @@ myhostname = <%= node['postfix']['myhostname'] %>
 mydomain = <%= node['postfix']['mydomain'] %>
 myorigin = <%= node['postfix']['myorigin'] %>
 
-smtpd_banner = $myhostname ESMTP $mail_name 
+smtpd_banner = $myhostname ESMTP $mail_name
 biff = no
 append_dot_mydomain = yes
 
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
-mydestination = <%= node['postfix']['myhostname'] %>, <%= node['hostname'] %>, localhost.localdomain, localhost
+mydestination = localdomain, localhost, localhost.localdomain, localhost
 mynetworks = <%= node['postfix']['mail_relay_networks'] %>
 mailbox_size_limit = 0
 recipient_delimiter = +
@@ -28,6 +28,7 @@ smtp_sasl_auth_enable = <%= node['postfix']['smtp_sasl_auth_enable'] %>
 smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
 smtp_sasl_security_options = <%= node['postfix']['smtp_sasl_security_options'] %>
 <% end -%>
+
 default_destination_concurrency_limit = <%= node['postfix']['default_destination_concurrency_limit'] %>
 
 soft_bounce = <%= node['postfix']['soft_bounce'] %>

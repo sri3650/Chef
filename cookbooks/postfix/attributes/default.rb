@@ -29,7 +29,7 @@ default['postfix']['smtp_sasl_security_options'] = "noanonymous"
 default['postfix']['smtp_tls_cafile'] = "/etc/postfix/cacert.pem"
 default['postfix']['smtp_use_tls']    = "yes"
 
-default['postfix']['smtp_relayhost_authsmtp'] = "[mail.authsmtp.com]"
+default['postfix']['smtp_relayhost_authsmtp'] = "[mail.authsmtp.com]:2525"
 default['postfix']['smtp_connection_cache_destinations']  = "mail.authsmtp.com"
 default['postfix']['header_size_limit']  = 4096000
 default['postfix']['soft_bounce'] = "yes"
