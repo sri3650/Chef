@@ -27,18 +27,7 @@ More info at:
 
 http://docs.opscode.com/knife.html
 
-## Commands Quick Reference
-
-### Upload Cookbooks to Chef Server
-
-Use the following command to upload a specific cookbook to the Chef server from the workstation
-
-```console
-knife cookbook upload <cookbook-name>
-```
-
-### Update the node to the expected state
-### chef-client
+## chef-client
 
 A chef-client is an agent that runs locally on every node that is registered with the Chef Server. When a chef-client is run, it will perform all of the steps that are required to bring the node into the expected state, including:
 
@@ -49,8 +38,16 @@ Compiling the resource collection by loading each of the required cookbooks, inc
 Taking the appropriate and required actions to configure the node
 Looking for exceptions and notifications, handling each as required
 
-Use the following command in the terminal from the node machine
+## Commands Quick Reference
 
-```console
-sudo chef-client
-```
+### From Workstation
+
+Action|Command
+------|-------
+Upload cookbook to Chef Server|```knife cookbook upload <cookbook-name>```
+
+### From Node
+
+Action|Command
+------|-------
+Synchronise cookbooks with the chef server|```sudo chef-client```
