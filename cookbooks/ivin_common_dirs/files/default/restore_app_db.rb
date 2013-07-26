@@ -38,6 +38,8 @@ dir = ARGV.flags.dir || "database"
 name = ARGV.flags.name
 timestamp = ARGV.flags.timestamp
 @s3 = Ec2onrails::S3Helper.new(bucket, dir)
+puts "Rails Environment : #{@s3.rails_env}"
+puts "S3 Bucket : #{@s3.bucket}"
 @mysql = Ec2onrails::MysqlHelper.new
 @temp_dir = "/mnt/tmp/ec2onrails-backup-#{@s3.bucket}-#{dir.gsub(/\//, "-")}"
 if File.exists?(@temp_dir)
@@ -53,6 +55,15 @@ begin
     file = "#{@temp_dir}/dump.sql.gz"
   end
   @s3.retrieve_file(file)
+  puts "S3 Dump File Retrieved : #{@s3.s3_key(file)}"
+  puts "MySQL User : #{@mysql.user}"
+  puts "MySQL Database : #{@mysql.database}"
+  print "Enter name of MySQL database : "
+  database_name = gets.chomp
+  if database_name.strip != @mysql.database
+    puts "Database names do not match, Aborting."
+    exit
+  end
   @mysql.load_from_dump(file)
   
   @s3.retrieve_files("mysql-bin.", @temp_dir)
@@ -60,6 +71,7 @@ begin
   logs.each {|log| @mysql.execute_binary_log(log) }
   
   @mysql.execute_sql "reset master"
+  puts "Restore Complete."
 ensure
   FileUtils.rm_rf(@temp_dir)
 end
