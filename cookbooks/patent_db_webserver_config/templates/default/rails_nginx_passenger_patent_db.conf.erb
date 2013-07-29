@@ -49,7 +49,7 @@ server {
   }
 }
 
-<% if node.chef_environment.downcase == 'staging' #since ivinbeta certificate is only maintained in patentdb staging %>
+<% if node.chef_environment.downcase == 'staging' || node.chef_environment.downcase == 'standby' #since ivinbeta certificate is only maintained in patentdb staging %>
 # HTTPS server
 server {
   listen       443;
