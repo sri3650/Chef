@@ -59,7 +59,7 @@ begin
   puts "MySQL User : #{@mysql.user}"
   puts "MySQL Database : #{@mysql.database}"
   print "Enter name of MySQL database : "
-  database_name = gets.chomp
+  database_name = STDIN.gets.chomp
   if database_name.strip != @mysql.database
     puts "Database names do not match, Aborting."
     exit
