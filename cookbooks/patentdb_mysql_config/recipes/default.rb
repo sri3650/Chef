@@ -7,6 +7,12 @@
 # All rights reserved - Do Not Redistribute
 #
 
+
+# Override Default Monit configuration for MySQL daemon
+# This is done to increase the memory limit for MySQL daemon to 3.0 GB, as the
+# default limit of 2.0 GB was insufficient during indexing in Patent DB servers
+monitrc "db_primary"
+
 template "#{node['pdb_mysql']['conf_dir']}/my.cnf" do
   source "my.cnf.erb"
   owner "root" unless platform? 'windows'
