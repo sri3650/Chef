@@ -9,5 +9,6 @@ run_list [
   "recipe[ivin_gems]",
   "recipe[ossec]",
   "recipe[postfix]",
-  "recipe[ivin_monit]"
+  "recipe[ivin_monit]",
+  "recipe[ivin_cloudwatch]"
 ]

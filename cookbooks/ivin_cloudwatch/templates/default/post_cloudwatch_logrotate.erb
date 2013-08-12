@@ -1,0 +1,11 @@
+#!/bin/sh
+
+RAILS_ENV=`/usr/local/chronus/bin/rails_env`
+
+for f in `ls <%= node.default[:ivin_application][:cloudwatch_log_path] %>/*.log` ; do
+  logfile=$f-`date +%Y%m%d`
+  if [ -e $logfile ] ; then
+    gzip $logfile
+    /usr/local/chronus/bin/archive_file.rb --file $logfile.gz --dir logs/cloudwatch && rm $logfile.gz
+  fi
+done

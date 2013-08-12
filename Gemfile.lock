@@ -73,4 +73,4 @@ PLATFORMS
 
 DEPENDENCIES
   chef (= 11.4.0)
-  knife-ec2 (~> 0.6.4)
+  knife-ec2 (= 0.6.4)

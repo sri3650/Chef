@@ -1,0 +1,7 @@
+# Rotate Cloudwatch logs
+<%= node.default[:ivin_application][:cloudwatch_log_path] %>/*.log {
+  daily
+  missingok
+  dateext
+  copytruncate
+}

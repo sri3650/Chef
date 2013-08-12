@@ -1,0 +1,3 @@
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# Send Memory statistics to Amazon Cloudwatch every minute
+* * * * * root cd <%= node.default[:ivin_application][:cloudwatch_app_path] %> && ./mon-put-instance-data.pl --mem-util --mem-used --mem-avail --disk-path=/ --disk-space-util --disk-space-used --disk-space-avail --verbose --aws-credential-file=awscreds.conf >> <%= node.default[:ivin_application][:cloudwatch_log_path] %>/cloudwatch.log 2>&1
