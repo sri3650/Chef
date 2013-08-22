@@ -35,7 +35,7 @@ http {
 
   keepalive_timeout  <%= @passenger[:keepalive_timeout] %>;
 
-  #gzip <%= @passenger[:gzip] ? 'on' : 'off' %>;
+  gzip <%= @passenger[:gzip] ? 'on' : 'off' %>;
   <% if @passenger[:gzip] %>
     gzip_http_version <%= @passenger[:gzip_http_version] %>;
     gzip_vary <%= @passenger[:gzip_vary] ? 'on' : 'off' %>;
@@ -43,7 +43,7 @@ http {
     gzip_proxied <%= @passenger[:gzip_proxied] %>;
     gzip_types <%= @passenger[:gzip_types].join(' ') %>;
     gzip_buffers <%= @passenger[:gzip_buffers] %>;
-    gzip_disable <%= @passenger[:gzip_disable] %>;
+    gzip_disable "<%= @passenger[:gzip_disable] %>";
   <% end %>
 
   # Set the max size for file uploads to 150Mb

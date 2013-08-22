@@ -19,11 +19,11 @@ default[:passenger][:tcp_nopush] = true
 default[:passenger][:tcp_nodelay] = true
 # Nginx's default is 0, but we don't want that.
 default[:passenger][:keepalive_timeout] = 65
-default[:passenger][:gzip] = false
+default[:passenger][:gzip] = true
 default[:passenger][:gzip_http_version] = "1.1"
 default[:passenger][:gzip_vary] = true
 default[:passenger][:gzip_comp_level] = "6"
-default[:passenger][:gzip_proxied] = "any"
+default[:passenger][:gzip_proxied] = "off"
 default[:passenger][:gzip_types] = [	
   "application/json",
   "application/x-javascript",
