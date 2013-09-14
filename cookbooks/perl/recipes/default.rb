@@ -80,3 +80,8 @@ else
 	#end
 
 end
+
+# # Installs CAM::PDF from CPAN
+cpan_module 'CAM::PDF' do
+  force true
+end
