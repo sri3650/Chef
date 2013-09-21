@@ -152,8 +152,7 @@ server {
 
   root <%= "#{node[:ivin_application][:current_path]}/public" %>;
   #Public CMS redirection logic
-  rewrite ^/public$ http://<%= node['ivin_application']['sellers_server_name'] %>/login/ break;
-  rewrite ^/public/.*$ http://<%= node['ivin_application']['sellers_server_name'] %>/login/ break;
+
   ssl                  on;
   ssl_certificate      <%= "#{node[:ivin_application][:ssl_certificate_path]}/cert/#{node[:ivin_application][:sellers_server_name]}.crt" %>;
   ssl_certificate_key  <%= "#{node[:ivin_application][:ssl_certificate_path]}/private/sellers_#{node.chef_environment}.key" %>;
@@ -162,18 +161,6 @@ server {
   ssl_protocols  SSLv3 TLSv1;
   ssl_ciphers  RC4-SHA:HIGH:!ADH:!MD5;
   ssl_prefer_server_ciphers   on;
-
-  location ~ (^/assets/[^ckeditor/]) {
-    expires 1y;
-    add_header Cache-Control public;
-
-    # Some browsers still send conditional-GET requests if there's a
-    # Last-Modified header or an ETag header even if they haven't
-    # reached the expiry date sent in the Expires header.
-    add_header Last-Modified "";
-    add_header ETag "";
-    break;
-  }
 
   # this allows people to use images and css in their maintenance.html file
   if ($request_filename ~* \.(css|jpg|gif|png)$) {
