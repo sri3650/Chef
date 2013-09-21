@@ -138,3 +138,70 @@ server {
     rewrite  ^(.*)$  /system/maintenance.html break;
   }
 }
+
+server {
+  listen 443;
+  server_name <%= node['ivin_application']['sellers_server_name'] %>
+
+  # Set the max size for file uploads to 150Mb
+  client_max_body_size 150M;
+
+  passenger_enabled on;
+  passenger_min_instances 1;
+  rails_env <%= node.chef_environment %>;
+
+  root <%= "#{node[:ivin_application][:current_path]}/public" %>;
+  #Public CMS redirection logic
+  rewrite ^/public$ http://<%= node['ivin_application']['sellers_server_name'] %>/login/ break;
+  rewrite ^/public/.*$ http://<%= node['ivin_application']['sellers_server_name'] %>/login/ break;
+  ssl                  on;
+  ssl_certificate      <%= "#{node[:ivin_application][:ssl_certificate_path]}/cert/#{node[:ivin_application][:sellers_server_name]}.crt" %>;
+  ssl_certificate_key  <%= "#{node[:ivin_application][:ssl_certificate_path]}/private/sellers_#{node.chef_environment}.key" %>;
+  ssl_session_cache   shared:SSL:10m;
+  ssl_session_timeout  10m;
+  ssl_protocols  SSLv3 TLSv1;
+  ssl_ciphers  RC4-SHA:HIGH:!ADH:!MD5;
+  ssl_prefer_server_ciphers   on;
+
+  location ~ (^/assets/[^ckeditor/]) {
+    expires 1y;
+    add_header Cache-Control public;
+
+    # Some browsers still send conditional-GET requests if there's a
+    # Last-Modified header or an ETag header even if they haven't
+    # reached the expiry date sent in the Expires header.
+    add_header Last-Modified "";
+    add_header ETag "";
+    break;
+  }
+
+  # this allows people to use images and css in their maintenance.html file
+  if ($request_filename ~* \.(css|jpg|gif|png)$) {
+    break;
+  }
+
+  # this allows the /nginx_status page to work, even if the maintenance
+  # page is up.
+  if ($uri ~* "^/nginx_status") {
+    break;
+  }
+
+  # this allows a url /warmup that can be used to cause Passenger to
+  # restart after restart.txt has been touched, even if the maintenance
+  # page is up.
+  if ($uri ~* "^/warmup") {
+    break;
+  }
+
+  # this rewrites all the requests to the maintenance.html
+  # page if it exists in the doc root. This is for capistrano's
+  # disable web task
+  if (-f $document_root/system/maintenance.html) {
+    return 503;
+  }
+
+  error_page 503 @503;
+  location @503 {
+    rewrite  ^(.*)$  /system/maintenance.html break;
+  }
+}
