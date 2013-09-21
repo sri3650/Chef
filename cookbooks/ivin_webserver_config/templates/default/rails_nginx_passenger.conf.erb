@@ -151,7 +151,6 @@ server {
   rails_env <%= node.chef_environment %>;
 
   root <%= "#{node[:ivin_application][:current_path]}/public" %>;
-  #Public CMS redirection logic
 
   ssl                  on;
   ssl_certificate      <%= "#{node[:ivin_application][:ssl_certificate_path]}/cert/#{node[:ivin_application][:sellers_server_name]}.crt" %>;
