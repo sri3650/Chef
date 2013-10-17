@@ -10,7 +10,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # This does not work in app cron as it will create folders in tmp directory
 */5 * * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake net_docs:republish_all RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/net_docs_republish_all.log 2>&1
 
-#This runs from root as we do not want to get the log in mailgun. It runs once in every 6 hours
-0 */4 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake translation:translation_file_monitor RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/translation.log 2>&1
-
 13,43 * * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake delayed_job_monit:notify RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/delayed_job_notify.log 2>&1
