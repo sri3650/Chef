@@ -4,7 +4,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # m h  dom mon dow   command
 0,30 * * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake ivin:cleanup_sessions RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/cleanup_sessions.log 2>&1
-*/10 * * * * cd /mnt/app/current && if [ -e /tmp/echosign_refresh ]; then /bin/bash -l -c 'bundle exec rake esign:refresh RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/esign.log 2>&1 ; fi
 */5 * * * *  cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake salesforce:scrap RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/salesforce_scrapper.log 2>&1
 6 * * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake rfi:extract RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/extraction_cron.log  2>&1
 5 22 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake salesforce_invention:daily_notify_status_changes RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >>/mnt/app/shared/log/salesforce_invention_daily_notify_status_changes.log 2>&1
@@ -14,8 +13,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 0 * * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake queue_monit:notify  RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/queue_monit_notify_failures.log 2>&1
 15 8 * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake statements:extract RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/netdocs_statements_cron_log.log 2>&1
 45 9 * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake statements:notify RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/statements_notification_cron_log.log 2>&1
-0 * * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake echosign:remind_user_sign_echosign_document RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/remind_user_sign_echosign_document.log.log 2>&1
-0 * * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake co_inventor:remind_about_pending_approval RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/co_inventors_pending_approval_reminder.log.log 2>&1
 11,41 * * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake cron_ts:index RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/indexer_cron.log 2>&1
 23 16,19,22 * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake inventor_level:slot RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/inventor_level_slot.log  2>&1
 27 */4 * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake recommended_inventors:cache_build RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/recommended_inventors_cache_build.log  2>&1
