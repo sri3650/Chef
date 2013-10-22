@@ -21,7 +21,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 25 4 * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake inventor_stock_price:populate_stock_prices RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/populate_stock_prices.log  2>&1
 #*/15 * * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake candidates:handle_warning_and_expire  RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/candidate_expire_now.log 2>&1
 #17 13 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake recruiter:detecting_duplicates RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/recruiter_detecting_duplicates.log 2>&1
-#0 */4 * * * cd /mnt/app/current/script && /bin/bash -l -c 'bundle exec ruby airbrake_error_notifier.rb' >> /mnt/app/shared/log/airbrake_notifier_cron.log 2>&1
+0 */4 * * * cd /mnt/app/current/script && /bin/bash -l -c 'bundle exec ruby airbrake_error_notifier.rb' >> /mnt/app/shared/log/airbrake_notifier_cron.log 2>&1
 #27 13 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake suggested_contact_notifier:notify_community_manager RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/suggested_contact_notifier.log 2>&1
 37 13 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake permission_expiry_notification:daily_notification RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/permission_expiry_notification.log 2>&1
 #5 21 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake rfi:notification:send_daily_notification RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/rfi_notification_cron.log 2>&1
