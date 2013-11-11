@@ -13,8 +13,7 @@ http {
   <% @passenger[:pre_start].each do |url| %>
   passenger_pre_start <%= url %>;
   <% end %>
-  rails_framework_spawner_idle_time 0;
-  rails_app_spawner_idle_time 0;
+  passenger_max_preloader_idle_time 0;
 
   include mime.types;
   default_type application/octet-stream;

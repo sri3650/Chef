@@ -6,7 +6,6 @@ server {
   client_max_body_size 150M;
 
   passenger_enabled on;
-  passenger_use_global_queue on;
   passenger_min_instances 1;
   rails_env <%= node.chef_environment %>;
 
