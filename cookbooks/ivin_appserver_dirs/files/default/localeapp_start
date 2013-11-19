@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cd /mnt/app/current && sudo -u app RAILS_ENV=`/usr/local/chronus/bin/rails_env` bundle exec localeapp daemon -b
+cd /mnt/app/current && sudo -u app RAILS_ENV=`/usr/local/chronus/bin/rails_env` DEBUG=true bundle exec localeapp daemon -b 2>> /mnt/app/shared/log/localeapp_error.log
