@@ -31,6 +31,7 @@ module Ec2onrails
     attr_accessor :database
     attr_accessor :user
     attr_accessor :password
+    attr_accessor :host
 
     def initialize(config_file = DEFAULT_CONFIG_FILE, rails_env = Utils.rails_env)
       @rails_env = rails_env
@@ -42,6 +43,7 @@ module Ec2onrails
       @database = db_config['database']
       @user = db_config['username']
       @password = db_config['password']
+      @host = db_config['host']
     end
 
     def execute_sql(sql)
@@ -49,6 +51,7 @@ module Ec2onrails
       raise "sql not given" unless sql
       cmd = %{mysql -u #{@user} -e "#{sql}"}
       cmd += " -p'#{@password}' " unless @password.nil?
+      cmd += " -h'#{@host}' " unless @host.nil?
       Utils.run cmd
     end
     
@@ -58,6 +61,7 @@ module Ec2onrails
         cmd += " --flush-logs --master-data=2 --delete-master-logs "
       end
       cmd += " -p'#{@password}' " unless @password.nil?
+      cmd += " -h'#{@host}' " unless @host.nil?
       cmd += " #{@database} | gzip > #{out_file}"
       Utils.run cmd
     end
@@ -65,6 +69,7 @@ module Ec2onrails
     def load_from_dump(in_file)
       cmd = "gunzip -c #{in_file} | mysql -u#{@user} "
       cmd += " -p'#{@password}' " unless @password.nil?
+      cmd += " -h'#{@host}' " unless @host.nil?
       cmd += " #{@database}"
       Utils.run cmd
     end
@@ -72,6 +77,7 @@ module Ec2onrails
     def execute_binary_log(log_file)
       cmd = "mysqlbinlog --database=#{@database} #{log_file} | mysql -u#{@user} "
       cmd += " -p'#{@password}' " unless @password.nil?
+      cmd += " -h'#{@host}' " unless @host.nil?
       Utils.run cmd
     end
   end

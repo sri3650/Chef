@@ -1,0 +1,3 @@
+# Full backup every day at 05:01, reset the binary logs.
+# First kill any backup that happens to be in progress
+1 5 * * *  root  killall -q -u root backup_app_db.rb ; /usr/local/chronus/bin/backup_app_db.rb >> /mnt/log/mysql_backup.log 2>&1
