@@ -37,3 +37,13 @@ cookbook_file "#{ssl_cert_path}/private/sellers_#{node.chef_environment}.key" do
   source "ssl_credentials/#{node.chef_environment}/sellers_#{node.chef_environment}.key"
   mode "644"
 end
+
+cookbook_file "#{ssl_cert_path}/cert/#{node[:ivin_application][:idf_server_name]}.crt" do
+  source "ssl_credentials/#{node.chef_environment}/#{node[:ivin_application][:idf_server_name]}.crt"
+  mode "644"
+end
+
+cookbook_file "#{ssl_cert_path}/private/idf_#{node.chef_environment}.key" do
+  source "ssl_credentials/#{node.chef_environment}/idf_#{node.chef_environment}.key"
+  mode "644"
+end
