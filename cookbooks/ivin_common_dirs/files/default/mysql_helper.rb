@@ -56,7 +56,7 @@ module Ec2onrails
     end
     
     def dump(out_file, reset_logs)
-      cmd = "mysqldump --max_allowed_packet=1000M --quick --single-transaction --create-options -u#{@user} "
+      cmd = "mysqldump --max_allowed_packet=64M --quick --single-transaction --create-options -u#{@user} "
       if reset_logs
         cmd += " --flush-logs --master-data=2 --delete-master-logs "
       end
