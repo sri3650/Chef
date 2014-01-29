@@ -2,12 +2,15 @@ bash -c '
 <%= "export http_proxy=\"#{knife_config[:bootstrap_proxy]}\"" if knife_config[:bootstrap_proxy] -%>
 
 if [ ! -f /usr/local/bin/chef-client ]; then
-  . /etc/lsb-release
-  echo "deb http://apt.unboxedconsulting.com/ $DISTRIB_CODENAME main" > /etc/apt/sources.list.d/unboxed.list
-  wget -O - http://apt.unboxedconsulting.com/release.asc | apt-key add -
-  apt-get update
-  apt-get install -y build-essential wget zlib1g-dev libssl-dev libffi-dev
-  apt-get -y install ubxd-ruby1.9.3
+  apt-get -y update
+  apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev
+  cd /tmp
+  wget http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz
+  tar -xvzf ruby-2.0.0-p353.tar.gz
+  cd ruby-2.0.0-p353/
+  ./configure --prefix=/usr/local
+  make
+  make install
   apt-get install build-essential
 fi
 
