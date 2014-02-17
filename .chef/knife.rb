@@ -10,6 +10,6 @@ chef_server_url          "https://api.opscode.com/organizations/#{org_name}"
 cache_type               'BasicFile'
 cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
 cookbook_path            ["#{current_dir}/../cookbooks"]
-knife[:aws_access_key_id]     = "AKIAICKFZHGS3GMK4WYA"
-knife[:aws_secret_access_key] = "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"
+knife[:aws_access_key_id]     = "AKIAJ7IQBBZD4AHQXIDA"
+knife[:aws_secret_access_key] = "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"
 chef_client_path '/usr/local/bin/chef-client'
