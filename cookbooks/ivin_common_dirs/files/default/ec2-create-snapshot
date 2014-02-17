@@ -9,7 +9,7 @@ echo "$SCRIPT_NAME called on `date`"
 
 if [ -e "$EBS_VOL_ID_FILE" ] ; then
   EBS_VOL_ID=`cat $EBS_VOL_ID_FILE`
-  ec2-consistent-snapshot --mysql --description "$SNAPSHOT_DESC" $EBS_VOL_ID
+  ec2-consistent-snapshot --description "$SNAPSHOT_DESC" $EBS_VOL_ID
 else
   echo "$SCRIPT_NAME : Volume ID file $EBS_VOL_ID_FILE is not configured. Skipping Snapshot"
 fi
