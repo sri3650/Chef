@@ -28,7 +28,7 @@ begin
 
   # Rotate Keys
   begin
-    keys_file = current_user == "root" ? "/root/.ssh/authorized_keys2" : "/home/#{current_user}/.ssh/authorized_keys2"
+    keys_file = current_user == "root" ? "/root/.ssh/authorized_keys" : "/home/#{current_user}/.ssh/authorized_keys"
     backup_keys_file = "#{keys_file}.backup_#{Time.now.to_i}"
 
     # Backing up old keys file
