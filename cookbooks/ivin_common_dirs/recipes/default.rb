@@ -197,3 +197,10 @@ cookbook_file "/home/#{deploy_user}/.ssh/config" do
   owner deploy_user
   group deploy_user
 end
+
+cookbook_file "/usr/local/chronus/bin/pull_ssh_keys.rb" do
+  source "pull_ssh_keys.rb"
+  owner "root"
+  group "root"
+  mode "755"
+end
