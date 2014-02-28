@@ -11,3 +11,5 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 */5 * * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake net_docs:republish_all RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/net_docs_republish_all.log 2>&1
 
 13,43 * * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake delayed_job_monit:notify RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/delayed_job_notify.log 2>&1
+
+# DO NOT ADD ANY CRONS BELOW THIS LINE, PLEASE ADD THEM BEFORE THIS LINE

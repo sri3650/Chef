@@ -5,3 +5,5 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # m h  dom mon dow   command
 0,30 * * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake ivin:cleanup_sessions RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/cleanup_sessions.log 2>&1
 21 * * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake cron_ts:index RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/indexer_cron.log 2>&1
+
+# DO NOT ADD ANY CRONS BELOW THIS LINE, PLEASE ADD THEM BEFORE THIS LINE
