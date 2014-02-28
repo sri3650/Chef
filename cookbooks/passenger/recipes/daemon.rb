@@ -29,6 +29,19 @@ template "/usr/local/bin/ruby_tuned" do
   )
 end
 
+remote_file "#{node[:passenger][:headers_more_module_path]}.tar.gz" do
+  source node[:passenger][:headers_more_module_url]
+  checksum node[:passenger][:headers_more_module_checksum]
+  owner "root"
+  group "root"
+  mode 0644
+end
+
+execute "extract https-more-module" do
+  command "tar -xvzf #{node[:passenger][:headers_more_module_path]}.tar.gz -C /tmp/"
+  not_if "test -d #{node[:passenger][:headers_more_module_path]}"
+end
+
 bash "install passenger/nginx" do
   user "root"
   code <<-EOH

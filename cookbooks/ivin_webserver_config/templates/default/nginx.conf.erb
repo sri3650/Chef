@@ -36,6 +36,10 @@ http {
 
   server_tokens off;
 
+  # Removes Server Information from Response Headers
+  more_clear_headers 'Server';
+  more_clear_headers 'X-Powered-By';
+
   gzip <%= @passenger[:gzip] ? 'on' : 'off' %>;
   <% if @passenger[:gzip] %>
     gzip_http_version <%= @passenger[:gzip_http_version] %>;
