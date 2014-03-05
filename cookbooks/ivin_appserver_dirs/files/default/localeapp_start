@@ -1,3 +1,9 @@
 #!/bin/sh
 
+# Monit creates a blank environment for running any start or stop script
+# These environment variables are required while starting localeapp daemon
+# Add other environment variables if required
+export LANG=en_US.UTF-8
+export PATH=/usr/local/sbin:/usr/local/bin:$PATH
+
 cd /mnt/app/current && sudo -u app RAILS_ENV=`/usr/local/chronus/bin/rails_env` DEBUG=true bundle exec localeapp daemon -b 2>> /mnt/app/shared/log/localeapp_error.log
