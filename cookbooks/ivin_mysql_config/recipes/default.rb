@@ -24,5 +24,11 @@ template "#{node['ivin_mysql']['conf_dir']}/my.cnf" do
 end
 
 service "mysql" do
-  action :start
+  # MySQL daemon runs in Standby only and not in Staging and Production
+  # Skip starting the service if run from Staging and Production
+  unless node['ivin_mysql']['reload_action'] == 'none'
+    action :start
+  else
+    action :nothing
+  end
 end
