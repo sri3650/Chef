@@ -28,6 +28,5 @@ default[:common_packages] = %w(
   vim
   wget
   xfsprogs
-  libqt4-dev
   xmlsec1
 )
