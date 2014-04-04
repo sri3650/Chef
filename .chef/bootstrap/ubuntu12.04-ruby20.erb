@@ -3,7 +3,7 @@ bash -c '
 
 if [ ! -f /usr/local/bin/chef-client ]; then
   apt-get -y update
-  apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev
+  apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev libffi-dev sqlite3 libsqlite3-dev libxml2-dev libxslt1-dev libreadline-dev libcurl4-openssl-dev libncurses5-dev libgdbm-dev
   cd /tmp
   wget http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz
   tar -xvzf ruby-2.0.0-p353.tar.gz
