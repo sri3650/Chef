@@ -43,6 +43,8 @@ package "libgif4"
 package "libtiff4"
 package "libfontconfig1"
 package "libcurl3"
+package "libjpeg62"
+package "libssl0.9.8"
 
 dpkg_package "prince" do
   source "/tmp/#{file}"
