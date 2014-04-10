@@ -11,8 +11,10 @@ if [ ! -f /usr/local/bin/chef-client ]; then
   ./configure --prefix=/usr/local
   make
   make install
-  apt-get install build-essential
 fi
+
+# Disable crons
+/etc/init.d/cron stop
 
 ohai_installed=`gem list -i ohai`
 if [ "$ohai_installed" != "true" ] ; then 
