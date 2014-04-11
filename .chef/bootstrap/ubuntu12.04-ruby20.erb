@@ -3,19 +3,7 @@ bash -c '
 
 if [ ! -f /usr/local/bin/chef-client ]; then
   apt-get -y update
-  apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev
-
-  # Fixes vulnerability in LibYaml
-  # https://www.ruby-lang.org/en/news/2014/03/29/heap-overflow-in-yaml-uri-escape-parsing-cve-2014-2525/
-  cd /tmp
-  wget http://pyyaml.org/download/libyaml/yaml-0.1.6.tar.gz
-  tar -xzvf yaml-0.1.6.tar.gz
-  cd yaml-0.1.6/
-  ./configure
-  make
-  make install
-  ldconfig
-
+  apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev libffi-dev sqlite3 libsqlite3-dev libxml2-dev libxslt1-dev libreadline-dev libcurl4-openssl-dev libncurses5-dev libgdbm-dev
   cd /tmp
   wget http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz
   tar -xvzf ruby-2.0.0-p353.tar.gz
@@ -23,8 +11,10 @@ if [ ! -f /usr/local/bin/chef-client ]; then
   ./configure --prefix=/usr/local
   make
   make install
-  apt-get install build-essential
 fi
+
+# Disable crons
+/etc/init.d/cron stop
 
 ohai_installed=`gem list -i ohai`
 if [ "$ohai_installed" != "true" ] ; then 

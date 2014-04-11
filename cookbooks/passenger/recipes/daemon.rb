@@ -25,7 +25,8 @@ template "/usr/local/bin/ruby_tuned" do
     :ruby_heap_free_min => node[:passenger][:ruby_heap_free_min],
     :ruby_heap_slots_increment => node[:passenger][:ruby_heap_slots_increment],
     :ruby_heap_slots_growth_factor => node[:passenger][:ruby_heap_slots_growth_factor],
-    :ruby_gc_malloc_limit => node[:passenger][:ruby_gc_malloc_limit]
+    :ruby_gc_malloc_limit => node[:passenger][:ruby_gc_malloc_limit],
+    :passenger_use_ruby_native_support => node[:passenger][:passenger_use_ruby_native_support]
   )
 end
 
