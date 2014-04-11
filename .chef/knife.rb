@@ -1,5 +1,15 @@
 current_dir = File.dirname(__FILE__)
-org_name = ENV['CHEF_ENV'] == 'staging' ? 'ivin-staging' : 'chro'
+
+# Setting appropriate organisation based on environment
+org_name = case ENV['CHEF_ENV']
+           when 'production'
+             'chro'
+           when 'standby'
+             'ivin-standby'
+           else
+             'ivin-staging'
+           end
+
 log_level                :info
 log_location             STDOUT
 node_name                "ivin_chef"
