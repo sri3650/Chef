@@ -25,6 +25,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 37 13 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake permission_expiry_notification:daily_notification RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/permission_expiry_notification.log 2>&1
 #5 21 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake rfi:notification:send_daily_notification RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/rfi_notification_cron.log 2>&1
 0 8 * * 0 cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake cdg_publisher:publish RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/cdg_publisher_cron.log 2>&1
-0 14 * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake filings:populate_relecura_match_using_best_guess_identifier RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/filings_relecura_match.log 2>&1
+*/15 * * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake filings:populate_relecura_match_using_best_guess_identifier RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/filings_relecura_match.log 2>&1
 
 # DO NOT ADD ANY CRONS BELOW THIS LINE, PLEASE ADD THEM BEFORE THIS LINE
