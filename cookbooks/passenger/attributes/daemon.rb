@@ -54,6 +54,3 @@ default[:passenger][:ruby_heap_free_min] = 125000
 default[:passenger][:ruby_heap_slots_increment] = 150000
 default[:passenger][:ruby_heap_slots_growth_factor] = 1
 default[:passenger][:ruby_gc_malloc_limit] = 80000000
-
-# Disable Passenger Native Support, as it had caused Segmentation Faults during testing
-default[:passenger][:passenger_use_ruby_native_support] = 0

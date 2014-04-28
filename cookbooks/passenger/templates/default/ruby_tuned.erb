@@ -6,6 +6,5 @@ export RUBY_FREE_MIN=<%= @ruby_heap_free_min %>
 export RUBY_HEAP_SLOTS_INCREMENT=<%= @ruby_heap_slots_increment %>
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=<%= @ruby_heap_slots_growth_factor %>
 export RUBY_GC_MALLOC_LIMIT=<%= @ruby_gc_malloc_limit %>
-export PASSENGER_USE_RUBY_NATIVE_SUPPORT=<%= @passenger_use_ruby_native_support %>
 
 exec "/usr/local/bin/ruby" "$@"
