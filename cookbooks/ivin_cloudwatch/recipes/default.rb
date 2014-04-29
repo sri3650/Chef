@@ -61,7 +61,7 @@ template "/etc/cron.d/cloudwatch" do
   source "cloudwatch.erb"
   owner "root"
   group "root"
-  mode "775"
+  mode "755"
 end
 
 template "/etc/logrotate.d/cloudwatch" do

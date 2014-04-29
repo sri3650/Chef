@@ -13,6 +13,7 @@ default[:common_packages] = %w(
   less
   libpcre3-dev
   libssl-dev
+  openssl
   libxml2
   libxml2-dev
   libxslt1-dev
@@ -28,6 +29,5 @@ default[:common_packages] = %w(
   vim
   wget
   xfsprogs
-  libqt4-dev
   xmlsec1
 )

@@ -16,8 +16,6 @@ default[:packages] = %w(
   automake
   imagemagick
   libmagickwand-dev
-  libxapian15
-  libxapian-ruby1.8
   logtail
   g++
   graphicsmagick

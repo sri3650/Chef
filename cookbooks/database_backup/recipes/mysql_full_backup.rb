@@ -11,5 +11,5 @@ cookbook_file "/etc/cron.d/mysql_full_backup" do
   source "mysql_full_backup"
   owner "root"
   group "root"
-  mode "775"
+  mode "755"
 end

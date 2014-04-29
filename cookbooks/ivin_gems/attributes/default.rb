@@ -4,5 +4,6 @@ default[:gems] = [
   ["optiflag", "0.7"], 
   ["aws-s3"],
   ["amazon-ec2"],
-  ["dotenv"]
+  ["dotenv"],
+  ["rake", "10.1.0", {:force => true}]
 ]

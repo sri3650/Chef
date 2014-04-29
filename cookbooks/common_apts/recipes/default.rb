@@ -8,8 +8,11 @@
 #
 
 #resize filesystem
-execute "resize2fs" do
-  command "sudo resize2fs /dev/sda1"
+["/dev/sda1", "/dev/xvda1"].each do |file_system|
+  execute "resize2fs #{file_system}" do
+    command "sudo resize2fs #{file_system}"
+    only_if "test -b #{file_system}"
+  end
 end
 
 # Run apt-get update to create the stamp file
