@@ -1,6 +1,6 @@
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # EBS Snapshot. Once in 12 hours
-31 1,13 * * * root  date >> <%= node.default[:ivin_application][:snapshot_log_path] %>/snapshots.log && /usr/local/chronus/bin/ec2-create-snapshot <%= node.default[:ivin_application][:snapshot_log_path] %>/ec2-snapshots.ebs_vol_id "IVIN-<%= node.chef_environment.capitalize %>-10.04 EBS" >> <%= node.default[:ivin_application][:snapshot_log_path] %>/snapshots.log 2>&1
+31 1,13 * * * root  date >> <%= node.default[:ivin_application][:snapshot_log_path] %>/snapshots.log && /usr/local/chronus/bin/ec2-create-snapshot <%= node.default[:ivin_application][:snapshot_log_path] %>/ec2-snapshots.ebs_vol_id "IVIN-<%= node.chef_environment.capitalize %>-12.04 EBS" >> <%= node.default[:ivin_application][:snapshot_log_path] %>/snapshots.log 2>&1
 
 # Clean old EBS Snapshots. Once in a day
 0 0 * * * root  /usr/local/chronus/bin/ec2-delete-old-snapshots -vf <%= node.default[:ivin_application][:snapshot_log_path] %>/ec2-snapshots.ebs_vol_id -n 60 >> <%= node.default[:ivin_application][:snapshot_log_path] %>/snapshots.log 2>&1

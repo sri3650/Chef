@@ -1,6 +1,18 @@
 # Monitor Delayed worker
-check process delayed_job with pidfile /mnt/app/current/tmp/pids/delayed_job.pid
-  start program = "/mnt/app/current/script/delayed_job_start"
-  stop program = "/mnt/app/current/script/delayed_job_stop"
+check process delayed_job_1 with pidfile /mnt/app/current/tmp/pids/delayed_job.1.pid
+  start program = "/mnt/app/current/script/delayed_job_worker start -i1 --queue=default_queue"
+  stop program = "/mnt/app/current/script/delayed_job_worker stop -i1"
+  mode manual
+  group delayed_job
+
+check process delayed_job_2 with pidfile /mnt/app/current/tmp/pids/delayed_job.2.pid
+  start program = "/mnt/app/current/script/delayed_job_worker start -i2 --queue=keywords_queue"
+  stop program = "/mnt/app/current/script/delayed_job_worker stop -i2"
+  mode manual
+  group delayed_job
+
+check process delayed_job_3 with pidfile /mnt/app/current/tmp/pids/delayed_job.3.pid
+  start program = "/mnt/app/current/script/delayed_job_worker start -i3 --queue=mpar_queue"
+  stop program = "/mnt/app/current/script/delayed_job_worker stop -i3"
   mode manual
   group delayed_job

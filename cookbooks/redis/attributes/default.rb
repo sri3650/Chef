@@ -1,10 +1,5 @@
-default[:redis][:version]      = '2.2.2'
-default[:redis][:url]          = "http://redis.googlecode.com/files/redis-#{redis[:version]}.tar.gz"
+default[:redis][:version]      = '2.8.6'
+default[:redis][:url]          = "http://download.redis.io/releases/redis-#{redis[:version]}.tar.gz"
 default[:redis][:listen_port]  = "6379"
 default[:redis][:appendonly]   = "no"
 default[:redis][:appendfsync]  = "everysec"
-default[:redis][:vm][:enabled] = "no"
-default[:redis][:vm][:max_memory]  = "0"
-default[:redis][:vm][:page_size]   = "32"
-default[:redis][:vm][:pages]       = "134217728"
-default[:redis][:vm][:max_threads] = "4"

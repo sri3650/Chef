@@ -62,6 +62,23 @@ Upload cookbook to Chef Server|```knife cookbook upload <cookbook-name>```
 Upload environment to Chef Server|```knife environment from file <file>```
 Upload role to Chef Server|```knife role from file <path-to-file>```
 
+#### Booting new servers
+
+Run the following commands to boot up a new server. The command must be run from the root of the Chef Repo in your workstation
+
+##### Staging
+
+```CHEF_ENV='staging' knife ec2 server create -I ami-0b9c9f62 -f m2.xlarge -r "role[ivin_common],role[ivin_only_common],role[db_client],role[app_server],role[web_server],role[ivin_cron]" -G staging,chef,default -E staging -S "ivin_dev_keypair" --ssh-user ubuntu --no-host-key-verify --ebs-size 40 -Z us-east-1c```
+
+##### Production
+
+```knife ec2 server create -I ami-0b9c9f62 -f m2.xlarge -r "role[ivin_common],role[ivin_only_common],role[db_client],role[app_server],role[web_server],role[ivin_cron]" -G production,chef,default -E production -S "ivin_dev_keypair" --ssh-user ubuntu --no-host-key-verify --ebs-size 40 -Z us-east-1c```
+
+##### Standby
+
+```CHEF_ENV='staging' knife ec2 server create -I ami-0b9c9f62 -f m2.xlarge -r "role[ivin_common],role[ivin_only_common],role[db],role[app_server],role[web_server],role[ivin_cron]" -G standby,chef,default -E standby -S "ivin_dev_keypair" --ssh-user ubuntu --no-host-key-verify --ebs-size 40 -Z us-east-1c```
+
+
 ### From Node
 
 Action|Command
