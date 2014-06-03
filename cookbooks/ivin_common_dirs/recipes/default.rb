@@ -206,3 +206,10 @@ cookbook_file "/usr/local/chronus/bin/pull_ssh_keys.rb" do
   group "root"
   mode "755"
 end
+
+cookbook_file "/usr/local/chronus/bin/cron_for_tddium_branches.rb" do
+  source "cron_for_tddium_branches.rb"
+  owner "app"
+  group "app"
+  mode "755"
+end
