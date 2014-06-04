@@ -82,6 +82,14 @@ template "/etc/cron.daily/post_common_logrotate" do
   mode "755"
 end
 
+template "/usr/local/chronus/bin/mailgun_log_retention.rb" do
+  source "mailgun_log_retention.rb"
+  owner "root"
+  group "root"
+  mode "755"
+end
+
+
 cookbook_file "/etc/logrotate.d/rsyslog" do
   source "rsyslog"
   owner "root"
