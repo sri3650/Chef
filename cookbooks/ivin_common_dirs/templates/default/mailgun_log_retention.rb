@@ -20,7 +20,7 @@ HOST_BASE_URI = "api.mailgun.net"
 CONFIG_FILE = "/mnt/app/current/config/credentials.yml"
 RETRY_ALLOWED_RESPONSES = [402, 500, 502, 503, 504]
 DOMAIN = "<%= node[:ivin_application][:mailgun_domain_name] %>"
-DEFAULT_URI_PATH = "/v2/chronus.com/events"
+DEFAULT_URI_PATH = "/v2/#{DOMAIN}/events"
 
 module CommandLineArgs extend OptiFlagSet
   optional_flag "bucket"
