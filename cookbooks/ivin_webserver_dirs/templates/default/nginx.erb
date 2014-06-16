@@ -6,7 +6,7 @@
   sharedscripts
   postrotate
     if [ -f /opt/nginx/logs/nginx.pid ]; then
-      /etc/init.d/nginx restart > /dev/null
+      /etc/init.d/nginx reload > /dev/null
     fi
   endscript
 }
