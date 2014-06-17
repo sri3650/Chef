@@ -3,10 +3,10 @@ description "Staging Environment of IVIN"
 
 default_attributes "ivin_application" => {
   "branch" => "r3_staging",
-  "server_name" => "ivin.chronus.com",
-  "sellers_server_name" => "sellers.chronus.com",
-  "idf_server_name" => "idf.chronus.com",
-  "smtp_sasl_mailgun_user_name" => "postmaster@chronus.com",
-  "smtp_sasl_mailgun_passwd" => "7ebn-8t4iqa0",
-  "mailgun_domain_name" => "chronus.com"
+  "server_name" => "ivin.ivinchronus.com",
+  "sellers_server_name" => "sellers.ivinchronus.com",
+  "idf_server_name" => "idf.ivinchronus.com",
+  "smtp_sasl_mailgun_user_name" => "postmaster@ivinchronus.com",
+  "smtp_sasl_mailgun_passwd" => "659pmhlqj718",
+  "mailgun_domain_name" => "ivinchronus.com"
 }
