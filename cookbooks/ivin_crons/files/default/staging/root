@@ -5,13 +5,10 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 17 */6 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake check_mail_logs:notify_permanently_deferred RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/check_mail_logs.log 2>&1
 
-12 */6 * * * sh /mnt/app/current/script/check_sphinx_logs.sh >> /mnt/app/current/log/check_sphinx_logs.log  2>&1
-
 # This does not work in app cron as it will create folders in tmp directory
 */5 * * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake net_docs:republish_all RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/net_docs_republish_all.log 2>&1
 
 # The following is no longer needed since we have moved to Elastic Search
-#0 * * * * cd /mnt/app/current && bundle exec rake cron_ts:check_inventors_count RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace >> /mnt/app/current/log/restart_cron.log 2>&1
 
 13,43 * * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake delayed_job_monit:notify RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/current/log/delayed_job_notify.log 2>&1
 
