@@ -6,5 +6,5 @@ default[:gems] = [
   ["amazon-ec2"],
   ["dotenv"],
   ["git", "1.2.6"],
-  ["rake", "10.1.0", {:force => true}]
+  ["rake", "10.3.2", {:force => true}]
 ]
