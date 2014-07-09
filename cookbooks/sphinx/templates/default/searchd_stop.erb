@@ -1,8 +1,0 @@
-#!/bin/sh
-
-. /etc/environment
-export PATH
-export RUBYLIB
-
-# Stop searchd as app
-cd /mnt/app/current && sudo -u app bundle exec rake RAILS_ENV=`/usr/local/chronus/bin/rails_env` ts:stop
