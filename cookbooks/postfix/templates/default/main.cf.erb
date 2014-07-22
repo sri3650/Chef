@@ -16,6 +16,7 @@ alias_database = hash:/etc/aliases
 mydestination = localdomain, localhost, localhost.localdomain, localhost
 mynetworks = <%= node['postfix']['mail_relay_networks'] %>
 mailbox_size_limit = 0
+message_size_limit = 26214400
 recipient_delimiter = +
 
 inet_interfaces = all
