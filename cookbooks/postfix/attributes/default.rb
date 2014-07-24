@@ -32,7 +32,10 @@ default['postfix']['smtp_use_tls']    = "yes"
 default['postfix']['smtp_relayhost_authsmtp'] = "[mail.authsmtp.com]:2525"
 default['postfix']['smtp_connection_cache_destinations']  = "mail.authsmtp.com"
 default['postfix']['header_size_limit']  = 4096000
+
+#Setting mail attchment size to 25MB
 default['postfix']['mail_attachment_size_limit'] = 26214400
+
 default['postfix']['soft_bounce'] = "yes"
 default['postfix']['smtp_sasl_authsmtp_user_name'] = "ac35265"
 default['postfix']['smtp_sasl_authsmtp_passwd']    = "znqw4tdqj"
