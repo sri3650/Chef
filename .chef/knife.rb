@@ -1,8 +1,8 @@
 current_dir = File.dirname(__FILE__)
 
 # Setting appropriate organisation based on environment
-org_name =  if ENV['CHEF_ENV'] == 'production'
-              'chro'
+org_name =  if ENV['CHEF_ENV'] == 'standby'
+              'ivin-standby'
             else
               raise Exception.new("Invalid CHEF_ENV value")
             end
