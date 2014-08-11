@@ -17,6 +17,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
+postfix_passwd = Chef::EncryptedDataBagItem.load("postfix_passwd", "passwd", secret)
+variables(:postfix_password => postfix_passwd["passwd"])
 
 package "postfix" do
   action :install

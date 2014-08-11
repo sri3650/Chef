@@ -1,2 +1,4 @@
+
 <%= node['postfix']['smtp_relayhost_mailgun'] %> <%= node['ivin_application']['smtp_sasl_mailgun_user_name'] %>:<%= node['ivin_application']['smtp_sasl_mailgun_passwd']%>
-<%= node['postfix']['smtp_relayhost_authsmtp'] %> <%= node['postfix']['smtp_sasl_authsmtp_user_name']%>:<%= node['postfix']['smtp_sasl_authsmtp_passwd']%>
+<%= node['postfix']['smtp_relayhost_authsmtp'] %> <%= node['postfix']['smtp_sasl_authsmtp_user_name']%>: <%= @postfix_password%>
+ <!-- <%= node['postfix']['smtp_sasl_authsmtp_passwd']%> -->

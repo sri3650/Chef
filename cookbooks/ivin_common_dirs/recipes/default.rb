@@ -5,6 +5,11 @@
 # Copyright 2013, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
+secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
+deploy_keys = Chef::EncryptedDataBagItem.load("deploy_keys", "id_rsa", secret)
+
+
+
 #
 execute "touch the files in syslogd-listfiles" do
   for l in command("syslogd-listfiles -a").split("\n") do
@@ -67,6 +72,8 @@ end
 # end
 
 #ask arun the abv four
+
+
 
 template "/etc/logrotate.d/rails" do
   source "rails.erb"
@@ -153,11 +160,12 @@ cookbook_file "/usr/local/chronus/bin/restore_app_db.rb" do
   mode "755"
 end
 
-cookbook_file "/usr/local/chronus/bin/update_hostname" do
-  source "update_hostname"
+template  "/usr/local/chronus/bin/update_hostname" do
+  variables(:hostName => deploy_keys["host_name"])
   owner "root"
   group "root"
   mode "755"
+  source "update_hostname.erb"
 end
 
 cookbook_file "/usr/local/chronus/lib/mysql_helper.rb" do
@@ -188,18 +196,33 @@ end
 
 # Deploy specific setup
 deploy_user = node.default[:ivin_application][:deploy_user]
-cookbook_file "/home/#{deploy_user}/.ssh/id_rsa" do
-  source "deploy_keys/id_rsa"
-  owner deploy_user
-  group deploy_user
-  mode "600"
-end
+template "/home/#{deploy_user}/.ssh/id_rsa"  do
+    variables(:idRsa => deploy_keys["id-rsa"])
+    owner deploy_user
+    group deploy_user
+    mode "600"
+    source "id_rsa.erb"
+# cookbook_file "/home/#{deploy_user}/.ssh/id_rsa" do
+#   source "deploy_keys/id_rsa"
+#   owner deploy_user
+#   group deploy_user
+#   mode "600"
+  
 
-cookbook_file "/home/#{deploy_user}/.ssh/id_rsa.pub" do
-  source "deploy_keys/id_rsa.pub"
+end
+# file "/home/#{deploy_user}/.ssh/id_rsa" do
+#   content deploy_keys["id_rsa"]
+# end
+
+# cookbook_file "/home/#{deploy_user}/.ssh/id_rsa.pub" do
+#   source "deploy_keys/id_rsa.pub"
+template "/home/#{deploy_user}/.ssh/id_rsa.pub" do 
+  variables(:idRsaPub => deploy_keys["id-rsa.pub"])
+
   owner deploy_user
   group deploy_user
   mode "644"
+  source "id_rsa.pub.erb"
 end
 
 cookbook_file "/home/#{deploy_user}/.ssh/config" do
