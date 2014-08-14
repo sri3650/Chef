@@ -8,6 +8,6 @@ default_attributes "ivin_application" => {
   "sellers_server_name" => "sellers.ivinchronus.com",
   "idf_server_name" => "idf.ivinchronus.com",
   "smtp_sasl_mailgun_user_name" => "postmaster@ivinchronus.com",
-  "smtp_sasl_mailgun_passwd" => "659pmhlqj718",
+  # "smtp_sasl_mailgun_passwd" => "659pmhlqj718",
    "mailgun_domain_name" => "ivinchronus.com"
 }

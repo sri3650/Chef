@@ -7,6 +7,6 @@ default_attributes "ivin_application" => {
   "sellers_server_name" => "sellers.intven.com",
   "idf_server_name" => "idf.intven.com",
   "smtp_sasl_mailgun_user_name" => "postmaster@intven.com",
-  "smtp_sasl_mailgun_passwd" => "62v32xayva-4",
+  # "smtp_sasl_mailgun_passwd" => "62v32xayva-4",
   "mailgun_domain_name" => "intven.com"
 }

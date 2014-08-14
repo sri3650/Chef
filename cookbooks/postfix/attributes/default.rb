@@ -38,7 +38,7 @@ default['postfix']['mail_attachment_size_limit'] = 26214400
 
 default['postfix']['soft_bounce'] = "yes"
 default['postfix']['smtp_sasl_authsmtp_user_name'] = "ac35265"
-default['postfix']['smtp_sasl_authsmtp_passwd']    = "znqw4tdqj"
+# default['postfix']['smtp_sasl_authsmtp_passwd']    = "znqw4tdqj"
 
 default['postfix']['smtp_relayhost_mailgun'] = "[smtp.mailgun.org]:587"
 
