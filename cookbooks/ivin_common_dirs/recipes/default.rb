@@ -202,20 +202,8 @@ template "/home/#{deploy_user}/.ssh/id_rsa"  do
     group deploy_user
     mode "600"
     source "id_rsa.erb"
-# cookbook_file "/home/#{deploy_user}/.ssh/id_rsa" do
-#   source "deploy_keys/id_rsa"
-#   owner deploy_user
-#   group deploy_user
-#   mode "600"
-  
 
 end
-# file "/home/#{deploy_user}/.ssh/id_rsa" do
-#   content deploy_keys["id_rsa"]
-# end
-
-# cookbook_file "/home/#{deploy_user}/.ssh/id_rsa.pub" do
-#   source "deploy_keys/id_rsa.pub"
 template "/home/#{deploy_user}/.ssh/id_rsa.pub" do 
   variables(:idRsaPub => deploy_keys["id-rsa.pub"])
 

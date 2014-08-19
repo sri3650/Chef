@@ -52,15 +52,13 @@ dpkg_package "prince" do
   source "/tmp/#{file}"
   action :install
 end
-
-# cookbook_file "/usr/lib/prince/license/license.dat" do
-  template "/usr/lib/prince/license/license.dat" do
-  variables(:license_id => princeLicense["license_id"],
+template "/usr/lib/prince/license/license.dat" do
+    variables(:license_id => princeLicense["license_id"],
              :license_signature => princeLicense["license_signature"])
-  owner "root"
-  group "root"
-  mode "644"
-  source "license.dat.erb"
+   owner "root"
+    group "root"
+    mode "644"
+    source "license.dat.erb"
 end
 
 

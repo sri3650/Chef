@@ -27,7 +27,6 @@ end
   home_dir = "/home/#{u}"
   home_dir = "/root" if u == 'root'
 
-  # cookbook_file "#{home_dir}/.s3cfg" do
   template "#{home_dir}/.s3cfg" do
     variables(:access_key => appservers_s3cfg["access_key"],
                :secret_key => appservers_s3cfg["secret_key"])

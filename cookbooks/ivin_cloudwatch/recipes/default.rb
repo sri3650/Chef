@@ -44,7 +44,6 @@ cookbook_file "#{cloudwatch_app_directory}/mon-put-instance-data.pl" do
   mode "755"
 end
 
-# cookbook_file "#{cloudwatch_app_directory}/awscreds.conf" do
 template "#{cloudwatch_app_directory}/awscreds.conf" do
   variables(:AWSAccessKeyId => cloudwatch_awscred['AWSAccessKeyId'],:AWSSecretKey => cloudwatch_awscred['AWSSecretKey'])
   owner "root"
