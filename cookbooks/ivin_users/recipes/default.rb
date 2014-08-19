@@ -6,6 +6,8 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
+aws_data = Chef::EncryptedDataBagItem.load("cloudwatch_awscred", "awscreds", secret)
 
 ubuntu_public_key_file = "/home/ubuntu/.ssh/authorized_keys"
 
@@ -58,10 +60,11 @@ cookbook_file "/root/.bashrc" do
 end
 
 template "/root/.awssecret" do
-  source "awssecret.erb"
-  mode 0644
+  variables(:AWSAccessKeyId => aws_data['AWSAccessKeyId'],:AWSSecretKey => aws_data['AWSSecretKey'])
+   mode 0644
   owner "root"
   group "root"
+  source "awssecret.erb"
 end
 
 template "/etc/sudoers" do
