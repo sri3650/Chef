@@ -21,7 +21,6 @@ secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_se
 postfix_passwd = Chef::EncryptedDataBagItem.load("postfix_passwd", "passwd", secret)
 sasl_passwd= Chef::EncryptedDataBagItem.load("postfix_passwd", "sasl_mailgun_#{node.chef_environment}", secret)
 
-
 %w{ libsasl2-2  ca-certificates}.each do |pkg|
   package pkg do
     action :install
@@ -34,7 +33,7 @@ execute "postmap-sasl_passwd" do
 end
 
 template "/etc/postfix/sasl_passwd" do
-  variables(:postfix_password => postfix_passwd["passwd"],:sasl_passwd => sasl_passwd["pass"])
+  variables(:postfix_password => postfix_passwd["passwd"], :sasl_passwd => sasl_passwd["pass"])
   source "sasl_passwd.erb"
   owner "root"
   group "root"

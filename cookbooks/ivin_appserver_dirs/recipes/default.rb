@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
-appservers_s3cfg = Chef::EncryptedDataBagItem.load("appservers_s3cfg", "cfg", secret)
+appservers_s3cfg = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
 
 cookbook_file "/usr/local/chronus/bin/localeapp_start" do
   source "localeapp_start"
@@ -28,9 +28,7 @@ end
   home_dir = "/root" if u == 'root'
 
   template "#{home_dir}/.s3cfg" do
-    variables(:access_key => appservers_s3cfg["access_key"],
-               :secret_key => appservers_s3cfg["secret_key"])
-
+    variables(:access_key => appservers_s3cfg["access_key"], :secret_key => appservers_s3cfg["secret_key"])
     owner u
     group u
     mode "0600"

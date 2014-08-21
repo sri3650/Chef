@@ -19,7 +19,6 @@
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
 princeLicense = Chef::EncryptedDataBagItem.load("prince_license", "license", secret)
 
-
 arch =
   case node[:kernel][:machine]
   when "x86_64" then "amd64"
