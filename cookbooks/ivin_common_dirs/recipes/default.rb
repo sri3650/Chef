@@ -70,8 +70,6 @@ end
 
 #ask arun the abv four
 
-
-
 template "/etc/logrotate.d/rails" do
   source "rails.erb"
   owner "root"
@@ -191,7 +189,6 @@ end
 
 
 # Deploy specific setup
-
 deploy_user = node.default[:ivin_application][:deploy_user]
 file "/home/#{deploy_user}/.ssh/id_rsa"  do
     owner deploy_user
@@ -199,6 +196,7 @@ file "/home/#{deploy_user}/.ssh/id_rsa"  do
     mode "600"
     content deploy_keys["id-rsa"]
 end
+
 file "/home/#{deploy_user}/.ssh/id_rsa.pub" do 
   owner deploy_user
   group deploy_user
