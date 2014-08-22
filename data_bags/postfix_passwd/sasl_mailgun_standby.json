@@ -1,0 +1,10 @@
+{
+  "id": "sasl_mailgun_standby",
+  "pass": {
+    "encrypted_data": "kpAz8YQJ5SeprsA3gvrWt/dVt4X5GeMhaE8UIFr3WgWeKmMTjIzVoSKCKF6W\n28tm\n",
+    "hmac": "RWeC9Qdg44NokdTqnA6AUz4CqTflGSXhB/7j8XOQv2w=\n",
+    "iv": "PnomMx1Xl/50tgi68n7hKQ==\n",
+    "version": 2,
+    "cipher": "aes-256-cbc"
+  }
+}

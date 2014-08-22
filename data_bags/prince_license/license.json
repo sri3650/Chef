@@ -1,0 +1,17 @@
+{
+  "id": "license",
+  "license_id": {
+    "encrypted_data": "Qbq/FvOErooQ/yEWkC+jCr/wJG7jgVscZDwPVJ2WXEU=\n",
+    "hmac": "kK2a6/K7VgOHjz9GjNfXk8y/1wHUmFhJclgLxCNmqUo=\n",
+    "iv": "WpUXeK/xVOb1WTMXGWeR9A==\n",
+    "version": 2,
+    "cipher": "aes-256-cbc"
+  },
+  "license_signature": {
+    "encrypted_data": "1ZB5Bj5XSRq7xxd5xydiOfIaltt3sKn++eDrRa4Xk3IQ87vEB/ebXoc0AHT9\ngZe7Pna5HgZCvZvah9SCACitCA==\n",
+    "hmac": "SycKE8G5E9Rt+tf7XQWnHjC71RmKI00Hd+H8v859eKQ=\n",
+    "iv": "3biMPqoFDChPtjliciR7Pw==\n",
+    "version": 2,
+    "cipher": "aes-256-cbc"
+  }
+}

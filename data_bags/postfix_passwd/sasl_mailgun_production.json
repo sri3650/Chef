@@ -1,0 +1,10 @@
+{
+  "id": "sasl_mailgun_production",
+  "pass": {
+    "encrypted_data": "9rqdWHE7pevBKGZRJTLxm3oAZrblmYEL6hC7PqDIoHo=\n",
+    "hmac": "X4yBgcyCGPeUMmbOBXq0UM576O7l/Q1m83qXhArqmJU=\n",
+    "iv": "fYUJip3BtbxwwImNHuZ5Pg==\n",
+    "version": 2,
+    "cipher": "aes-256-cbc"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "id": "smtp_sasl_mailgun_passwd",
+  "password": {
+    "encrypted_data": "Vo3itbnyJO+8H7a1tY1DTl9KHY7B6GvnGQRUkA7BgX90zOXlwYyOgUMro/rR\nSDmb\n",
+    "hmac": "UEHDvZBeQ7sR4fp4Oc/ok9tRrC+uWUbkMHpfnsP0aKg=\n",
+    "iv": "Pl5/wOPamaRj+ttC0wu1mQ==\n",
+    "version": 2,
+    "cipher": "aes-256-cbc"
+  }
+}

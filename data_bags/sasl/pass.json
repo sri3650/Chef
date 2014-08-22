@@ -1,0 +1,10 @@
+{
+  "id": "pass",
+  "password": {
+    "encrypted_data": "LtWij+oWSrfn5uzEUJ3vTgfKjiufci7ZneFC8DGfLBQ=\n",
+    "hmac": "q+zmfsERTTHttGP7GfNOBgSvutR8rVo6aI3LgISZkFg=\n",
+    "iv": "qpXelIRjA5JskMekLbFIYw==\n",
+    "version": 2,
+    "cipher": "aes-256-cbc"
+  }
+}
