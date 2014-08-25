@@ -5,16 +5,21 @@
 # Copyright 2014, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
-#
 package 'ntp'
 
- template 'etc/ntp.conf' do
-   source 'ntp.conf.erb'
-   notifies :restart, 'services[ntp]'
+service  'ntp' do
+ supports :status => true, :restart => true
+ action [:enable, :start]
 end
 
-service  'ntp' do
- action [:enable, :start]
+execute "restart_ntp" do
+  command "/etc/init.d/ntp restart"
+end
 
-end 
-
+cookbook_file '/etc/ntp.conf' do
+   source 'ntp.conf'
+    owner "root"
+    group "root"
+    mode "644"
+    notifies :restart, resources(:execute => "restart_ntp")
+ end
