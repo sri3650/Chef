@@ -22,5 +22,6 @@ cookbook_file '/etc/ntp.conf' do
  end
 
 service  'ntp' do
-  action [:enable, :start]
+ supports :status => true, :restart => true
+ action [:enable, :start]
 end
