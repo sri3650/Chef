@@ -6,6 +6,8 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
+cloudwatch_awscred = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
 
 node.default[:packages_for_cloudwatch].each do |name|
   package name do
@@ -42,11 +44,12 @@ cookbook_file "#{cloudwatch_app_directory}/mon-put-instance-data.pl" do
   mode "755"
 end
 
-cookbook_file "#{cloudwatch_app_directory}/awscreds.conf" do
-  source "awscreds.conf"
+template "#{cloudwatch_app_directory}/awscreds.conf" do
+  variables(:AWSAccessKeyId => cloudwatch_awscred['access_key'],:AWSSecretKey => cloudwatch_awscred['secret_key'])
   owner "root"
   group "root"
   mode "644"
+  source "awscreds.conf.erb"
 end
 
 cloudwatch_log_directory = node.default[:ivin_application][:cloudwatch_log_path]

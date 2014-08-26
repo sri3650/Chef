@@ -16,7 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
+princeLicense = Chef::EncryptedDataBagItem.load("prince_license", "license", secret)
 
 arch =
   case node[:kernel][:machine]
@@ -50,12 +51,13 @@ dpkg_package "prince" do
   source "/tmp/#{file}"
   action :install
 end
-
-cookbook_file "/usr/lib/prince/license/license.dat" do
-  source "license.dat"
-  owner "root"
-  group "root"
-  mode "644"
+template "/usr/lib/prince/license/license.dat" do
+    variables(:license_id => princeLicense["license_id"],
+             :license_signature => princeLicense["license_signature"])
+   owner "root"
+    group "root"
+    mode "644"
+    source "license.dat.erb"
 end
 
 

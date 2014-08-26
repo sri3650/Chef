@@ -1,0 +1,10 @@
+{
+  "id": "sasl_mailgun_staging",
+  "pass": {
+    "encrypted_data": "++iK/1ugHpI64cSuxPNpxa+9zXr/bO49fnohaTwsyIg=\n",
+    "hmac": "XmRJpe7tnSWN5fLoB6bii2PC8MSF9yQCnhVCHFb+Kv0=\n",
+    "iv": "RH5w4xuYxyxZNF9yoBUehg==\n",
+    "version": 2,
+    "cipher": "aes-256-cbc"
+  }
+}
