@@ -1,0 +1,17 @@
+{
+  "id": "creds",
+  "access_key": {
+    "encrypted_data": "mY/bMOahHO3sAaSUyeFEk4T2wTEZr5VCmTqxA8g/ya7gnocLOiEFWri/ULwk\nq+80\n",
+    "hmac": "qrGK3gUbWuFTqksvjN/+gbSo2A28gYkFkYVE1mhLYGY=\n",
+    "iv": "1nDSi5ugAlUSxdFD4ZyMww==\n",
+    "version": 2,
+    "cipher": "aes-256-cbc"
+  },
+  "secret_key": {
+    "encrypted_data": "uD//AikSzmzmPbK/61awss15Xj/u2bhVf6pdT3fh7KT6o9LMWP9asUOsV1Fu\nQAp8GCmB0JpnmBQGBrk2jjbw+g==\n",
+    "hmac": "caftW7mlslGuYJiyU576M0z+tWALkCnnMs1iqGXZw9g=\n",
+    "iv": "wXpbV8Wp4RolmYzEGdvZvg==\n",
+    "version": 2,
+    "cipher": "aes-256-cbc"
+  }
+}

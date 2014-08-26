@@ -1,4 +1,4 @@
-access_key = AKIAIMHPKTVTY6BTWOHQ
+access_key = <%= @access_key %>
 acl_public = False
 bucket_location = US
 cloudfront_host = cloudfront.amazonaws.com
@@ -25,7 +25,7 @@ proxy_host =
 proxy_port = 0
 recursive = False
 recv_chunk = 4096
-secret_key = v0QgEqxOGkbGKHDG7lOlkz+AnUIWvC9WjyBzSP09
+secret_key = <%= @secret_key %>
 send_chunk = 4096
 simpledb_host = sdb.amazonaws.com
 skip_existing = False

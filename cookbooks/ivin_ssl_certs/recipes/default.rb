@@ -18,32 +18,36 @@ execute "Create the ssl cert directory" do
   not_if { ::File.exists?("#{ssl_cert_path}/cert/") }
 end
 
-cookbook_file "#{ssl_cert_path}/cert/#{node[:ivin_application][:server_name]}.crt" do
-  source "ssl_credentials/#{node.chef_environment}/#{node[:ivin_application][:server_name]}.crt"
+secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
+ssl_certs = Chef::EncryptedDataBagItem.load("ssl_certs", "#{node.chef_environment}", secret)
+
+
+file "#{ssl_cert_path}/cert/#{node[:ivin_application][:server_name]}.crt" do
+ content ssl_certs["ivin_com_crt"]
   mode "644"
 end
 
-cookbook_file "#{ssl_cert_path}/private/ivin_#{node.chef_environment}.key" do
-  source "ssl_credentials/#{node.chef_environment}/ivin_#{node.chef_environment}.key"
+file "#{ssl_cert_path}/private/ivin_#{node.chef_environment}.key" do
+  content ssl_certs["ivin_key"]
   mode "644"
 end
 
-cookbook_file "#{ssl_cert_path}/cert/#{node[:ivin_application][:sellers_server_name]}.crt" do
-  source "ssl_credentials/#{node.chef_environment}/#{node[:ivin_application][:sellers_server_name]}.crt"
+file "#{ssl_cert_path}/cert/#{node[:ivin_application][:sellers_server_name]}.crt" do
+  content ssl_certs["sellers_com_crt"]
   mode "644"
 end
 
-cookbook_file "#{ssl_cert_path}/private/sellers_#{node.chef_environment}.key" do
-  source "ssl_credentials/#{node.chef_environment}/sellers_#{node.chef_environment}.key"
+file "#{ssl_cert_path}/private/sellers_#{node.chef_environment}.key" do
+  content ssl_certs["sellers_key"]
   mode "644"
 end
 
-cookbook_file "#{ssl_cert_path}/cert/#{node[:ivin_application][:idf_server_name]}.crt" do
-  source "ssl_credentials/#{node.chef_environment}/#{node[:ivin_application][:idf_server_name]}.crt"
+file "#{ssl_cert_path}/cert/#{node[:ivin_application][:idf_server_name]}.crt" do
+  content ssl_certs["idf_com_crt"]
   mode "644"
 end
 
-cookbook_file "#{ssl_cert_path}/private/idf_#{node.chef_environment}.key" do
-  source "ssl_credentials/#{node.chef_environment}/idf_#{node.chef_environment}.key"
+file "#{ssl_cert_path}/private/idf_#{node.chef_environment}.key" do
+  content ssl_certs["idf_key"]
   mode "644"
 end

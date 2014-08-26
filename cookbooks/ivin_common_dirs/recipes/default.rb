@@ -5,7 +5,9 @@
 # Copyright 2013, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
-#
+secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
+deploy_keys = Chef::EncryptedDataBagItem.load("deploy_keys", "id_rsa", secret)
+
 execute "touch the files in syslogd-listfiles" do
   for l in command("syslogd-listfiles -a").split("\n") do
     command "touch #{l}"
@@ -153,11 +155,11 @@ cookbook_file "/usr/local/chronus/bin/restore_app_db.rb" do
   mode "755"
 end
 
-cookbook_file "/usr/local/chronus/bin/update_hostname" do
-  source "update_hostname"
+cookbook_file  "/usr/local/chronus/bin/update_hostname" do
   owner "root"
   group "root"
   mode "755"
+  source "update_hostname"
 end
 
 cookbook_file "/usr/local/chronus/lib/mysql_helper.rb" do
@@ -188,18 +190,18 @@ end
 
 # Deploy specific setup
 deploy_user = node.default[:ivin_application][:deploy_user]
-cookbook_file "/home/#{deploy_user}/.ssh/id_rsa" do
-  source "deploy_keys/id_rsa"
-  owner deploy_user
-  group deploy_user
-  mode "600"
+file "/home/#{deploy_user}/.ssh/id_rsa"  do
+    owner deploy_user
+    group deploy_user
+    mode "600"
+    content deploy_keys["id-rsa"]
 end
 
-cookbook_file "/home/#{deploy_user}/.ssh/id_rsa.pub" do
-  source "deploy_keys/id_rsa.pub"
+file "/home/#{deploy_user}/.ssh/id_rsa.pub" do 
   owner deploy_user
   group deploy_user
   mode "644"
+  content deploy_keys["id-rsa.pub"]
 end
 
 cookbook_file "/home/#{deploy_user}/.ssh/config" do
