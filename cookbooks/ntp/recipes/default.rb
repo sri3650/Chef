@@ -9,19 +9,20 @@
 package "#{node.default[:ntp][:package]}" do
  action :install
 end
- execute "restart_ntp" do
-  command "/etc/init.d/ntp restart"
-end
 
 cookbook_file '/etc/ntp.conf' do
    source 'ntp.conf'
     owner "root"
     group "root"
     mode "644"
-    notifies :restart, resources(:execute => "restart_ntp")
+    # notifies :restart, resources(:execute => "restart_ntp")
  end
+ execute "restart_ntp" do
+  command "/etc/init.d/ntp restart"
+end
 
 service  'ntp' do
  supports :status => true, :restart => true
  action [:enable, :start]
+ 
 end
