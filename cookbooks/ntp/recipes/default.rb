@@ -5,14 +5,11 @@
 # Copyright 2014, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
-package 'ntp'
-
-service  'ntp' do
- supports :status => true, :restart => true
- action [:enable, :start]
+# package 'ntp' do
+package "#{node.default[:ntp][:package]}" do
+ action :install
 end
-
-execute "restart_ntp" do
+ execute "restart_ntp" do
   command "/etc/init.d/ntp restart"
 end
 
@@ -23,3 +20,8 @@ cookbook_file '/etc/ntp.conf' do
     mode "644"
     notifies :restart, resources(:execute => "restart_ntp")
  end
+
+service  'ntp' do
+ supports :status => true, :restart => true
+ action [:enable, :start]
+end
