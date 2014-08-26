@@ -1,1 +1,1 @@
-default["ntp"]["package"]= ["ntp"]
+default[:ntp][:package]='ntp'
