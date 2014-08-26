@@ -1,0 +1,1 @@
+default["ntp"]["package"]= ["ntp"]
