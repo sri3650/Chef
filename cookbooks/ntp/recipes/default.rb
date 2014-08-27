@@ -15,14 +15,12 @@ cookbook_file '/etc/ntp.conf' do
     owner "root"
     group "root"
     mode "644"
-    # notifies :restart, resources(:execute => "restart_ntp")
  end
  execute "restart_ntp" do
   command "/etc/init.d/ntp restart"
 end
 
 service  'ntp' do
- supports :status => true, :restart => true
  action [:enable, :start]
  
 end
