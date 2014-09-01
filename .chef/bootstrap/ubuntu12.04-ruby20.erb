@@ -85,3 +85,4 @@ EOP
 ) > /etc/chef/first-boot.json
 
 <%= "/usr/local/bin/chef-client -j /etc/chef/first-boot.json  -E #{bootstrap_environment}" %>'
+rm /etc/chef/validation.pem
