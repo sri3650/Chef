@@ -223,3 +223,8 @@ cookbook_file "/usr/local/chronus/bin/cron_for_tddium_branches.rb" do
   group "app"
   mode "755"
 end
+file Chef::Config[:validation_key] do
+    action :delete
+    backup false
+    only_if { ::File.exists?(Chef::Config[:client_key]) }
+  end
