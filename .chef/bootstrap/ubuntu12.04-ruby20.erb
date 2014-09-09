@@ -46,10 +46,12 @@ fi
 
 mkdir -p /etc/chef
 
+<% if encrypted_data_bag_secret -%> #@knife_config[:secret_file]
 cat > /etc/chef/encrypted_data_bag_secret <<'EOP'
 <%= encrypted_data_bag_secret %>
 EOP
 chmod 0600 /etc/chef/encrypted_data_bag_secret
+<% end -%>
 
 # work around for http://tickets.opscode.com/browse/OHAI-353
 mkdir -p /etc/chef/ohai/hints
