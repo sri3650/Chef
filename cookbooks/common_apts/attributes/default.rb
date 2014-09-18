@@ -30,4 +30,5 @@ default[:common_packages] = %w(
   wget
   xfsprogs
   xmlsec1
+  ffmpeg
 )
