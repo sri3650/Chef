@@ -5,7 +5,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # m h  dom mon dow   command
 0,30 * * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake ivin:cleanup_sessions RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/cleanup_sessions.log 2>&1
 */5 * * * *  cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake salesforce:scrap RAILS_ENV=`/usr/local/chronus/bin/rails_env` active_record_logger=salesforce_scrapper.log  --trace' >> /mnt/app/shared/log/salesforce_scrapper.log 2>&1
-*/5 * * * *  cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake salesforce:iif:scrap RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/iif_salesforce_scrapper.log 2>&1
+#*/5 * * * *  cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake salesforce:iif:scrap RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/iif_salesforce_scrapper.log 2>&1
 #5 23 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake candidates:daily_notify_candidate_profile_completeness RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >>/mnt/app/shared/log/daily_notify_candidate_profile_completeness.log 2>&1
 #10 10 * * 1 cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake candidates:weekly_notify_candidate_profile_completeness RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >>/mnt/app/shared/log/weekly_notify_candidate_profile_completeness.log 2>&1
 0 * * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake queue_monit:notify  RAILS_ENV=`/usr/local/chronus/bin/rails_env`' >> /mnt/app/current/log/queue_monit_notify_failures.log 2>&1
