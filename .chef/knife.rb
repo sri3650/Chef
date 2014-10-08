@@ -18,11 +18,7 @@ chef_server_url          "https://api.opscode.com/organizations/#{org_name}"
 cache_type               'BasicFile'
 cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
 cookbook_path            ["#{current_dir}/../cookbooks"]
-<<<<<<< HEAD
-knife[:secret_file]           = "#{ENV['HOME']}/.chef/encrypted_data_bag_secret"
-=======
 knife[:secret_file] =    "#{ENV['HOME']}/.chef/encrypted_data_bag_secret"
->>>>>>> ca30032b3a3c686cafad74708f8e75e0587eec7b
 knife[:aws_access_key_id]     = "AKIAIMHPKTVTY6BTWOHQ"
 knife[:aws_secret_access_key] = "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"
 knife[:distro] = "ubuntu12.04-ruby20"
