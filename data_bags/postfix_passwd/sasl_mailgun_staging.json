@@ -1,15 +1,9 @@
 {
   "id": "sasl_mailgun_staging",
   "pass": {
-<<<<<<< HEAD
-    "encrypted_data": "71RunuAuDb5gLPTmLzgMQtNsyurRpHmyNiQLfXyXXlhGBis9MGOtH4YTlEg7\nP0KXh2LEFBeVt2BDbpb2OBSMQg==\n",
-    "hmac": "eKVPtMuywqAoM01u7ooZXduMB4YScNdD50KYqw1VnT0=\n",
-    "iv": "4CkWcnxbEq9QNUukkoVQfw==\n",
-=======
     "encrypted_data": "++iK/1ugHpI64cSuxPNpxa+9zXr/bO49fnohaTwsyIg=\n",
     "hmac": "XmRJpe7tnSWN5fLoB6bii2PC8MSF9yQCnhVCHFb+Kv0=\n",
     "iv": "RH5w4xuYxyxZNF9yoBUehg==\n",
->>>>>>> ca30032b3a3c686cafad74708f8e75e0587eec7b
     "version": 2,
     "cipher": "aes-256-cbc"
   }
