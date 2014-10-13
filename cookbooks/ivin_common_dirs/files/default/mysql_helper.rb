@@ -52,6 +52,7 @@ module Ec2onrails
       cmd = %{mysql -u #{@user} -e "#{sql}"}
       cmd += " -p'#{@password}' " unless @password.nil?
       cmd += " -h'#{@host}' " unless @host.nil?
+      cmd += "--sslca=/mnt/app/mysql-ssl-ca-cert.pem"
       Utils.run cmd
     end
     
@@ -63,6 +64,7 @@ module Ec2onrails
       cmd += " -p'#{@password}' " unless @password.nil?
       cmd += " -h'#{@host}' " unless @host.nil?
       cmd += " #{@database} | gzip > #{out_file}"
+      cmd += "--sslca=/mnt/app/mysql-ssl-ca-cert.pem"
       Utils.run cmd
     end
     
@@ -71,6 +73,7 @@ module Ec2onrails
       cmd += " -p'#{@password}' " unless @password.nil?
       cmd += " -h'#{@host}' " unless @host.nil?
       cmd += " #{@database}"
+      cmd += "--sslca=/mnt/app/mysql-ssl-ca-cert.pem"
       Utils.run cmd
     end
     
@@ -78,6 +81,7 @@ module Ec2onrails
       cmd = "mysqlbinlog --database=#{@database} #{log_file} | mysql -u#{@user} "
       cmd += " -p'#{@password}' " unless @password.nil?
       cmd += " -h'#{@host}' " unless @host.nil?
+      cmd += "--sslca=/mnt/app/mysql-ssl-ca-cert.pem"
       Utils.run cmd
     end
   end
