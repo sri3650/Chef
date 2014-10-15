@@ -228,3 +228,10 @@ file Chef::Config[:validation_key] do
     backup false
     only_if { ::File.exists?(Chef::Config[:client_key]) }
 end
+
+cookbook_file "/usr/local/chronus/bin/mysql-ssl-ca-cert.pem"
+  source "mysql-ssl-ca-cert"
+  owner "root"
+  group "root"
+  mode "640"
+end
