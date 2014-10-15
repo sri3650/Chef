@@ -5,6 +5,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # m h  dom mon dow   command
 0,30 * * * * cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake ivin:cleanup_sessions RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/cleanup_sessions.log 2>&1
 */5 * * * *  cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake salesforce:scrap RAILS_ENV=`/usr/local/chronus/bin/rails_env` active_record_logger=salesforce_scrapper.log  --trace' >> /mnt/app/shared/log/salesforce_scrapper.log 2>&1
-
+*/5 * * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake salesforce:iif:scrap RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/iif_salesforce_scrapper.log 2>&1
+3 * * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake salesforce:populate_users_from_salesforce_contact RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/populate_u$
 
 # DO NOT ADD ANY CRONS BELOW THIS LINE, PLEASE ADD THEM BEFORE THIS LINE
