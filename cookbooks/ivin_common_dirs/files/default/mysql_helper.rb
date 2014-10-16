@@ -44,6 +44,7 @@ module Ec2onrails
       @user = db_config['username']
       @password = db_config['password']
       @host = db_config['host']
+      @sslca= db_config['sslca']
     end
 
     def execute_sql(sql)
@@ -52,6 +53,7 @@ module Ec2onrails
       cmd = %{mysql -u #{@user} -e "#{sql}"}
       cmd += " -p'#{@password}' " unless @password.nil?
       cmd += " -h'#{@host}' " unless @host.nil?
+      cmd += " --ssl-ca='#{@sslca}' "
       Utils.run cmd
     end
     
@@ -62,6 +64,7 @@ module Ec2onrails
       end
       cmd += " -p'#{@password}' " unless @password.nil?
       cmd += " -h'#{@host}' " unless @host.nil?
+      cmd += " --ssl-ca='#{@sslca}' "
       cmd += " #{@database} | gzip > #{out_file}"
       Utils.run cmd
     end
@@ -70,6 +73,7 @@ module Ec2onrails
       cmd = "gunzip -c #{in_file} | mysql -u#{@user} "
       cmd += " -p'#{@password}' " unless @password.nil?
       cmd += " -h'#{@host}' " unless @host.nil?
+      cmd += " --ssl-ca='#{@sslca}' "
       cmd += " #{@database}"
       Utils.run cmd
     end
@@ -78,6 +82,7 @@ module Ec2onrails
       cmd = "mysqlbinlog --database=#{@database} #{log_file} | mysql -u#{@user} "
       cmd += " -p'#{@password}' " unless @password.nil?
       cmd += " -h'#{@host}' " unless @host.nil?
+      cmd += " --ssl-ca='#{@sslca}' "
       Utils.run cmd
     end
   end
