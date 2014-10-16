@@ -1,0 +1,51 @@
+<group name="local,syslog,">
+  <rule id="100002" level="3">
+    <decoded_as>ar_log</decoded_as>
+    <options>alert_by_email</options>
+    <group>active_response_notification</group>
+    <action>firewall-drop.sh</action>
+    <status>add</status>
+    <description>Active response firewall-drop.sh was run, host blocked</description>
+  </rule>
+  <rule id="100003" level="3"> 
+    <decoded_as>ar_log</decoded_as>
+    <options>alert_by_email</options>
+    <group>active_response_notification</group> 
+    <action>firewall-drop.sh</action> 
+    <status>delete</status> 
+    <description>Active response firewall-drop.sh was run, host unblocked</description> 
+  </rule>
+  <rule id="100004" level="3"> 
+    <decoded_as>ar_log</decoded_as>
+    <options>alert_by_email</options>
+    <group>active_response_notification</group> 
+    <action>host-deny.sh</action> 
+    <status>add</status> 
+    <description>Active response host-deny.sh was run, host added to hosts.deny</description> 
+  </rule> 
+  <rule id="100005" level="3"> 
+    <decoded_as>ar_log</decoded_as>
+    <options>alert_by_email</options>
+    <group>active_response_notification</group> 
+    <action>host-deny.sh</action> 
+    <status>delete</status> 
+    <description>Active response host-deny.sh was run, host removed from hosts.deny</description> 
+  </rule>
+  <rule id="100006" level="3"> 
+    <decoded_as>ar_log</decoded_as>
+    <options>alert_by_email</options>
+    <group>active_response_notification</group> 
+    <action>route-null.sh</action> 
+    <status>add</status> 
+    <description>Active response route-null.sh was run, host added to route null</description> 
+  </rule> 
+  <rule id="100007" level="3"> 
+    <decoded_as>ar_log</decoded_as>
+    <options>alert_by_email</options>
+    <group>active_response_notification</group> 
+    <action>route-null.sh</action> 
+    <status>delete</status> 
+    <description>Active response route-null.sh was run, host removed from route null</description> 
+  </rule> 
+
+</group>
