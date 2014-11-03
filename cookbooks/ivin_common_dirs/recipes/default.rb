@@ -8,6 +8,7 @@
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
 deploy_keys = Chef::EncryptedDataBagItem.load("deploy_keys", "id_rsa", secret)
 aws_data = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
+bucket = node[:ivin_application][:credentials_bucket]
 
 execute "touch the files in syslogd-listfiles" do
   for l in command("syslogd-listfiles -a").split("\n") do
@@ -232,12 +233,13 @@ cookbook_file "/usr/local/chronus/bin/cron_for_tddium_branches.rb" do
   mode "755"
 end
 
-template "/usr/local/chronus/bin/awssecret.yml" do
-  variables(:AWSAccessKeyId => aws_data['access_key'],:AWSSecretKey => aws_data['secret_key'])
+template "/usr/local/chronus/bin/cred_details.yml" do
+  variables(:AWSAccessKeyId => aws_data['access_key'],:AWSSecretKey => aws_data['secret_key'], :credentials => bucket[:credentials], 
+            :paperclip => bucket[:paperclip], :s3 => bucket[:s3], :amazon_s3 => bucket[:amazon_s3], :bucket_name => bucket[:bucket_name] )
   mode 0644
   owner "root"
   group "root"
-  source "awssecret.yml.erb"
+  source "cred_details.yml.erb"
 end
 
 file Chef::Config[:validation_key] do
