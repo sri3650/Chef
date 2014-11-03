@@ -1,16 +1,14 @@
 require 'aws-sdk'
 
-aws_data = HashWithIndifferentAccess.new(YAML.load_file(""))
+aws_data = HashWithIndifferentAccess.new(YAML.load_file("/usr/local/chronus/bin/cred_details.yml"))
 s3 = AWS::S3.new(
   :access_key_id => aws_data['access_key'],
   :secret_access_key => aws_data['secret_key'])
 
-
-bucket      = node[:ivin_application][:credentials_bucket]
-credentials = s3.buckets[bucket[:bucket_name]].objects[bucket[:credentials]]
-paperclip   = s3.buckets[bucket[:bucket_name]].objects[bucket[:paperclip]]
-s3          = s3.buckets[bucket[:bucket_name]].objects[bucket[:s3]]
-amazon_s3   = s3.buckets[bucket[:bucket_name]].objects[bucket[:amazon_s3]]
+credentials = s3.buckets[aws_data["bucket_name"]].objects[aws_data["credentials"]]
+paperclip   = s3.buckets[aws_data["bucket_name"]].objects[aws_data["paperclip"]]
+s3          = s3.buckets[aws_data["bucket_name"]].objects[aws_data["s3"]]
+amazon_s3   = s3.buckets[aws_data["bucket_name"]].objects[aws_data["amazon_s3"]]
 
 File.open("/mnt/app/shared/config/.credentials") do |file|
   credentials.read do |chunk|
