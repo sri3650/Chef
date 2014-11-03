@@ -19,8 +19,8 @@
 
 # general settings
 default['ossec']['server_role'] = "ossec_server"
-default['ossec']['checksum']    = "e7bb4701a6b9a40f76d4e2c3c39106ded3c37f13ccc3ce476029da1f0e9c9f9e"
-default['ossec']['version']     = "2.6"
+default['ossec']['checksum']    = "f8ac4a7d74068a8ca4f14e3c906bfa3a68a87fd026b463422bea79fe9d747249"
+default['ossec']['version']     = "2.7"
 default['ossec']['url']         = "http://www.ossec.net/files/ossec-hids-#{node['ossec']['version']}.tar.gz"
 default['ossec']['logs']        = ["/var/log/dpkg.log", "/var/ossec/logs/active-responses.log"]
 default['ossec']['syscheck_freq'] = 79200
@@ -41,10 +41,10 @@ default['ossec']['user']['update_rules'] = true
 default['ossec']['user']['binary_install'] = false
 default['ossec']['user']['agent_server_ip'] = nil
 default['ossec']['user']['enable_email'] = true
-default['ossec']['user']['email'] = "monitor@chronus.com"
-default['ossec']['user']['smtp'] = "aspmx3.googlemail.com"
+default['ossec']['user']['email'] = "ivin@chronus.com"
+default['ossec']['user']['smtp'] = "127.0.0.1"
 default['ossec']['user']['remote_syslog'] = false
 default['ossec']['user']['firewall_response'] = true
 default['ossec']['user']['pf'] = false
 default['ossec']['user']['pf_table'] = false
-default['ossec']['user']['white_list'] = ['182.72.176.188', '^localhost.localdomain$', '172.16.0.23', '127.0.0.1']
+default['ossec']['user']['white_list'] = ['119.226.99.210' ,'182.74.31.230']

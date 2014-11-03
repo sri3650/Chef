@@ -7,7 +7,7 @@
 <% end -%>
     <email_to><%= @ossec['email'] %></email_to>
     <smtp_server><%= @ossec['smtp'] %></smtp_server>
-    <email_from>ossecm@<%= node['ivin_application']['server_name'] %></email_from>
+    <email_from>ossecm@<%= node['fqdn'] %></email_from>
 <% @ossec['white_list'].each do |wl| -%>
     <white_list><%= wl %></white_list>
 <% end -%>
@@ -82,10 +82,6 @@
     <include>asterisk_rules.xml</include>
     <include>ossec_rules.xml</include>
     <include>attack_rules.xml</include>
-    <include>openbsd_rules.xml</include>
-    <include>clam_av_rules.xml</include>
-    <include>bro-ids_rules.xml</include>
-    <include>dropbear_rules.xml</include>
     <include>local_rules.xml</include>
   </rules>  
 
@@ -179,31 +175,7 @@
     <timeout_allowed>yes</timeout_allowed>
   </command>
 
-  <!-- Active Response Config -->
-  <active-response>
-    <!-- This response is going to execute the host-deny
-       - command for every event that fires a rule with
-       - level (severity) >= 6.
-       - The IP is going to be blocked for  600 seconds.
-      -->
-    <command>host-deny</command>
-    <location>local</location>
-    <level>6</level>
-    <timeout>600</timeout>
-  </active-response>
-
-  <active-response>
-    <!-- Firewall Drop response. Block the IP for
-       - 600 seconds on the firewall (iptables,
-       - ipfilter, etc).
-      -->
-    <command>firewall-drop</command>
-    <location>local</location>
-    <level>6</level>
-    <timeout>600</timeout>    
-  </active-response>
-
-  <!-- Files to monitor (localfiles) -->
+   <!-- Files to monitor (localfiles) -->
 
   <localfile>
     <log_format>syslog</log_format>
@@ -241,7 +213,6 @@
     <log_format>syslog</log_format>
     <location><%= log %></location>
   </localfile>
-  
 <%   end -%>
 <% end -%>
 </ossec_config>
