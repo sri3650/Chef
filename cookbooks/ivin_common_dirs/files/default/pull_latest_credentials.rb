@@ -1,8 +1,6 @@
 require 'aws-sdk'
 
-secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
-aws_data = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
-
+aws_data = HashWithIndifferentAccess.new(YAML.load_file(""))
 s3 = AWS::S3.new(
   :access_key_id => aws_data['access_key'],
   :secret_access_key => aws_data['secret_key'])
