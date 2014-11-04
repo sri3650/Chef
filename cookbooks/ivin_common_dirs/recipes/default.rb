@@ -234,8 +234,7 @@ cookbook_file "/usr/local/chronus/bin/cron_for_tddium_branches.rb" do
 end
 
 template "/usr/local/chronus/bin/cred_details.yml" do
-  variables(:AWSAccessKeyId => aws_data['access_key'],:AWSSecretKey => aws_data['secret_key'], :credentials => bucket[:credentials], 
-            :paperclip => bucket[:paperclip], :s3 => bucket[:s3], :amazon_s3 => bucket[:amazon_s3], :bucket_name => bucket[:bucket_name] )
+  variables(:AWSAccessKeyId => aws_data['access_key'],:AWSSecretKey => aws_data['secret_key'] )
   mode 0644
   owner "root"
   group "root"

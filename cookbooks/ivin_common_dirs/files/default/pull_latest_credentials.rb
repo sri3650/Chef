@@ -28,7 +28,7 @@ File.open("/mnt/app/shared/config/.paperclip") do |file|
   end
 end
 
-File.open("/mnt/app/shared/config/.paperclip") do |file|
+File.open("/mnt/app/shared/config/.s3") do |file|
   s3.read do |chunk|
     file.write(chunk)
   end
