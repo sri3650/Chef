@@ -2,8 +2,8 @@ require 'aws-sdk'
 
 aws_data = HashWithIndifferentAccess.new(YAML.load_file("/usr/local/chronus/bin/cred_details.yml"))
 s3 = AWS::S3.new(
-  :access_key_id => aws_data['access_key'],
-  :secret_access_key => aws_data['secret_key'])
+  :access_key_id => aws_data["aws_access"],
+  :secret_access_key => aws_data["aws_sercet"])
 
 credentials = s3.buckets[aws_data["bucket_name"]].objects[aws_data["credentials"]]
 paperclip   = s3.buckets[aws_data["bucket_name"]].objects[aws_data["paperclip"]]
