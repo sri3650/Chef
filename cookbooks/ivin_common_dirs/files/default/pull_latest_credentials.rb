@@ -10,25 +10,25 @@ paperclip   = bucket.objects[aws_data["paperclip"]]
 s3          = bucket.objects[aws_data["s3"]]
 amazon_s3   = bucket.objects[aws_data["amazon_s3"]]
 
-File.open("/mnt/app/shared/config/.credentials", "w") do |file|
+File.open("/mnt/app/shared/config/.aws_credentials", "w") do |file|
   credentials.read do |chunk|
     file.write(chunk)
   end
 end
 
-File.open("/mnt/app/shared/config/.amazon_s3", "w") do |file|
+File.open("/mnt/app/shared/config/.aws_amazon_s3", "w") do |file|
   amazon_s3.read do |chunk|
     file.write(chunk)
   end
 end
 
-File.open("/mnt/app/shared/config/.paperclip", "w") do |file|
+File.open("/mnt/app/shared/config/.aws_paperclip", "w") do |file|
   paperclip.read do |chunk|
     file.write(chunk)
   end
 end
 
-File.open("/mnt/app/shared/config/.s3", "w") do |file|
+File.open("/mnt/app/shared/config/.aws_s3", "w") do |file|
   s3.read do |chunk|
     file.write(chunk)
   end
