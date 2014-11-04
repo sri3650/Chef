@@ -12,5 +12,5 @@ default_attributes "ivin_application" => {
                             :credentials => "standby_credendials.yml", 
                             :paperclip   => "standby_paperclip_s3.yml",
                             :s3          => "standby_s3.yml",
-                            :amazon_s3   => "standby_amazon_s3.yml"]}
+                            :amazon_s3   => "standby_amazon_s3.yml"}
 }
