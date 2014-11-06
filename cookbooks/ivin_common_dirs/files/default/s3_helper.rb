@@ -27,7 +27,7 @@ require "#{File.dirname(__FILE__)}/utils"
 module Ec2onrails
   class S3Helper
 
-    DEFAULT_CONFIG_FILE = "/mnt/app/current/config/s3.yml"
+    DEFAULT_CONFIG_FILE = "/usr/local/chronus/bin/cred_details.yml"
   
     # make attributes available for specs
     attr_accessor :bucket
@@ -58,16 +58,9 @@ module Ec2onrails
           section = s3_config
         end
     
-        @aws_access_key        = section['aws_access_key']
-        @aws_secret_access_key = section['aws_secret_access_key']
+        @aws_access_key        = section['aws_access']
+        @aws_secret_access_key = section['aws_sercet']
         @bucket_base_name      = section['bucket_base_name']
-      else
-        if !File.exists?('/mnt/aws-config/config')
-          raise "Can't find either #{@config_file} or /mnt/aws-config/config"
-        end
-        @aws_access_key        = get_bash_config('AWS_ACCESS_KEY_ID')
-        @aws_secret_access_key = get_bash_config('AWS_SECRET_ACCESS_KEY')
-        @bucket_base_name      = get_bash_config('BUCKET_BASE_NAME')  
       end
     end
 
@@ -119,9 +112,5 @@ module Ec2onrails
       @dir ? "#{@dir}/#{File.basename(file)}" : File.basename(file)
     end
 
-    # load an env value from the shared config file
-    def get_bash_config(name)
-      `bash -c 'source /mnt/aws-config/config; echo $#{name}'`.strip
-    end
   end
 end
