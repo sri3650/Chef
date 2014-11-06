@@ -27,9 +27,3 @@ File.open("/mnt/app/shared/config/.aws_paperclip", "w") do |file|
     file.write(chunk)
   end
 end
-
-File.open("/mnt/app/shared/config/.aws_s3", "w") do |file|
-  s3.read do |chunk|
-    file.write(chunk)
-  end
-end
