@@ -14,14 +14,11 @@ PROG_NAME="system-restart-email"
 
 NODE_ENV="IVIN-<%= node.chef_environment %>"
 
-HOST_NAME=`hostname -f`
-IP=`hostname -i`
-
 EMAIL_TO="to:ivin@chronus.com"
 EMAIL_FROM="from:root@chronus.com"
 
-RESTART_SUBJECT="subject:[$NODE_ENV] $HOST_NAME : HOST Startup - `date` <EOM>"
-SHUTDOWN_SUBJECT="subject:[$NODE_ENV] $HOST_NAME : HOST Shutdown - `date` <EOM>"
+RESTART_SUBJECT="subject:$NODE_ENV Startup - `date` <EOM>"
+SHUTDOWN_SUBJECT="subject:$NODE_ENV Shutdown - `date` <EOM>"
 
 LOCKFILE=/var/lock/${PROG_NAME}.lck
 RETVAL=0
