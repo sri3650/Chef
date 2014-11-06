@@ -65,7 +65,6 @@ bash "Configure system restart email" do
   user "root"
   code <<-EOH
   cd /etc/init.d
-  /usr/local/chronus/bin/update_hostname
   update-rc.d system-restart-email start 98 2 3 4 5 . stop 02 0 1 6 .
   EOH
   not_if "test -e /etc/rc0.d/K02system-restart-email"
