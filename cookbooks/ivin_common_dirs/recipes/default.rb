@@ -8,7 +8,6 @@
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
 deploy_keys = Chef::EncryptedDataBagItem.load("deploy_keys", "id_rsa", secret)
 aws_data = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
-bucket = node[:ivin_application][:credentials_bucket]
 
 execute "touch the files in syslogd-listfiles" do
   for l in command("syslogd-listfiles -a").split("\n") do

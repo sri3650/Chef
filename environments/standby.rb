@@ -9,7 +9,7 @@ default_attributes "ivin_application" => {
   "smtp_sasl_mailgun_user_name" => "postmaster@ivinchronus.com",
   "mailgun_domain_name" => "ivinchronus.com",
   "credentials_bucket" => { :bucket_name      => "ivin-standby-credentials",
-                            :credentials      => "standby_credendials.yml", 
+                            :credentials      => "standby_credentials.yml", 
                             :paperclip        => "standby_paperclip_s3.yml",
                             :amazon_s3        => "standby_amazon_s3.yml",
                             :bucket_base_name => "backup-ivin-standby"}
