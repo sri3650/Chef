@@ -59,7 +59,7 @@ module Ec2onrails
         end
     
         @aws_access_key        = section['aws_access']
-        @aws_secret_access_key = section['aws_sercet']
+        @aws_secret_access_key = section['aws_secret']
         @bucket_base_name      = section['bucket_base_name']
       end
     end

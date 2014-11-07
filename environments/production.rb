@@ -9,8 +9,8 @@ default_attributes "ivin_application" => {
   "smtp_sasl_mailgun_user_name" => "postmaster@intven.com",
   "mailgun_domain_name" => "intven.com",
   "credentials_bucket" => { :bucket_name      => "ivin-prod-credentials",
-                            :credentials      => "prod_credentials.yml", 
-                            :paperclip        => "prod_paperclip_s3.yml",
+                            :credentials      => "production_credentials.yml", 
+                            :paperclip        => "production_paperclip_s3.yml",
                             :amazon_s3        => "production_amazon_s3.yml",
                             :bucket_base_name => "backup-ivin-production"}
 }
