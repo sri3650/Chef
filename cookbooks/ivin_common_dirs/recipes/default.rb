@@ -242,7 +242,7 @@ template "/usr/local/chronus/bin/cred_details.yml" do
 end
 
 template "/usr/local/chronus/bin/keys_to_encrypt.yml" do
-  variables(:key => key_iv['key'], :iv => key_iv['iv'])
+  variables(:key => key_iv['key'])
   mode 0644
   owner "root"
   group "root"
