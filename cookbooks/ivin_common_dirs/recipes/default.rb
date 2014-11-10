@@ -67,8 +67,7 @@ bash "Configure system restart email" do
   EOH
   not_if "test -e /etc/rc0.d/K02system-restart-email"
 end
-
-#ask arun the abv four
+#start with priority 98 for runlevel 2, 3, 4 and 5 and kill with priority level 02 for runlevel 0, 1 and 6
 
 template "/etc/logrotate.d/rails" do
   source "rails.erb"
