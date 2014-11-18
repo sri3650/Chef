@@ -30,7 +30,7 @@ end
 
 db_creds_bucket = AWS::S3.new(
   :access_key_id => aws_data["aws_access"],
-  :secret_access_key => aws_data["aws_secret"]).buckets["db_creds_bucket"]
+  :secret_access_key => aws_data["aws_secret"]).buckets["db-creds-bucket"]
 
 File.open(shared_folder + ".aws_database", "w") do |file|
   db_creds_bucket.objects["db_creds"].read do |chunk|
