@@ -39,12 +39,12 @@ module Ec2onrails
     end
 
     def load_db_config(config_file)
-      db_config = HashWithIndifferentAccess.new(YAML.load_file(config_file))[@rails_env].symbolize_keys
-      @database = db_config[:database]
-      @user = db_config[:username]
-      @password = db_config[:password]
-      @host = db_config[:host]
-      @sslca= db_config[:sslca]
+      db_config = YAML::load(ERB.new(File.read(config_file)).result)[@rails_env]
+      @database = db_config['database']
+      @user = db_config['username']
+      @password = db_config['password']
+      @host = db_config['host']
+      @sslca= db_config['sslca']
     end
 
     def execute_sql(sql)
