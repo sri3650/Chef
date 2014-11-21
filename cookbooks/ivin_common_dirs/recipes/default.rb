@@ -145,8 +145,8 @@ end
 
 cookbook_file "/usr/local/chronus/bin/pull_latest_credentials.rb" do
   source "pull_latest_credentials.rb"
-  owner "root"
-  group "root"
+  owner "app"
+  group "app"
   mode "755"
 end
 
