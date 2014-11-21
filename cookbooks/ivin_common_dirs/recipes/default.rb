@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
 deploy_keys = Chef::EncryptedDataBagItem.load("deploy_keys", "id_rsa", secret)
+aws_data = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
+key_iv   = Chef::EncryptedDataBagItem.load("keys_to_encrypt", "key_iv", secret)
 
 execute "touch the files in syslogd-listfiles" do
   for l in command("syslogd-listfiles -a").split("\n") do
@@ -141,6 +143,13 @@ cookbook_file "/usr/local/chronus/bin/backup_app_db.rb" do
   mode "755"
 end
 
+cookbook_file "/usr/local/chronus/bin/pull_latest_credentials.rb" do
+  source "pull_latest_credentials.rb"
+  owner "root"
+  group "root"
+  mode "755"
+end
+
 cookbook_file "/usr/local/chronus/bin/rails_env" do
   source "rails_env"
   owner "root"
@@ -223,6 +232,23 @@ cookbook_file "/usr/local/chronus/bin/cron_for_tddium_branches.rb" do
   group "app"
   mode "755"
 end
+
+template "/usr/local/chronus/bin/cred_details.yml" do
+  variables(:AWSAccessKeyId => aws_data['access_key'],:AWSSecretKey => aws_data['secret_key'] )
+  mode 0644
+  owner "root"
+  group "root"
+  source "cred_details.yml.erb"
+end
+
+template "/usr/local/chronus/bin/keys_to_encrypt.yml" do
+  variables(:key => key_iv['key'])
+  mode 0644
+  owner "root"
+  group "root"
+  source "keys_to_encrypt.yml.erb"
+end
+
 file Chef::Config[:validation_key] do
     action :delete
     backup false

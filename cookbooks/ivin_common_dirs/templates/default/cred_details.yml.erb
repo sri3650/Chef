@@ -1,0 +1,8 @@
+aws_access: <%= @AWSAccessKeyId %>
+aws_secret: <%= @AWSSecretKey %>
+<% bucket = node[:ivin_application][:credentials_bucket] %>
+bucket_name: <%= bucket[:bucket_name] %>
+credentials: <%= bucket[:credentials] %>
+amazon_s3: <%= bucket[:amazon_s3] %>
+paperclip: <%= bucket[:paperclip] %>
+bucket_base_name: <%= bucket[:bucket_base_name] %>
