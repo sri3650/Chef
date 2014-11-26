@@ -1,9 +1,9 @@
 {
   "id": "newrelic_license_key",
   "license_key": {
-    "encrypted_data": "TKl3QgPlz7vtBpr50lTzxJVsKiy8V2wW1HyyyK0IFV5KwBRmnn1b3vCAuFOV\nQ6qApqGs7kfLL2KdgE0dGqyszw==\n",
-    "hmac": "NcDfMP5QDxSGoeL01iFeA7Uc3oAYr5t54xvwpOWLtxQ=\n",
-    "iv": "Ue9pvCKmVA6SFl1alYVWzA==\n",
+    "encrypted_data": "AG6nm6a9uEIcLfvYUKyxbP37hoe4PV5GZLBIFRSA4Y4YPnSTzz9sDlAQXHWk\nDSRu6vF5mHKcA68J6nDmcFDiug==\n",
+    "hmac": "6D6S+LCNoocd3DviHqKjvY0EliQEXXuYj7JNwc7ntDE=\n",
+    "iv": "n/niBlM1oYCGdp7rPNX5RA==\n",
     "version": 2,
     "cipher": "aes-256-cbc"
   }
