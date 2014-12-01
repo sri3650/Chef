@@ -1,0 +1,92 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides: system-restart-email
+# Required-Start: $remote_fs $syslog
+# Required-Stop: $remote_fs $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Send email for system restarts
+# Description: Sends an email at system start and shutdown
+### END INIT INFO
+
+PROG_NAME="system-restart-email"
+
+NODE_ENV="IVIN-<%= node.chef_environment %>"
+
+EMAIL_TO="to:ivin@chronus.com"
+EMAIL_FROM="from:root@chronus.com"
+
+RESTART_SUBJECT="subject:$NODE_ENV Startup - `date` <EOM>"
+SHUTDOWN_SUBJECT="subject:$NODE_ENV Shutdown - `date` <EOM>"
+
+LOCKFILE=/var/lock/${PROG_NAME}.lck
+RETVAL=0
+
+EMAIL_FILE="/tmp/${PROG_NAME}.txt"
+
+# Source function library.
+. /lib/lsb/init-functions
+
+stop()
+{
+  echo -n "Sending Shutdown Email: "
+  echo "${EMAIL_TO}" > ${EMAIL_FILE}
+  echo "${EMAIL_FROM}" >> ${EMAIL_FILE}
+  echo "${SHUTDOWN_SUBJECT}" >> ${EMAIL_FILE}
+  echo >> ${EMAIL_FILE}
+  sendmail -t < ${EMAIL_FILE}
+  RETVAL=$?
+  if [ ${RETVAL} -eq 0 ]; then
+    rm -f ${LOCKFILE}
+  fi
+  echo
+  return ${RETVAL}
+}
+
+start()
+{
+  echo -n "Sending Startup Email: "
+  echo "${EMAIL_TO}" > ${EMAIL_FILE}
+  echo "${EMAIL_FROM}" >> ${EMAIL_FILE}
+  echo "${RESTART_SUBJECT}" >> ${EMAIL_FILE}
+  echo >> ${EMAIL_FILE}
+  sendmail -t < ${EMAIL_FILE}
+  RETVAL=$?
+  if [ ${RETVAL} -eq 0 ]; then
+    touch ${LOCKFILE}
+  fi
+  echo
+  return ${RETVAL}
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    echo "Not applied to service"
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  reload)
+    echo "Not applied to service"
+    ;;
+  condrestart)
+    echo "Not applied to service"
+    ;;
+  probe)
+    ;;
+  *)
+    N=/etc/init.d/$PROG_NAME
+    echo "Usage: $N {start|stop|status|reload|restart|probe}"
+    exit 1
+    ;;
+esac
+
+exit ${RETVAL}

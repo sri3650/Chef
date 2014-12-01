@@ -1,0 +1,10 @@
+{
+  "id": "newrelic_license_key",
+  "license_key": {
+    "encrypted_data": "AG6nm6a9uEIcLfvYUKyxbP37hoe4PV5GZLBIFRSA4Y4YPnSTzz9sDlAQXHWk\nDSRu6vF5mHKcA68J6nDmcFDiug==\n",
+    "hmac": "6D6S+LCNoocd3DviHqKjvY0EliQEXXuYj7JNwc7ntDE=\n",
+    "iv": "n/niBlM1oYCGdp7rPNX5RA==\n",
+    "version": 2,
+    "cipher": "aes-256-cbc"
+  }
+}
