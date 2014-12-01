@@ -1,7 +1,8 @@
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # Incremental backup every 5 minutes
-*/5 * * * *  root  /usr/local/chronus/bin/backup_app_db.rb --incremental >> /mnt/log/mysql_backup.log 2>&1
+*/5 * * * * cd /mnt/app/current && root  /usr/local/chronus/bin/backup_app_db.rb --incremental >> /mnt/log/mysql_backup.log 2>&1
 
 # Full backup every day at 05:01, reset the binary logs.
 # First kill any incremental backup that happens to be in progress
-1 5 * * *  root  killall -q -u root backup_app_db.rb ; /usr/local/chronus/bin/backup_app_db.rb --reset >> /mnt/log/mysql_backup.log 2>&1
+
+1 5 * * *  root  killall -q -u root backup_app_db.rb ; cd /mnt/app/current && /usr/local/chronus/bin/backup_app_db.rb --reset >> /mnt/log/mysql_backup.log 2>&1
