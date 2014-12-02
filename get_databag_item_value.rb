@@ -5,10 +5,12 @@ require 'chef'
 
 Chef::Config.from_file(File.join(current_dir, '.chef', 'knife.rb'))
 
-bagname = ARGV[0]
-itemname = ARGV[1]
-key = ARGV[2]
-output_path = ARGV[3]
+# eg: CHEF_ENV='staging' ruby get_databag_item_value.rb databag databag_item databag_key path_of_output_file path_to_encrypted_databag_file
+
+bagname = ARGV[0] # databag name
+itemname = ARGV[1] # databag item name
+key = ARGV[2] # key for databag item
+output_path = ARGV[3] # output file to store the value
 encrypted_data_path = ARGV[4]
 
 if Chef::DataBag.list.keys.include?(bagname)
