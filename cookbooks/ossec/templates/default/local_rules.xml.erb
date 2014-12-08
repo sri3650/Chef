@@ -1,5 +1,6 @@
 <group name="local,syslog,">
   <rule id="100002" level="3">
+    <if_sid>601</if_sid>
     <decoded_as>ar_log</decoded_as>
     <options>alert_by_email</options>
     <group>active_response_notification</group>
@@ -7,7 +8,8 @@
     <status>add</status>
     <description>Active response firewall-drop.sh was run, host blocked</description>
   </rule>
-  <rule id="100003" level="3"> 
+  <rule id="100003" level="3">
+    <if_sid>602</if_sid>
     <decoded_as>ar_log</decoded_as>
     <options>alert_by_email</options>
     <group>active_response_notification</group> 
@@ -15,7 +17,8 @@
     <status>delete</status> 
     <description>Active response firewall-drop.sh was run, host unblocked</description> 
   </rule>
-  <rule id="100004" level="3"> 
+  <rule id="100004" level="3">
+    <if_sid>603</if_sid>
     <decoded_as>ar_log</decoded_as>
     <options>alert_by_email</options>
     <group>active_response_notification</group> 
@@ -23,7 +26,8 @@
     <status>add</status> 
     <description>Active response host-deny.sh was run, host added to hosts.deny</description> 
   </rule> 
-  <rule id="100005" level="3"> 
+  <rule id="100005" level="3">
+    <if_sid>604</if_sid>
     <decoded_as>ar_log</decoded_as>
     <options>alert_by_email</options>
     <group>active_response_notification</group> 
