@@ -128,6 +128,10 @@ cookbook_file "/etc/ssh/sshd_config" do
   mode "644"
 end
 
+execute "restart_ssh" do
+  command "service ssh restart"
+end
+
 cookbook_file "/usr/local/chronus/bin/archive_file.rb" do
   source "archive_file.rb"
   owner "root"

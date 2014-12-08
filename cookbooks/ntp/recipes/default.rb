@@ -16,11 +16,11 @@ cookbook_file '/etc/ntp.conf' do
     group "root"
     mode "644"
  end
- execute "restart_ntp" do
+
+execute "restart_ntp" do
   command "/etc/init.d/ntp restart"
 end
 
 service  'ntp' do
  action [:enable, :start]
- 
 end
