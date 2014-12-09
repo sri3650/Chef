@@ -15,7 +15,7 @@ ubuntu_public_key_file = "/home/ubuntu/.ssh/authorized_keys"
 group "app" do
 end
 
-%w{app admin}.each do |u|
+%w{app admin ivin_admin}.each do |u|
   home_dir = "/home/#{u}"
 
   user u do
