@@ -13,5 +13,12 @@
     "iv": "wtEQOFXydmi/D1iI4fW5Yw==\n",
     "version": 2,
     "cipher": "aes-256-cbc"
+  },
+  "ivin_admin": {
+    "encrypted_data": "lsjl0XDZj3lf5tKI3l/AztICD1LuqAYeEXk5A3gRj58r5/QliIy2+TN2+8GA\nycQWqHkLJcHoMPUuvMq4o2/wWeeFO8ACHYHa4uDQ1i11qGyEFw2I7vlW3TNO\npkARXv6IcdcE2g6nyszI17Qq6ZZVTyIvLjnlKXKiR1hV4RgWLqwxnyDHR130\nmVcDXlrovE3NnwdAsQp7hXkgrdJH2sjxpXtr/8mFjDeslJppCPiLKs60f4j/\nQXQPeZjneC2lb1CD2+3q4FvMM94QfvjpnFvUZ2LYD7g6oLx9JhDHOIWQIiyx\nrEauvadyNsrY8aBnhjT8XFc1vLuDW49aY0BPMCzIB+qaBt1rLq6QtpjXKKJ2\nirr/Ki+6lTxgHZk84IngxexqV57aNAR4NZW8sbpL1LJIqKbj3SZF5hhLFG/F\nXg2rXRLi5VBClHrDb3E3eUqVMEUIctu8s411UwSJOA5Sa1gZlmjZsPatPlda\nF99v8RKhsTVnHrauwOfhXAhRf9IuXFdJjACY6iUVQtnKo5/nGGpMcyG11tkw\nT7Vq1Ibfdj1jBm8=\n",
+    "hmac": "gEUsLhJTr1VwdYTjv3TVirFGKMvWnpLDWRAMt7J8Y5s=\n",
+    "iv": "wtEQOFXydmi/D1iI4fW5Yw==\n",
+    "version": 2,
+    "cipher": "aes-256-cbc"
   }
 }
