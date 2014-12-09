@@ -8,7 +8,7 @@
 #
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
 aws_data = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
-keys_data = Chef::EncryptedDataBagItem.load("ssh_keys", "user_specific_keys", secret)
+user_keys = Chef::EncryptedDataBagItem.load("ssh_keys", "user_specific_keys", secret)
 
 ubuntu_public_key_file = "/home/ubuntu/.ssh/authorized_keys"
 
@@ -38,7 +38,7 @@ end
     owner u
     group u
     mode "0600"
-    content keys_data[u]
+    content user_keys[u]
   end
 
   cookbook_file "#{home_dir}/.bashrc" do
