@@ -23,7 +23,7 @@ LogLevel INFO
 
 # Authentication:
 LoginGraceTime 120
-PermitRootLogin without-password
+PermitRootLogin no
 UseDNS no
 StrictModes yes
 

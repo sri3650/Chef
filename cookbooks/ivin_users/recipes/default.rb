@@ -18,7 +18,7 @@ end
 group "ivin_admin" do
 end
 
-%w{app admin ivin_admin}.each do |u|
+%w{app ivin_admin}.each do |u|
   home_dir = "/home/#{u}"
 
   user u do
@@ -47,6 +47,15 @@ end
     group u
     mode "0644"
   end  
+end
+
+user node['removed_user']['name'] do
+  action :remove
+end
+
+directory "/home/#{node['removed_user']['name']}" do
+  recursive true
+  action :delete
 end
 
 file "/root/.ssh/authorized_keys" do
