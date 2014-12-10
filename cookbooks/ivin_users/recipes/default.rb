@@ -49,6 +49,7 @@ end
   end  
 end
 
+#Delete follwing two resources post going into production
 user node['removed_user']['name'] do
   action :remove
 end

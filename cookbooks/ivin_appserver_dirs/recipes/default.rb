@@ -23,7 +23,7 @@ cookbook_file "/usr/local/chronus/bin/localeapp_stop" do
   mode "775"
 end
 
-%w{app ubuntu root ivin_admin}.each do |u|
+%w{app ubuntu ivin_admin}.each do |u|
   home_dir = "/home/#{u}"
   home_dir = "/root" if u == 'root'
 
