@@ -19,7 +19,7 @@ fi
 ohai_installed=`gem list -i ohai`
 if [ "$ohai_installed" != "true" ] ; then 
   echo ohai not installed
-  gem install ohai --no-rdoc --no-ri --verbose
+  gem install ohai -v 7.4.0 -no-rdoc --no-ri --verbose
 else 
   echo ohai already installed
   gem list ohai

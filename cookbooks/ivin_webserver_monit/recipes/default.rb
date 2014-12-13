@@ -19,7 +19,7 @@ end
      MONIT_PID=`ps -ef | grep '/usr/sbin/monit' | grep -v grep | awk '{print $2}'`
      if [ ! -z $MONIT_PID ]; then
        echo "Issuing reload to monit process ( $MONIT_PID ) ..."
-       monit reload
+       sudo -u app monit reload
      else
        echo "monit not running : Skipping reload"
      fi
