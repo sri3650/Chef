@@ -9,23 +9,26 @@
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
 appservers_s3cfg = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
 
+execute "chmod 666 localeapp_error.log" do
+  command "chmod 666 /mnt/app/shared/log/localeapp_error.log"
+end
+
 cookbook_file "/usr/local/chronus/bin/localeapp_start" do
   source "localeapp_start"
-  owner "root"
-  group "root"
+  owner "app"
+  group "app"
   mode "775"
 end
 
 cookbook_file "/usr/local/chronus/bin/localeapp_stop" do
   source "localeapp_stop"
-  owner "root"
-  group "root"
+  owner "app"
+  group "app"
   mode "775"
 end
 
 %w{app ubuntu ivin_admin}.each do |u|
   home_dir = "/home/#{u}"
-  home_dir = "/root" if u == 'root'
 
   template "#{home_dir}/.s3cfg" do
     variables(:access_key => appservers_s3cfg["access_key"], :secret_key => appservers_s3cfg["secret_key"])
