@@ -9,8 +9,8 @@
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
 appservers_s3cfg = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
 
-execute "chmod 666 localeapp_error.log" do
-  command "chmod 666 /mnt/app/shared/log/localeapp_error.log"
+execute "chmod 666 all .logs" do
+  command "chmod 666 /mnt/app/shared/log/*.log"
 end
 
 cookbook_file "/usr/local/chronus/bin/localeapp_start" do
