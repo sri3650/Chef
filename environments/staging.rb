@@ -6,6 +6,7 @@ default_attributes "ivin_application" => {
   "server_name" => "ivin.ivinchronus.com",
   "sellers_server_name" => "sellers.ivinchronus.com",
   "idf_server_name" => "idf.ivinchronus.com",
+  "iplab_server_name" => "iplab.ivinchronus.com",
   "smtp_sasl_mailgun_user_name" => "postmaster@ivinchronus.com",
   "mailgun_domain_name" => "ivinchronus.com",
   "credentials_bucket" => { :bucket_name      => "ivin-stag-credentials",
