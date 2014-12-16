@@ -22,6 +22,7 @@ require 'yaml'
 require 'erb'
 require 'fileutils'
 require "#{File.dirname(__FILE__)}/utils"
+require 'dotenv'
 
 module Ec2onrails
   class MysqlHelper
@@ -39,6 +40,7 @@ module Ec2onrails
     end
 
     def load_db_config(config_file)
+      Dotenv.load File.join('/mnt/app/shared/config/.aws_database')
       db_config = YAML::load(ERB.new(File.read(config_file)).result)[@rails_env]
       @database = db_config['database']
       @user = db_config['username']
