@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-
 exit unless File.exists?("/mnt/app/current")
 
 require 'rubygems'
@@ -10,14 +9,11 @@ require 'uri'
 require 'json'
 require "optiflag"
 require "fileutils"
-require 'yaml'
-require 'erb'
 require "#{File.dirname(__FILE__)}/../lib/s3_helper"
 require "#{File.dirname(__FILE__)}/../lib/utils"
 
 NUM_OF_RETRY = 3
 HOST_BASE_URI = "api.mailgun.net"
-CONFIG_FILE = "/mnt/app/current/config/credentials.yml"
 RETRY_ALLOWED_RESPONSES = [402, 500, 502, 503, 504]
 DOMAIN = "<%= node[:ivin_application][:mailgun_domain_name] %>"
 DEFAULT_URI_PATH = "/v2/#{DOMAIN}/events"
@@ -30,12 +26,7 @@ module CommandLineArgs extend OptiFlagSet
   and_process!
 end
 
-def get_mailgun_key
-  config_file = YAML::load(ERB.new(File.read(CONFIG_FILE)).result)
-  config_file[Ec2onrails::Utils.rails_env]["mail_mailgun_api_key"]
-end
-
-API_KEY = get_mailgun_key
+API_KEY = "<%= @api_key %>"
 
 #Sample json response given by mailgun
 # {
@@ -118,21 +109,21 @@ def compress_log_file(file_name)
   end
 end
 
-bucket = ARGV.flags.bucket
-notify_flag = ARGV.flags.notify?
-dir = ARGV.flags.dir || "logs/mailgun"
-name = ARGV.flags.name || "mailgun_log"
-
-temp_log_file = "/tmp/#{name}_#{Time.now.strftime("%Y%m%d")}"
-
-#end_time - time upto which event logs to be downloaded
-#begin_time - time from which event logs to be downlaoded
-LOG_TIME = {:hour => 5, :min => 0}
-end_time = Time.now.utc
-end_time = Time.utc(end_time.year, end_time.month, end_time.day, LOG_TIME[:hour], LOG_TIME[:min])
-begin_time = end_time - 60 * 60 * 24
-
 begin
+  bucket = ARGV.flags.bucket
+  notify_flag = ARGV.flags.notify?
+  dir = ARGV.flags.dir || "logs/mailgun"
+  name = ARGV.flags.name || "mailgun_log"
+
+  temp_log_file = "/tmp/#{name}_#{Time.now.strftime("%Y%m%d")}"
+
+  #end_time - time upto which event logs to be downloaded
+  #begin_time - time from which event logs to be downlaoded
+  LOG_TIME = {:hour => 5, :min => 0}
+  end_time = Time.now.utc
+  end_time = Time.utc(end_time.year, end_time.month, end_time.day, LOG_TIME[:hour], LOG_TIME[:min])
+  begin_time = end_time - 60 * 60 * 24
+
   get_logs(begin_time.rfc2822, end_time.rfc2822, temp_log_file)
   @s3 = Ec2onrails::S3Helper.new(bucket, dir)
   temp_log_file = compress_log_file(temp_log_file)

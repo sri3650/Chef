@@ -7,6 +7,9 @@
 # All rights reserved - Do Not Redistribute
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
 deploy_keys = Chef::EncryptedDataBagItem.load("deploy_keys", "id_rsa", secret)
+aws_data = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
+key_iv   = Chef::EncryptedDataBagItem.load("keys_to_encrypt", "key_iv", secret)
+mailgun_api_key = Chef::EncryptedDataBagItem.load("mailgun", "mailgun_api_key", secret)
 
 execute "touch the files in syslogd-listfiles" do
   for l in command("syslogd-listfiles -a").split("\n") do
@@ -52,23 +55,22 @@ template "/etc/app.yml" do
   mode "644"
 end
 
-# template "/etc/init.d/system-restart-email" do
-#   source 'system-restart-email.erb'
-#   owner "root"
-#   group "root"
-#   mode 0755  
-# end
+template "/etc/init.d/system-restart-email" do
+  source 'system-restart-email.erb'
+  owner "root"
+  group "root"
+  mode 0755  
+end
 
-# bash "Configure system restart email" do
-#   user "root"
-#   code <<-EOH
-#   cd /etc/init.d
-#   update-rc.d system-restart-email start 98 2 3 4 5 . stop 02 0 1 6 .
-#   EOH
-#   not_if "test -e /etc/rc0.d/K02system-restart-email"
-# end
-
-#ask arun the abv four
+bash "Configure system restart email" do
+  user "root"
+  code <<-EOH
+  cd /etc/init.d
+  update-rc.d system-restart-email start 98 2 3 4 5 . stop 02 0 1 6 .
+  EOH
+  not_if "test -e /etc/rc0.d/K02system-restart-email"
+end
+#start with priority 98 for runlevel 2, 3, 4 and 5 and kill with priority level 02 for runlevel 0, 1 and 6
 
 template "/etc/logrotate.d/rails" do
   source "rails.erb"
@@ -85,7 +87,8 @@ template "/etc/cron.daily/post_common_logrotate" do
 end
 
 template "/usr/local/chronus/bin/mailgun_log_retention.rb" do
-  source "mailgun_log_retention.rb"
+  source "mailgun_log_retention.rb.erb"
+  variables(:api_key => mailgun_api_key['api_key'])
   owner "root"
   group "root"
   mode "755"
@@ -138,6 +141,13 @@ cookbook_file "/usr/local/chronus/bin/backup_app_db.rb" do
   source "backup_app_db.rb"
   owner "root"
   group "root"
+  mode "755"
+end
+
+cookbook_file "/usr/local/chronus/bin/pull_latest_credentials.rb" do
+  source "pull_latest_credentials.rb"
+  owner "app"
+  group "app"
   mode "755"
 end
 
@@ -223,6 +233,23 @@ cookbook_file "/usr/local/chronus/bin/cron_for_tddium_branches.rb" do
   group "app"
   mode "755"
 end
+
+template "/usr/local/chronus/bin/cred_details.yml" do
+  variables(:AWSAccessKeyId => aws_data['access_key'],:AWSSecretKey => aws_data['secret_key'] )
+  mode 0644
+  owner "root"
+  group "root"
+  source "cred_details.yml.erb"
+end
+
+template "/usr/local/chronus/bin/keys_to_encrypt.yml" do
+  variables(:key => key_iv['key'])
+  mode 0644
+  owner "root"
+  group "root"
+  source "keys_to_encrypt.yml.erb"
+end
+
 file Chef::Config[:validation_key] do
     action :delete
     backup false
