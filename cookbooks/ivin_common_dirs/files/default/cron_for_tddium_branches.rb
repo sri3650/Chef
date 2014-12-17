@@ -4,7 +4,7 @@ require 'git'
 require 'yaml'
 
 directory = "/mnt/app/cucumbers"
-cucumber_origin_branches = ["staging", "r3_develop"]
+cucumber_origin_branches = ["release_rails4", "staging", "r3_develop"]
 git = Git.init
 
 unless File.directory?(directory)
