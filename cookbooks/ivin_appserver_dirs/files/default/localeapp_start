@@ -6,4 +6,4 @@
 export LANG=en_US.UTF-8
 export PATH=/usr/local/sbin:/usr/local/bin:$PATH
 
-cd /mnt/app/current && sudo -u app RAILS_ENV=`/usr/local/chronus/bin/rails_env` DEBUG=true bundle exec localeapp daemon -b 2>> /mnt/app/shared/log/localeapp_error.log
+cd /mnt/app/current && RAILS_ENV=`/usr/local/chronus/bin/rails_env` DEBUG=true bundle exec localeapp daemon -b 2>> /mnt/app/shared/log/localeapp_error.log
