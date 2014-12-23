@@ -132,8 +132,8 @@ default['ivin_mysql']['auto-increment-increment']        = 1
 default['ivin_mysql']['auto-increment-offset']           = 1
 
 default['ivin_mysql']['allow_remote_root']               = false
-default['ivin_mysql']['tunable']['character-set-server'] = "utf8"
-default['ivin_mysql']['tunable']['collation-server']     = "utf8_general_ci"
+default['ivin_mysql']['tunable']['character-set-server'] = "utf8mb4"
+default['ivin_mysql']['tunable']['collation-server']     = "utf8mb4_unicode_ci"
 default['ivin_mysql']['tunable']['back_log']             = "128"
 default['ivin_mysql']['tunable']['key_buffer']           = "64M"
 default['ivin_mysql']['tunable']['key_buffer_size']           = "16M"
@@ -213,7 +213,7 @@ else
   default['ivin_mysql']['tunable']['innodb_read_io_threads']          = "#{(Integer(node['cpu']['total'])) * 2}"
 end
 default['ivin_mysql']['tunable']['innodb_flush_log_at_trx_commit']  = "1"
-default['ivin_mysql']['tunable']['default-character-set']           =  "utf8"
+default['ivin_mysql']['tunable']['default-character-set']           =  "utf8mb4"
 default['ivin_mysql']['tunable']['innodb_support_xa']               = true
 default['ivin_mysql']['tunable']['innodb_table_locks']              = true
 default['ivin_mysql']['tunable']['skip-innodb-doublewrite']         = false
