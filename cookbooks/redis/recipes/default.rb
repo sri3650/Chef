@@ -32,28 +32,28 @@ end
 template "/etc/redis.conf" do
   source "redis.conf.erb"
   owner "root"
-  group "root"
-  mode "644"
+  group "app"
+  mode "664"
   variables node[:redis]
 end
 
 cookbook_file "/etc/init.d/redis" do
   source "redis_init"
   owner "root"
-  group "root"
-  mode "755"
+  group "app"
+  mode "775"
 end
 
 template "/etc/cron.daily/post_redis_logrotate" do
   source "post_redis_logrotate.erb"
   owner "root"
-  group "root"
-  mode "755"
+  group "app"
+  mode "775"
 end
 
 template "/etc/logrotate.d/redis" do
   source "redis.erb"
   owner "root"
-  group "root"
-  mode "644"
+  group "app"
+  mode "664"
 end
