@@ -12,20 +12,22 @@ nginx_log_path = node[:passenger][:nginx_log_path]
 tuned_ruby_path = node[:passenger][:tuned_ruby_path]
 
 execute "chown nginx_path log folder" do
-  command "chown root:app -R /opt/nginx/logs/"
-  command "chmod 777 /opt/nginx/logs/"
-  command "chmod 666 /opt/nginx/logs/*"
-  command "chmod 777 /mnt/log/nginx"
+  command "chown root:app /opt/nginx/logs/"
+  command "chmod 775 /opt/nginx/logs/"
+  command "chown root:app /opt/nginx/logs/*.log"
+  command "chmod 664 /opt/nginx/logs/*.log"
   command "chmod 666 /mnt/log/nginx/*"
 end
 
-execute "port redirection" do
-  command "iptables -t mangle -A PREROUTING -p tcp --dport 80 -j MARK --set-mark 1"
-  command "iptables -t mangle -A PREROUTING -p tcp --dport 443 -j MARK --set-mark 1"
-  command "iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080"
-  command "iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8181"
-  command "iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8080 -m mark --mark 1 -j ACCEPT"
-  command "iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8181 -m mark --mark 1 -j ACCEPT"
+cookbook_file "/etc/iptables.dump" do
+  owner "root"
+  group "app"
+  mode 0775
+  source 'iptables.dump'
+end
+
+execute "iptables-restore" do
+  command "iptables-restore < /etc/iptables.dump"
 end
 
 template "#{nginx_path}/conf/nginx.conf" do

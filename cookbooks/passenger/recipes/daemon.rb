@@ -18,8 +18,8 @@ tuned_ruby_path = node[:passenger][:tuned_ruby_path]
 template "/usr/local/bin/ruby_tuned" do
   source "ruby_tuned.erb"
   owner "root"
-  group "app"
-  mode 0775
+  group "root"
+  mode 0755
   variables(
     :ruby_heap_min_slots => node[:passenger][:ruby_heap_min_slots],
     :ruby_heap_free_min => node[:passenger][:ruby_heap_free_min],
@@ -33,8 +33,8 @@ remote_file "#{node[:passenger][:headers_more_module_path]}.tar.gz" do
   source node[:passenger][:headers_more_module_url]
   checksum node[:passenger][:headers_more_module_checksum]
   owner "root"
-  group "app"
-  mode 0664
+  group "root"
+  mode 0644
 end
 
 execute "extract https-more-module" do
@@ -88,15 +88,15 @@ end
 
 cookbook_file "#{nginx_path}/sbin/config_patch.sh" do
   owner "root"
-  group "app"
-  mode 0775
+  group "root"
+  mode 0755
 end
 
 template "/etc/init.d/passenger" do
   source "passenger.init.erb"
   owner "root"
-  group "app"
-  mode 0775
+  group "root"
+  mode 0755
   variables(
     :pidfile => "#{nginx_path}/logs/nginx.pid",
     :nginx_path => nginx_path
