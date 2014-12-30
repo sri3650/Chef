@@ -14,22 +14,22 @@ end
 cookbook_file "/etc/init.d/nginx" do
   source "nginx-init"
   owner "root"
-  group "app"
-  mode "775"
+  group "root"
+  mode "755"
 end
 
 template "/etc/logrotate.d/nginx" do
   source "nginx.erb" 
   owner "root"
-  group "app"
-  mode "664"
+  group "root"
+  mode "644"
 end
 
 template "/etc/cron.daily/post_webserver_logrotate" do
   source "post_webserver_logrotate.erb"
   owner "root"
-  group "app"
-  mode "775"
+  group "root"
+  mode "755"
 end
 
 # template "/usr/local/chronus/bin/passenger_monitor.sh" do
