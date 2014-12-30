@@ -11,14 +11,6 @@ nginx_path = node[:passenger][:path]
 nginx_log_path = node[:passenger][:nginx_log_path]
 tuned_ruby_path = node[:passenger][:tuned_ruby_path]
 
-execute "chown nginx_path log folder" do
-  command "chown root:app /opt/nginx/logs/"
-  command "chmod 775 /opt/nginx/logs/"
-  command "chown root:app /opt/nginx/logs/*.log"
-  command "chmod 664 /opt/nginx/logs/*.log"
-  command "chmod 666 /mnt/log/nginx/*"
-end
-
 cookbook_file "/etc/iptables.dump" do
   owner "root"
   group "app"
