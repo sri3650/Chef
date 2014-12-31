@@ -48,6 +48,17 @@ bash "config_patch" do
   notifies :reload, 'service[passenger]'
 end
 
+service "passenger" do
+  service_name "passenger"
+  reload_command "sudo -u app #{nginx_path}/sbin/nginx -s reload"
+  start_command "sudo -u app #{nginx_path}/sbin/nginx"
+  stop_command "sudo -u app #{nginx_path}/sbin/nginx -s stop"
+  status_command "curl http://localhost:8080/nginx_status"
+  supports [ :start, :stop, :reload, :status, :enable ]
+  action [ :enable, :start ]
+  pattern "nginx: master"
+end
+
 template "#{node.default[:passenger][:path]}/conf/sites.d/ivin.conf" do
   source "rails_nginx_passenger.conf.erb"
   user "root"

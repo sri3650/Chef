@@ -17,14 +17,6 @@ execute "chmod 666 all .logs" do
   command "chmod 666 /mnt/log/*.log"
 end
 
-execute "chown nginx_path log folder" do
-  command "chown root:app /opt/nginx/logs/"
-  command "chmod 777 /opt/nginx/logs/"
-  command "chown root:app /opt/nginx/logs/*.log"
-  command "chmod 664 /opt/nginx/logs/*.log"
-  command "chmod 664 /mnt/log/nginx/*"
-end
-
 cookbook_file "/usr/local/chronus/bin/localeapp_start" do
   source "localeapp_start"
   owner "app"
