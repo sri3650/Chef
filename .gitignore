@@ -9,3 +9,4 @@ vim session
 .tags_sorted_by_file
 sublime_plugin
 .DS_Store
+.ruby-version
