@@ -2,11 +2,11 @@
   daily
   missingok
   dateext
-  create 640 root root
+  create 660 root app
   sharedscripts
   postrotate
     if [ -f /opt/nginx/logs/nginx.pid ]; then
-      /etc/init.d/nginx reload > /dev/null
+      sudo -u app /etc/init.d/nginx reload > /dev/null
     fi
   endscript
 }

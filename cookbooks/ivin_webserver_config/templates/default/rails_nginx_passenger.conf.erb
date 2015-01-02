@@ -1,5 +1,5 @@
 server {
-  listen 8080;
+  listen <%= node['nginx']['http'] %>;
   server_name <%= node['ivin_application']['server_name'] %>
 
   # Set the max size for file uploads to 150Mb
@@ -72,7 +72,7 @@ server {
 
 
 server {
-  listen 8181;
+  listen <%= node['nginx']['https'] %>;
   server_name <%= node['ivin_application']['server_name'] %>
 
   # Set the max size for file uploads to 150Mb
@@ -139,7 +139,7 @@ server {
 }
 
 server {
-  listen 8181;
+  listen <%= node['nginx']['https'] %>;
   server_name <%= node['ivin_application']['sellers_server_name'] %>
 
   # Set the max size for file uploads to 150Mb
@@ -192,7 +192,7 @@ server {
 }
 
 server {
-  listen 8181;
+  listen <%= node['nginx']['https'] %>;
   server_name <%= node['ivin_application']['idf_server_name'] %>
 
   # Set the max size for file uploads to 150Mb
