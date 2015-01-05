@@ -9,16 +9,6 @@
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
 appservers_s3cfg = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
 
-execute "chmod 666 all .logs" do
-  command "chmod 666 /mnt/app/shared/log/*.log"
-  only_if { ::File.exists?("/mnt/app/shared/log/*.log") }
-end
-
-execute "chmod 666 all .logs" do
-  command "chmod 666 /mnt/log/*.log"
-  only_if { ::File.exists?("/mnt/log/*.log") }
-end
-
 cookbook_file "/usr/local/chronus/bin/localeapp_start" do
   source "localeapp_start"
   owner "app"
