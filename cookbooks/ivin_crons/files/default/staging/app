@@ -22,6 +22,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 0 */4 * * * cd /mnt/app/current/script && /bin/bash -l -c 'bundle exec ruby airbrake_error_notifier.rb' >> /mnt/app/shared/log/airbrake_notifier_cron.log 2>&1
 #27 13 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake suggested_contact_notifier:notify_community_manager RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/suggested_contact_notifier.log 2>&1
 37 13 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake permission_expiry_notification:daily_notification RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/permission_expiry_notification.log 2>&1
+0 * * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake admin_password_expiry_notification:daily_notification RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/admin_password_expiry_notification.log 2>&1
 #5 21 * * * cd /mnt/app/current && /bin/bash -l -c 'bundle exec rake rfi:notification:send_daily_notification RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/rfi_notification_cron.log 2>&1
 0 8 * * 0 cd /mnt/app/current &&  /bin/bash -l -c 'bundle exec rake cdg_publisher:publish RAILS_ENV=`/usr/local/chronus/bin/rails_env` --trace' >> /mnt/app/shared/log/cdg_publisher_cron.log 2>&1
 30 1 * * * cd /usr/local/chronus/bin && /bin/bash -l -c 'ruby cron_for_tddium_branches.rb' >> /mnt/app/shared/log/cron_for_tddium_branches.log 2>&1
