@@ -14,7 +14,7 @@ if [ ! -f /usr/local/bin/chef-client ]; then
 fi
 
 # Disable crons
-/etc/init.d/cron stop
+service cron stop
 
 ohai_installed=`gem list -i ohai`
 if [ "$ohai_installed" != "true" ] ; then 
