@@ -9,6 +9,7 @@ secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_se
 deploy_keys = Chef::EncryptedDataBagItem.load("deploy_keys", "id_rsa", secret)
 aws_data = Chef::EncryptedDataBagItem.load("aws", "creds", secret)
 key_iv   = Chef::EncryptedDataBagItem.load("keys_to_encrypt", "key_iv", secret)
+mailgun_api_key = Chef::EncryptedDataBagItem.load("mailgun", "mailgun_api_key", secret)
 
 execute "touch the files in syslogd-listfiles" do
   for l in command("syslogd-listfiles -a").split("\n") do
@@ -86,7 +87,8 @@ template "/etc/cron.daily/post_common_logrotate" do
 end
 
 template "/usr/local/chronus/bin/mailgun_log_retention.rb" do
-  source "mailgun_log_retention.rb"
+  source "mailgun_log_retention.rb.erb"
+  variables(:api_key => mailgun_api_key['api_key'])
   owner "root"
   group "root"
   mode "755"
@@ -126,6 +128,10 @@ cookbook_file "/etc/ssh/sshd_config" do
   owner "root"
   group "root"
   mode "644"
+end
+
+execute "restart_ssh" do
+  command "service ssh restart"
 end
 
 cookbook_file "/usr/local/chronus/bin/archive_file.rb" do

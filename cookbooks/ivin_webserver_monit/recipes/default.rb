@@ -16,10 +16,10 @@ end
 
  bash "monitor reload" do  
    code <<-EOH
-     MONIT_PID=`ps -ef | grep '/usr/sbin/monit' | grep -v grep | awk '{print $2}'`
+     MONIT_PID=`ps -ef | grep 'monit' | grep -v grep | grep -v ossec | awk '{print $2}'`
      if [ ! -z $MONIT_PID ]; then
        echo "Issuing reload to monit process ( $MONIT_PID ) ..."
-       monit reload
+       sudo -u app monit reload
      else
        echo "monit not running : Skipping reload"
      fi
