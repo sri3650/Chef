@@ -25,3 +25,10 @@ end
      fi
    EOH
  end
+
+template "/etc/logrotate.d/monit" do
+  source "monit.erb"
+  owner "root"
+  group "root"
+  mode "644"
+end
