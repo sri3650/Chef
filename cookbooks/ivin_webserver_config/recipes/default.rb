@@ -24,7 +24,7 @@ end
 
 template "#{nginx_path}/conf/nginx.conf" do
   source "nginx.conf.erb"
-  owner "root"
+  owner "app"
   group "app"
   mode 0664
   variables(    
@@ -42,7 +42,7 @@ bash "config_patch" do
   # because we don't know what ruby version we're being installed
   # on if RVM is present.
   # only_if "grep '##PASSENGER_ROOT##' #{nginx_path}/conf/nginx.conf"
-  user "root"
+  user "app"
   group "app"
   code "#{nginx_path}/sbin/config_patch.sh #{nginx_path}/conf/nginx.conf"
   notifies :reload, 'service[passenger]'
@@ -50,7 +50,7 @@ end
 
 template "#{node.default[:passenger][:path]}/conf/sites.d/ivin.conf" do
   source "rails_nginx_passenger.conf.erb"
-  user "root"
+  user "app"
   group "app"
   mode "664"
   notifies :restart, 'service[passenger]'
@@ -62,7 +62,8 @@ service "passenger" do
   start_command "sudo -u app #{nginx_path}/sbin/nginx"
   stop_command "sudo -u app #{nginx_path}/sbin/nginx -s stop"
   status_command "curl http://localhost:8080/nginx_status"
-  supports [ :start, :stop, :reload, :status, :enable ]
-  action [ :enable, :start ]
+  restart_command "sudo -u app /etc/init.d/nginx restart"
+  supports [ :start, :stop, :reload, :status, :enable, :restart ]
+  action [ :enable, :start]
   pattern "nginx: master"
 end
