@@ -49,23 +49,6 @@ end
   end  
 end
 
-#Delete follwing two resources post going into production
-user node['removed_user']['name'] do
-  action :remove
-end
-
-directory "/home/#{node['removed_user']['name']}" do
-  recursive true
-  action :delete
-end
-
-file "/root/.ssh/authorized_keys" do
-  owner 'root'
-  group 'root'
-  mode "0600"
-  content IO.read(ubuntu_public_key_file)
-end
-
 cookbook_file "/root/.bashrc" do
   source "bashrc"
   owner 'root'

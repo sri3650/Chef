@@ -11,15 +11,17 @@ nginx_path = node[:passenger][:path]
 nginx_log_path = node[:passenger][:nginx_log_path]
 tuned_ruby_path = node[:passenger][:tuned_ruby_path]
 
+execute "iptables-restore" do
+  command "iptables-restore < /etc/iptables.dump"
+  action :nothing
+end
+
 cookbook_file "/etc/iptables.dump" do
   owner "root"
   group "app"
   mode 0775
   source 'iptables.dump'
-end
-
-execute "iptables-restore" do
-  command "iptables-restore < /etc/iptables.dump"
+  notifies :run, "execute[iptables-restore]", :immediately
 end
 
 template "#{nginx_path}/conf/nginx.conf" do
