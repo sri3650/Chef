@@ -33,7 +33,6 @@ module Ec2onrails
     attr_accessor :user
     attr_accessor :password
     attr_accessor :host
-    attr_accessor :for_rds
 
     def initialize(config_file = DEFAULT_CONFIG_FILE, rails_env = Utils.rails_env)
       @rails_env = rails_env
@@ -48,7 +47,10 @@ module Ec2onrails
       @password = db_config['password']
       @host = db_config['host']
       @sslca= db_config['sslca']
-      @for_rds = true if !@host.nil? && @host =~ /rds/
+    end
+
+    def for_rds
+      !@host.nil? && @host =~ /rds/
     end
 
     def execute_sql(sql)
