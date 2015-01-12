@@ -123,15 +123,17 @@ cookbook_file "/etc/environment" do
   mode "644"
 end
 
+execute "restart_ssh" do
+  command "service ssh restart"
+  action :nothing
+end
+
 cookbook_file "/etc/ssh/sshd_config" do
   source "sshd_config"
   owner "root"
   group "root"
   mode "644"
-end
-
-execute "restart_ssh" do
-  command "service ssh restart"
+  notifies :run, "execute[restart_ssh]", :immediately
 end
 
 cookbook_file "/usr/local/chronus/bin/archive_file.rb" do
