@@ -70,7 +70,7 @@ begin
   logs = Dir.glob("#{@temp_dir}/mysql-bin.[0-9]*").sort
   logs.each {|log| @mysql.execute_binary_log(log) }
   
-  @mysql.execute_sql "reset master"
+  @mysql.execute_sql "reset master" unless @mysql.for_rds
   puts "Restore Complete."
 ensure
   FileUtils.rm_rf(@temp_dir)
