@@ -8,5 +8,6 @@ run_list [
   "recipe[passenger::daemon]",
   "recipe[redis]",
   "recipe[ivin_webserver_monit]",
-  "recipe[ivin_webserver_config]"
+  "recipe[ivin_webserver_config]",
+  "recipe[ntp]"
 ]
