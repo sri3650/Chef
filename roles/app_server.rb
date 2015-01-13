@@ -8,5 +8,6 @@ run_list [
   "recipe[prince]",
   "recipe[openoffice]",
   "recipe[ivin_appserver_monit]",
-  "recipe[perl]"
+  "recipe[perl]",
+  "recipe[phantomjs]"
 ]

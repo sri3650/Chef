@@ -49,6 +49,10 @@ module Ec2onrails
       @sslca= db_config['sslca']
     end
 
+    def for_rds
+      !@host.nil? && @host =~ /rds/
+    end
+
     def execute_sql(sql)
       raise "@user not set" unless @user
       raise "sql not given" unless sql
