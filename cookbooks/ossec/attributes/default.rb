@@ -48,4 +48,4 @@ default['ossec']['user']['remote_syslog'] = false
 default['ossec']['user']['firewall_response'] = true
 default['ossec']['user']['pf'] = false
 default['ossec']['user']['pf_table'] = false
-default['ossec']['user']['white_list'] = ['119.226.99.210' ,'182.74.31.230']
+default['ossec']['user']['white_list'] = ['119.226.99.210' ,'182.74.31.230', '127.0.0.1']
