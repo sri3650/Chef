@@ -150,6 +150,13 @@ cookbook_file "/usr/local/chronus/bin/backup_app_db.rb" do
   mode "755"
 end
 
+cookbook_file "/usr/local/chronus/bin/mysql_dump_db.rb" do
+  source "mysql_dump_db.rb"
+  owner "root"
+  group "root"
+  mode "755"
+end
+
 cookbook_file "/usr/local/chronus/bin/pull_latest_credentials.rb" do
   source "pull_latest_credentials.rb"
   owner "app"
