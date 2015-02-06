@@ -6,6 +6,12 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+cookbook_file "/etc/crontab" do
+  source "crontab"
+  owner "root"
+  group "root"
+  mode "644"
+end
 
 deploy_user = node.default[:ivin_application][:deploy_user]
 cookbook_file "/var/spool/cron/crontabs/#{deploy_user}" do #if the file is edited from the ec2 machine, it will be overwritten in the next chef - run. crons should always be edited from chef
