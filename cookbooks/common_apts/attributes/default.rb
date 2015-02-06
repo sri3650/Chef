@@ -31,4 +31,5 @@ default[:common_packages] = %w(
   xfsprogs
   xmlsec1
   ffmpeg
+  iptables-persistant
 )

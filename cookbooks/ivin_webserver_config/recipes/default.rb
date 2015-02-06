@@ -13,6 +13,9 @@ tuned_ruby_path = node[:passenger][:tuned_ruby_path]
 
 execute "iptables-restore" do
   command "iptables-restore < /etc/iptables.dump"
+  command "iptables-save > /etc/iptables/rules.v4"
+  command "ip6tables-save > /etc/iptables/rules.v6"
+  command "service iptables-persistent restart"
   action :nothing
 end
 
