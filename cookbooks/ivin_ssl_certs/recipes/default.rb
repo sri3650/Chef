@@ -51,13 +51,3 @@ file "#{ssl_cert_path}/private/idf_#{node.chef_environment}.key" do
   content ssl_certs["idf_key"]
   mode "644"
 end
-
-file "#{ssl_cert_path}/cert/#{node[:ivin_application][:iplab_server_name]}.crt" do
-  content ssl_certs["iplab_com_crt"]
-  mode "644"
-end
-
-file "#{ssl_cert_path}/private/iplab_#{node.chef_environment}.key" do
-  content ssl_certs["iplab_key"]
-  mode "644"
-end
