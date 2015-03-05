@@ -14,7 +14,7 @@ file_path = ARGV[3] # input file to be updated for the databag
 encrypted_data_path = ARGV[4]
 
 if Chef::DataBag.list.keys.include?(bagname)
-  value = open(file_path).read.gsub(/\n/) {|match| "\\n"}
+  value = open(file_path).read
   secret = Chef::EncryptedDataBagItem.load_secret(encrypted_data_path)
   item = Chef::DataBagItem.load(bagname, itemname)
   item[key] = value
