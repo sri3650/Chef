@@ -18,7 +18,7 @@ end
 group "ivin_admin" do
 end
 
-%w{app ivin_admin}.each do |u|
+%w{app ivin_admin ubuntu}.each do |u|
   home_dir = "/home/#{u}"
 
   user u do
