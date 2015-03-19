@@ -19,7 +19,7 @@ cache_type               'BasicFile'
 cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
 cookbook_path            ["#{current_dir}/../cookbooks"]
 knife[:secret_file] =    "#{ENV['HOME']}/.chef/encrypted_data_bag_secret"
-knife[:aws_access_key_id]     = "AKIAIMHPKTVTY6BTWOHQ"
-knife[:aws_secret_access_key] = "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"
+knife[:aws_access_key_id]     = "AKIAIPVGXKGX7ALYXP2Q"
+knife[:aws_secret_access_key] = "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"
 knife[:distro] = "ubuntu12.04-ruby20"
 chef_client_path '/usr/local/bin/chef-client'
