@@ -6,25 +6,25 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-packages_dir = "/root/packages/"
-remote_file "#{packages_dir}redis-#{node[:redis][:version]}.tar.gz" do
+packages_dir = node[:ivin_application][:packages_directory]
+remote_file "#{packages_dir}/redis-#{node[:redis][:version]}.tar.gz" do
   source "#{node[:redis][:url]}"
-  not_if { ::File.exists?("#{packages_dir}redis-#{node[:redis][:version]}.tar.gz") }
+  not_if { ::File.exists?("#{packages_dir}/redis-#{node[:redis][:version]}.tar.gz") }
 end
 
 execute "Extract redis source" do
   cwd packages_dir
-  command "tar -zxvf #{packages_dir}redis-#{node[:redis][:version]}.tar.gz"
-  not_if { ::File.exists?("#{packages_dir}redis-#{node[:redis][:version]}") }
+  command "tar -zxvf #{packages_dir}/redis-#{node[:redis][:version]}.tar.gz"
+  not_if { ::File.exists?("#{packages_dir}/redis-#{node[:redis][:version]}") }
 end
 
 execute "Build and Install Redis Server" do
-  cwd "#{packages_dir}redis-#{node[:redis][:version]}"
+  cwd "#{packages_dir}/redis-#{node[:redis][:version]}"
   command "make"
 end
 
 execute "Move server and client files of redis" do
-  cwd "#{packages_dir}redis-#{node[:redis][:version]}"
+  cwd "#{packages_dir}/redis-#{node[:redis][:version]}"
   command "cp src/redis-server src/redis-cli /usr/bin"
   not_if { ::File.exists?("/usr/bin/redis-server") && ::File.exists?("/usr/bin/redis-cli")}
 end
