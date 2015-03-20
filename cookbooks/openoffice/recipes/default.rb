@@ -16,23 +16,23 @@ package_directory = node[:ivin_application][:packages_directory]
 execute "download openoffice tar file" do
   cwd package_directory
   command "curl -Lo #{tar_file} http://downloads.sourceforge.net/project/openofficeorg.mirror/stable/3.4.1/#{tar_source_file}"
-  not_if { ::File.exists?("#{package_directory}#{tar_file}") } # the file's kinda big
+  not_if { ::File.exists?("#{package_directory}/#{tar_file}") } # the file's kinda big
 end
 
 execute "Extract openoffice source" do
   cwd package_directory
   command "tar -zxvf #{tar_file}"
-  not_if { ::File.exists?("#{package_directory}#{tar_directory}") }
+  not_if { ::File.exists?("#{package_directory}/#{tar_directory}") }
 end
 
 execute "install all debian packages" do
-  cwd "#{package_directory}#{tar_directory}/DEBS"
+  cwd "#{package_directory}/#{tar_directory}/DEBS"
   command "sudo dpkg -i *.deb"
   not_if "dpkg --get-selections | grep openoffice | grep -v openoffice.org-debian-menus"
 end
 
 execute "install desktop integration packages" do
-  cwd "#{package_directory}#{tar_directory}/DEBS/desktop-integration"
+  cwd "#{package_directory}/#{tar_directory}/DEBS/desktop-integration"
   command "sudo dpkg -i *.deb"
   not_if "dpkg --get-selections | grep openoffice.org-debian-menus"
 end
@@ -42,13 +42,13 @@ headless_file_debian = "openoffice.org-headless_3.1.1-19.14.fc12_amd64.deb"
 execute "download openoffice headless file" do
   cwd package_directory
   command "wget ftp://ftp.pbone.net/mirror/archive.fedoraproject.org/fedora/linux/releases/12/Everything/x86_64/os/Packages/#{headless_file}"
-  not_if { ::File.exists?("#{package_directory}#{headless_file}") }
+  not_if { ::File.exists?("#{package_directory}/#{headless_file}") }
 end
 
 execute "convert rpm to a deb file" do
   cwd package_directory
   command "sudo alien -k #{headless_file}"
-  not_if { ::File.exists?("#{package_directory}#{headless_file_debian}") }
+  not_if { ::File.exists?("#{package_directory}/#{headless_file_debian}") }
 end
 
 execute "install headless package" do
