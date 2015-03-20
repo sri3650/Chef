@@ -11,7 +11,7 @@
 tar_source_file = "Apache_OpenOffice_incubating_3.4.1_Linux_x86-64_install-deb_en-US.tar.gz"
 tar_file = "oo3.4.1.tar.gz"
 tar_directory = "en-US"
-package_directory = "/root/packages/"
+package_directory = node[:ivin_application][:packages_directory]
 
 execute "download openoffice tar file" do
   cwd package_directory

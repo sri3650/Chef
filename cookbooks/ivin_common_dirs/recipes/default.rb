@@ -28,9 +28,12 @@ execute "Create the app directory" do
   not_if { ::File.exists?("/mnt/app") }
 end
 
-execute "Create the packages directory" do
-  command "mkdir -p /root/packages"
-  not_if { ::File.exists?("/root/packages") }
+#directory for downloading packages
+directory node[:ivin_application][:packages_directory] do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
 end
 
 execute "Create the tmp directory" do  

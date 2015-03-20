@@ -25,9 +25,8 @@
 package "libfontconfig1"
 
 # 1. Download the tarball
-require "tmpdir"
 
-td          = "/root/packages"
+td          = node[:ivin_application][:packages_directory]
 tmp         = File.join(td, "phantomjs-#{node.phantomjs.version}.tar.gz")
 tarball_dir = File.join(td, "phantomjs-#{node.phantomjs.version}-linux-#{node.phantomjs.arch}")
 
