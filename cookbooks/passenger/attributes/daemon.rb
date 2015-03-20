@@ -1,7 +1,7 @@
 default[:passenger][:path] = '/opt/nginx'
 default[:passenger][:headers_more_module_version] = "0.25"
 default[:passenger][:headers_more_module_name] = "headers-more-nginx-module-#{passenger[:headers_more_module_version]}"
-default[:passenger][:headers_more_module_path] = "/tmp/#{passenger[:headers_more_module_name]}"
+default[:passenger][:headers_more_module_path] = "/root/packages/#{passenger[:headers_more_module_name]}"
 default[:passenger][:headers_more_module_url] = "https://github.com/agentzh/headers-more-nginx-module/archive/v#{passenger[:headers_more_module_version]}.tar.gz"
 default[:passenger][:headers_more_module_checksum] = "1473f96f59dcec"
 default[:passenger][:configure_flags] = "--with-http_ssl_module --add-module='#{passenger[:headers_more_module_path]}'"

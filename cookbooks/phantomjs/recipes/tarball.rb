@@ -27,7 +27,7 @@ package "libfontconfig1"
 # 1. Download the tarball
 require "tmpdir"
 
-td          = Dir.tmpdir
+td          = "/root/packages"
 tmp         = File.join(td, "phantomjs-#{node.phantomjs.version}.tar.gz")
 tarball_dir = File.join(td, "phantomjs-#{node.phantomjs.version}-linux-#{node.phantomjs.arch}")
 
@@ -41,7 +41,7 @@ end
 # 3. Copy to /usr/local/phantomjs
 bash "extract #{tmp}, move it to /usr/local/phantomjs" do
   user "root"
-  cwd  "/tmp"
+  cwd  td
 
   code <<-EOS
     rm -rf /usr/local/phantomjs

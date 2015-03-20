@@ -28,6 +28,11 @@ execute "Create the app directory" do
   not_if { ::File.exists?("/mnt/app") }
 end
 
+execute "Create the packages directory" do
+  command "mkdir -p /root/packages"
+  not_if { ::File.exists?("/root/packages") }
+end
+
 execute "Create the tmp directory" do  
   command "mkdir -p /mnt/tmp && chmod 777 /mnt/tmp"  
   not_if { ::File.exists?("/mnt/tmp") }
