@@ -18,7 +18,7 @@
 #
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret")
 princeLicense = Chef::EncryptedDataBagItem.load("prince_license", "license", secret)
-
+package_directory = node[:ivin_application][:packages_directory]
 arch =
   case node[:kernel][:machine]
   when "x86_64" then "amd64"
@@ -31,7 +31,7 @@ sums = {
 }
 
 file = "prince_7.2-4ubuntu10.04_#{arch}.deb"
-remote_file "/tmp/#{file}" do
+remote_file "#{package_directory}/#{file}" do
   source "http://www.princexml.com/download/#{file}"
   mode "0644"
   checksum sums[arch]
@@ -48,7 +48,7 @@ package "libjpeg62"
 package "libssl0.9.8"
 
 dpkg_package "prince" do
-  source "/tmp/#{file}"
+  source "#{package_directory}/#{file}"
   action :install
 end
 template "/usr/lib/prince/license/license.dat" do

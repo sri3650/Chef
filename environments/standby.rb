@@ -8,6 +8,7 @@ default_attributes "ivin_application" => {
   "idf_server_name" => "idfstandby.ivinchronus.com",
   "smtp_sasl_mailgun_user_name" => "postmaster@ivinchronus.com",
   "mailgun_domain_name" => "ivinchronus.com",
+  "packages_directory" => "/mnt/packages",
   "credentials_bucket" => { :bucket_name      => "ivin-standby-credentials",
                             :credentials      => "standby_credentials", 
                             :paperclip        => "standby_paperclip_s3",

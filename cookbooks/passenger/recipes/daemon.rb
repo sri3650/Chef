@@ -38,7 +38,7 @@ remote_file "#{node[:passenger][:headers_more_module_path]}.tar.gz" do
 end
 
 execute "extract https-more-module" do
-  command "tar -xvzf #{node[:passenger][:headers_more_module_path]}.tar.gz -C /tmp/"
+  command "tar -xvzf #{node[:passenger][:headers_more_module_path]}.tar.gz -C #{node[:ivin_application][:packages_directory]}/"
   not_if "test -d #{node[:passenger][:headers_more_module_path]}"
 end
 

@@ -28,6 +28,14 @@ execute "Create the app directory" do
   not_if { ::File.exists?("/mnt/app") }
 end
 
+#directory for downloading packages
+directory node[:ivin_application][:packages_directory] do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
 execute "Create the tmp directory" do  
   command "mkdir -p /mnt/tmp && chmod 777 /mnt/tmp"  
   not_if { ::File.exists?("/mnt/tmp") }
