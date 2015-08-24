@@ -12,5 +12,5 @@ run_list [
   "recipe[ivin_monit]",
   "recipe[ivin_cloudwatch]",
   "recipe[ntp]",
-  "recipe[apt:unattended-upgrades]"
+  "recipe[apt::unattended-upgrades]"
 ]
