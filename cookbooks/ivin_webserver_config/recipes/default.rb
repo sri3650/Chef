@@ -11,15 +11,8 @@ nginx_path = node[:passenger][:path]
 nginx_log_path = node[:passenger][:nginx_log_path]
 tuned_ruby_path = node[:passenger][:tuned_ruby_path]
 
-execute "iptables-restore" do
-  command "iptables -t mangle -A PREROUTING -p tcp -m tcp --dport 80 -j MARK --set-xmark 0x1/0xffffffff"
-  command "iptables -t mangle -A PREROUTING -p tcp -m tcp --dport 443 -j MARK --set-xmark 0x1/0xffffffff"
-  command "iptables -t nat -A PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 8080"
-  command "iptables -t nat -A PREROUTING -p tcp -m tcp --dport 443 -j REDIRECT --to-ports 8181"
-  command "iptables-save > /etc/iptables/rules.v4"
-  command "ip6tables-save > /etc/iptables/rules.v6"
-  command "service iptables-persistent restart"
-  action :nothing
+iptables_rule 'iptable_rules' do
+  action :enable
 end
 
 template "#{nginx_path}/conf/nginx.conf" do
