@@ -15,7 +15,7 @@ nginx_path = node[:passenger][:path]
 nginx_log_path = node[:passenger][:nginx_log_path]
 tuned_ruby_path = node[:passenger][:tuned_ruby_path]
 
-template "/usr/local/bin/ruby_tuned" do
+template "/usr/bin/ruby_tuned" do
   source "ruby_tuned.erb"
   owner "root"
   group "root"

@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby
+#!/usr/bin/ruby
 #    This file is part of EC2 on Rails.
 #    http://rubyforge.org/projects/ec2onrails/
 #
