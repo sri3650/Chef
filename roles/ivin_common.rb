@@ -11,5 +11,6 @@ run_list [
   "recipe[postfix]",
   "recipe[ivin_monit]",
   "recipe[ivin_cloudwatch]",
-  "recipe[ntp]"
+  "recipe[ntp]",
+  "recipe[apt::unattended-upgrades]"
 ]
