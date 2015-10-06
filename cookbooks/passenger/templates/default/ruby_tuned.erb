@@ -1,10 +1,10 @@
 #!/bin/bash
 
-export RUBY_HEAP_MIN_SLOTS=<%= @ruby_heap_min_slots %>
-export RUBY_HEAP_FREE_MIN=<%= @ruby_heap_free_min %>
-export RUBY_FREE_MIN=<%= @ruby_heap_free_min %>
-export RUBY_HEAP_SLOTS_INCREMENT=<%= @ruby_heap_slots_increment %>
-export RUBY_HEAP_SLOTS_GROWTH_FACTOR=<%= @ruby_heap_slots_growth_factor %>
+export RUBY_GC_HEAP_INIT_SLOTS=<%= @ruby_gc_heap_init_slots %>
+export RUBY_GC_HEAP_FREE_SLOTS=<%= @ruby_gc_heap_free_slots %>
+export RUBY_GC_HEAP_GROWTH_MAX_SLOTS=<%= @ruby_gc_heap_growth_max_slots %>
+export RUBY_GC_HEAP_GROWTH_FACTOR=<%= @ruby_gc_heap_growth_factor %>
 export RUBY_GC_MALLOC_LIMIT=<%= @ruby_gc_malloc_limit %>
+export RUBY_GC_OLDMALLOC_LIMIT=<%= @ruby_gc_oldmalloc_limit %>
 
 exec "/usr/bin/ruby" "$@"
