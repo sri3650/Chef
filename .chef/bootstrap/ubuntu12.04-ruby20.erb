@@ -2,15 +2,9 @@ bash -c '
 <%= "export http_proxy=\"#{knife_config[:bootstrap_proxy]}\"" if knife_config[:bootstrap_proxy] -%>
 
 if [ ! -f /usr/local/bin/chef-client ]; then
+  add-apt-repository -y ppa:brightbox/ruby-ng
   apt-get -y update
-  apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev libffi-dev sqlite3 libsqlite3-dev libxml2-dev libxslt1-dev libreadline-dev libcurl4-openssl-dev libncurses5-dev libgdbm-dev
-  cd /tmp
-  wget http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz
-  tar -xvzf ruby-2.0.0-p353.tar.gz
-  cd ruby-2.0.0-p353/
-  ./configure --prefix=/usr/local
-  make
-  make install
+  apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev libffi-dev sqlite3 libsqlite3-dev libxml2-dev libxslt1-dev libreadline-dev libcurl4-openssl-dev libncurses5-dev libgdbm-dev ruby2.2 ruby2.2-dev
 fi
 
 # Disable crons
@@ -28,17 +22,7 @@ fi
 chef_installed=`gem list -i chef`
 if [ "$chef_installed" != "true" ] ; then 
   echo Chef not installed. Installing ...
-
-  # BEGIN - WORKAROUND for issue http://tickets.opscode.com/browse/CHEF-3835
-  echo Installing net-ssh -v 2.2.2 to workaround issue http://tickets.opscode.com/browse/CHEF-3835
-  gem install net-ssh -v 2.2.2
-  echo Installing net-ssh-gateway -v 1.1.0 to workaround issue http://tickets.opscode.com/browse/CHEF-3835
-  gem install net-ssh-gateway -v 1.1.0
-  echo Installing net-ssh-multi -v 1.1 to workaround issue http://tickets.opscode.com/browse/CHEF-3835
-  gem install net-ssh-multi -v 1.1
-  # END - WORKAROUND for issue http://tickets.opscode.com/browse/CHEF-3835
-
-  gem install chef --no-rdoc --no-ri --verbose <%= bootstrap_version_string %>
+  gem install chef -v "11.18.12" --no-rdoc --no-ri --verbose
 else 
   echo Chef already installed; 
   gem list chef
