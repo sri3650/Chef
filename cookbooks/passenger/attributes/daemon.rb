@@ -49,8 +49,9 @@ default[:passenger][:ssl_path] = "/etc/ec2onrails/ssl"
 # Enable the status server on 127.0.0.1
 default[:passenger][:status_server] = false
 
-default[:passenger][:ruby_heap_min_slots] = 1800000
-default[:passenger][:ruby_heap_free_min] = 125000
-default[:passenger][:ruby_heap_slots_increment] = 150000
-default[:passenger][:ruby_heap_slots_growth_factor] = 1
+default[:passenger][:ruby_gc_heap_init_slots] = 1800000
+default[:passenger][:ruby_gc_heap_free_slots] = 125000
+default[:passenger][:ruby_gc_heap_growth_max_slots] = 150000
+default[:passenger][:ruby_gc_heap_growth_factor] = 1.1
 default[:passenger][:ruby_gc_malloc_limit] = 80000000
+default[:passenger][:ruby_gc_oldmalloc_limit] = 80000000

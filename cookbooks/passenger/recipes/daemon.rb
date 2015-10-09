@@ -21,11 +21,12 @@ template "/usr/bin/ruby_tuned" do
   group "root"
   mode 0755
   variables(
-    :ruby_heap_min_slots => node[:passenger][:ruby_heap_min_slots],
-    :ruby_heap_free_min => node[:passenger][:ruby_heap_free_min],
-    :ruby_heap_slots_increment => node[:passenger][:ruby_heap_slots_increment],
-    :ruby_heap_slots_growth_factor => node[:passenger][:ruby_heap_slots_growth_factor],
-    :ruby_gc_malloc_limit => node[:passenger][:ruby_gc_malloc_limit]
+    ruby_gc_heap_init_slots: node[:passenger][:ruby_gc_heap_init_slots],
+    ruby_gc_heap_free_slots: node[:passenger][:ruby_gc_heap_free_slots],
+    ruby_gc_heap_growth_max_slots: node[:passenger][:ruby_gc_heap_growth_max_slots],
+    ruby_gc_heap_growth_factor: node[:passenger][:ruby_gc_heap_growth_factor],
+    ruby_gc_malloc_limit: node[:passenger][:ruby_gc_malloc_limit],
+    ruby_gc_oldmalloc_limit: node[:passenger][:ruby_gc_oldmalloc_limit]
   )
 end
 
