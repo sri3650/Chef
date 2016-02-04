@@ -11,6 +11,6 @@ include_recipe "ark"
 ark 'imagemagick' do
   url "#{node.default[:imagemagick][:url]}"
   version "#{node.default[:imagemagick][:version]}"
-  action :config
+  action :configure
   action :install_with_make
 end
