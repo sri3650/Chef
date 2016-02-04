@@ -14,3 +14,7 @@ ark 'imagemagick' do
   action :configure
   action :install_with_make
 end
+
+execute 'ldconfig' do
+	command 'ldconfig /usr/local/lib'
+end
