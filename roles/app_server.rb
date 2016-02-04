@@ -9,5 +9,7 @@ run_list [
   "recipe[openoffice]",
   "recipe[ivin_appserver_monit]",
   "recipe[perl]",
-  "recipe[phantomjs]"
+  "recipe[phantomjs]",
+  "recipe[ark]",
+  "recipe[ivin_imagemagick]"
 ]
