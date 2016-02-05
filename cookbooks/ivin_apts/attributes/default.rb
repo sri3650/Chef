@@ -14,6 +14,7 @@ default[:packages] = %w(
   libc6-dev
   ncurses-dev
   automake
+  imagemagick
   libmagickwand-dev
   logtail
   g++
