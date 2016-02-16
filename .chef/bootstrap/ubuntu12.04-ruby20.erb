@@ -22,7 +22,7 @@ fi
 chef_installed=`gem list -i chef`
 if [ "$chef_installed" != "true" ] ; then 
   echo Chef not installed. Installing ...
-  gem install chef -v "11.18.12" --no-rdoc --no-ri --verbose
+  gem install chef -v "12.1.0" --no-rdoc --no-ri --verbose
 else 
   echo Chef already installed; 
   gem list chef

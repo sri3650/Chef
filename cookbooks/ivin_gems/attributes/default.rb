@@ -7,5 +7,6 @@ default[:gems] = [
   ["dotenv"],
   ["git", "1.2.6"],
   ["aws-sdk", "1.57.0"],
-  ["rake", "10.3.2", {:force => true}]
+  ["rake", "10.3.2", {:force => true}],
+  ["chef","12.1.0"]
 ]
