@@ -17,6 +17,6 @@ end
 
 # Remove the older version of the chef.
 gem_package 'chef' do
- 	version '11.18.12'
- 	action :remove
+  version '11.18.12'
+  action :remove
 end
